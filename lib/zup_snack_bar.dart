@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:zup_ui_kit/buttons/zup_icon_button.dart';
-import 'package:zup_ui_kit/gen/assets.gen.dart';
+import 'package:zup_ui_kit/src/gen/assets.gen.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
 
+/// The type of the [ZupSnackBar] to be displayed. Based on each type it will change its color and icon
 enum ZupSnackBarType { error, success, info }
 
-extension ZupSnackBarTypeExtension on ZupSnackBarType {
+extension _ZupSnackBarTypeExtension on ZupSnackBarType {
   Color get color => [
         ZupColors.red5,
         ZupColors.green5,
@@ -43,11 +44,21 @@ class ZupSnackBar extends SnackBar {
     this.type = ZupSnackBarType.error,
   }) : super(content: const SizedBox.shrink());
 
+  /// The type of the [ZupSnackBar] to be displayed. Based on each type it will change its color and icon
   final ZupSnackBarType type;
+
+  /// The message to be displayed in the Snack bar
   final String message;
+
+  /// Current scaffold context
   final BuildContext context;
+
+  /// Custom icon to be added in the snack bar. If null, it will choose the default for each type
   final Widget? customIcon;
+
+  /// The display duration of the snack bar. If null, it will choose 5 seconds by default
   final Duration snackDuration;
+
   final int animationDuration = 600;
 
   @override

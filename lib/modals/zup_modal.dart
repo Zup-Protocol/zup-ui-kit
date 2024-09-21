@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:zup_ui_kit/buttons/buttons.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
 
-/// call `ZupModal.show()` to open the modal from anywhere
+/// Show a modal for the user.
+///
+/// Call the static method `.show` to display the modal from anywhere
 class ZupModal extends StatelessWidget {
   const ZupModal({
     super.key,
@@ -23,6 +25,24 @@ class ZupModal extends StatelessWidget {
   final String? description;
   final EdgeInsetsGeometry? padding;
 
+  /// Show a modal for the user from the given context
+  ///
+  /// @param `context` -> the context that the modal should be displayed in
+  ///
+  /// @param `content` -> the content of the modal, not including title, description or close button
+  ///
+  /// @param `dismissible` -> whether the modal can be dismissed by tapping outside of it. Defaults to true
+  ///
+  /// @param `size` -> the size of the modal, defaults to 500x500
+  ///
+  /// @param `title` -> the title of the modal. If null, the title will not be displayed
+  ///
+  /// @param `description` -> the description of the modal. If null, the description will not be displayed.
+  /// Note that the title needs to be not null, in order to show the description
+  ///
+  /// @param `backgroundColor` -> the background color of the modal. Defaults to white
+  ///
+  /// @param `padding` -> the padding of the content inside the modal
   static Future<void> show(
     BuildContext context, {
     required Widget content,
