@@ -2,7 +2,6 @@ name: zup_ui_kit
 description: "Zup UI Kit"
 version: 0.0.1
 publish_to: "none"
-homepage:
 
 environment:
   sdk: ^3.5.2
@@ -23,7 +22,7 @@ dev_dependencies:
   meta: ^1.15.0
 
 flutter_gen:
-  output: lib/gen/
+  output: lib/src/gen/
   line_length: 200
   integrations:
     flutter_svg: true

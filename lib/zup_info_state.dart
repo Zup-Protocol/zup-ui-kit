@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:zup_ui_kit/buttons/buttons.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
 
+/// Shows an info state to the user. Generally displayed when something is Empty, or an error occurs.
+///
+/// It also have the possibility to contain a helper button, in order to guide the user with some action
 class ZupInfoState extends StatelessWidget {
   const ZupInfoState({
     super.key,
@@ -14,12 +17,25 @@ class ZupInfoState extends StatelessWidget {
     this.iconSize = 140,
   });
 
+  /// The Main icon to be displayed
   final Widget icon;
-  final String title;
-  final String? description;
-  final String? helpButtonTitle;
-  final Widget? helpButtonIcon;
+
+  /// The size of the main icon
   final double iconSize;
+
+  /// The title used for the state
+  final String title;
+
+  /// The description of the state. Talking about why it happened, or what to do.
+  final String? description;
+
+  /// The title of the helper button, If null it will not display the button.
+  final String? helpButtonTitle;
+
+  /// The icon of the helper button. If null it will not display any icon.
+  final Widget? helpButtonIcon;
+
+  /// Callback to be executed when the user taps on the help button
   final Function()? onHelpButtonTap;
 
   @override
