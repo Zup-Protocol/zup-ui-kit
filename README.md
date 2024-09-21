@@ -2,6 +2,8 @@
 
 Zup UI Kit is a Flutter library containing all the UI components for the [Zup app](https://app.zupprotocol.xyz). Also powering UI Kits for the [web3kit Flutter Package]().
 
+⚠️ This library is intended to be used for Flutter Web!
+
 ## Table of Contents
 
 - [Installation](#installation)
