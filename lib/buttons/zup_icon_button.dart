@@ -15,7 +15,7 @@ class ZupIconButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? iconColor;
   final EdgeInsetsGeometry? padding;
-  final Function() onPressed;
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +24,13 @@ class ZupIconButton extends StatelessWidget {
         padding: padding,
         style: ButtonStyle(
           minimumSize: const WidgetStatePropertyAll(Size.zero),
-          backgroundColor: WidgetStatePropertyAll(
-            backgroundColor ?? ZupColors.tertiary,
+          backgroundColor: WidgetStateProperty.resolveWith(
+            (states) {
+              if (states.contains(WidgetState.disabled)) {
+                return ZupColors.gray5;
+              }
+              return backgroundColor ?? ZupColors.tertiary;
+            },
           ),
         ),
         icon: ColorFiltered(
