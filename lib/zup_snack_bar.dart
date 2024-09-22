@@ -42,6 +42,7 @@ class ZupSnackBar extends SnackBar {
     super.showCloseIcon,
     this.snackDuration = const Duration(seconds: 5),
     this.type = ZupSnackBarType.error,
+    this.maxWidth = double.infinity,
   }) : super(content: const SizedBox.shrink());
 
   /// The type of the [ZupSnackBar] to be displayed. Based on each type it will change its color and icon
@@ -61,6 +62,11 @@ class ZupSnackBar extends SnackBar {
 
   final int animationDuration = 600;
 
+  /// The max width of the Snack bar, defaults to infinity, so it will fill the entire context.
+  ///
+  /// Note that is not a fixed width, if the context is smaller than the max width, it will not exceed it.
+  final double maxWidth;
+
   @override
   Color get backgroundColor => Colors.transparent;
 
@@ -78,58 +84,60 @@ class ZupSnackBar extends SnackBar {
 
   @override
   Widget get content => ExcludeSemantics(
-        child: Container(
-          width: 50,
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: type.color,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              ColorFiltered(
-                colorFilter: ColorFilter.mode(type.textColor, BlendMode.srcATop),
-                child: customIcon ?? type.icon,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: Text(
-                  message,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: type.textColor),
+        child: Center(
+          child: Container(
+            width: maxWidth,
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: type.color,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                ColorFiltered(
+                  colorFilter: ColorFilter.mode(type.textColor, BlendMode.srcATop),
+                  child: customIcon ?? type.icon,
                 ),
-              ),
-              if (showCloseIcon ?? true) ...[
-                const SizedBox(width: 20),
-                ZupIconButton(
-                  backgroundColor: type.textColor.withOpacity(0.1),
-                  iconColor: type.textColor,
-                  padding: const EdgeInsets.all(6),
-                  icon: const Icon(Icons.close, size: 16),
-                  onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                const SizedBox(
+                  width: 10,
                 ),
-              ]
+                Expanded(
+                  child: Text(
+                    message,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: type.textColor),
+                  ),
+                ),
+                if (showCloseIcon ?? true) ...[
+                  const SizedBox(width: 20),
+                  ZupIconButton(
+                    backgroundColor: type.textColor.withOpacity(0.1),
+                    iconColor: type.textColor,
+                    padding: const EdgeInsets.all(6),
+                    icon: const Icon(Icons.close, size: 16),
+                    onPressed: () => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+                  ),
+                ]
+              ],
+            ),
+          ).animate(
+            effects: [
+              SlideEffect(
+                curve: type.animationCurve,
+                duration: Duration(milliseconds: animationDuration),
+                begin: const Offset(0, 2),
+                end: Offset.zero,
+              ),
+              if (type == ZupSnackBarType.error)
+                ShakeEffect(
+                  hz: 10,
+                  rotation: 0,
+                  offset: const Offset(3, 0),
+                  duration: const Duration(milliseconds: 300),
+                  delay: Duration(milliseconds: animationDuration - 200),
+                )
             ],
           ),
-        ).animate(
-          effects: [
-            SlideEffect(
-              curve: type.animationCurve,
-              duration: Duration(milliseconds: animationDuration),
-              begin: const Offset(0, 2),
-              end: Offset.zero,
-            ),
-            if (type == ZupSnackBarType.error)
-              ShakeEffect(
-                hz: 10,
-                rotation: 0,
-                offset: const Offset(3, 0),
-                duration: const Duration(milliseconds: 300),
-                delay: Duration(milliseconds: animationDuration - 200),
-              )
-          ],
         ),
       );
 }
