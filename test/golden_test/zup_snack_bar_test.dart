@@ -11,6 +11,7 @@ void main() {
     bool? showCloseIcon,
     Duration snackDuration = const Duration(seconds: 5),
     ZupSnackBarType type = ZupSnackBarType.error,
+    double maxWidth = double.infinity,
   }) async =>
       await goldenDeviceBuilder(
         Builder(
@@ -24,6 +25,7 @@ void main() {
                   showCloseIcon: showCloseIcon,
                   snackDuration: snackDuration,
                   type: type,
+                  maxWidth: maxWidth,
                 ),
               ),
             );
@@ -75,5 +77,11 @@ void main() {
   zGoldenTest("When setting the show close icon to false, it should not show the close icon -> Success type",
       goldenFileName: "zup_snack_bar_success_no_close_icon", (tester) async {
     return tester.pumpDeviceBuilder(await goldenBuilder(showCloseIcon: false, type: ZupSnackBarType.success));
+  });
+
+  zGoldenTest(
+      "When setting the max width lower than the screen, it should not expand the snack bar to the max available width",
+      goldenFileName: "zup_snack_bar_max_width_set", (tester) async {
+    return tester.pumpDeviceBuilder(await goldenBuilder(maxWidth: 200, type: ZupSnackBarType.success));
   });
 }

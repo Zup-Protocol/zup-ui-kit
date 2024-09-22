@@ -15,8 +15,14 @@ import 'package:vector_graphics/vector_graphics.dart' as _vg;
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/checkmark.circle.fill.svg
+  SvgGenImage get checkmarkCircleFill => const SvgGenImage('assets/icons/checkmark.circle.fill.svg');
+
   /// File path: assets/icons/checkmark.svg
   SvgGenImage get checkmark => const SvgGenImage('assets/icons/checkmark.svg');
+
+  /// File path: assets/icons/chevron.up.chevron.down.svg
+  SvgGenImage get chevronUpChevronDown => const SvgGenImage('assets/icons/chevron.up.chevron.down.svg');
 
   /// File path: assets/icons/info.circle.svg
   SvgGenImage get infoCircle => const SvgGenImage('assets/icons/info.circle.svg');
@@ -28,7 +34,7 @@ class $AssetsIconsGen {
   SvgGenImage get xmark => const SvgGenImage('assets/icons/xmark.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [checkmark, infoCircle, xCircle, xmark];
+  List<SvgGenImage> get values => [checkmarkCircleFill, checkmark, chevronUpChevronDown, infoCircle, xCircle, xmark];
 }
 
 class Assets {

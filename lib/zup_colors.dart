@@ -9,6 +9,7 @@ abstract class ZupColors {
   static const Color gray = Color(0xFF8E8E93);
   static const Color gray4 = Color(0xFFD1D1D6);
   static const Color gray5 = Color(0xFFE5E5EA);
+  static const Color gray6 = Color(0xFFF7F7FC);
   static const Color red = Color(0xFFFF3B30);
   static const Color red5 = Color(0xfffddcda);
   static const Color green = Color(0xFF34C759);
