@@ -127,6 +127,8 @@ final Function()? onPressed;
 ```
 
 #### Zup Popup Menu Button
+![Zup Popup Menu Button Showcase](https://github.com/user-attachments/assets/9287dfd3-1061-4e41-8720-91c149c44048)
+
 
 display a dropdown-like button that open a menu and let the user select an item. To display it, first import the `ZupPopupMenuButton` widget:
 
