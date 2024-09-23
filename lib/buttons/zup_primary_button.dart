@@ -15,6 +15,7 @@ class ZupPrimaryButton extends StatefulWidget {
     this.fontWeight,
     required this.title,
     required this.onPressed,
+    this.height = 50,
     this.mainAxisSize = MainAxisSize.min,
   });
 
@@ -45,6 +46,9 @@ class ZupPrimaryButton extends StatefulWidget {
   /// Whether the button is in loading state. Defaults to false. If true it will show a loading indicator
   final bool isLoading;
 
+  /// The maximum height of the button. Defaults to 50
+  final double height;
+
   /// Whether to make the button fill the whole available space or only the minimum space. Defaults to minimum
   final MainAxisSize mainAxisSize;
 
@@ -72,7 +76,7 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
         setState(() => shouldExpand = false);
       },
       child: SizedBox(
-        height: 50,
+        height: widget.height,
         child: MaterialButton(
           disabledColor: ZupColors.gray5,
           color: widget.backgroundColor ?? Theme.of(context).primaryColor,

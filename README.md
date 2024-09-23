@@ -11,6 +11,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
 - [Buttons](#buttons)
   - [Zup Primary Button](#zup-primary-button)
   - [Zup Icon Button](#zup-icon-button)
+  - [Zup Popup Menu Button](#zup-popup-menu-button)
 - [Modals](#modals)
   - [Zup Modal](#zup-modal)
 - [Other](#other)
@@ -35,6 +36,7 @@ Using the Zup UI Kit is very simple. You can use the following components:
 ### Buttons
 
 #### Zup Primary Button
+
 ![Zup Primary Button Showcase](https://github.com/user-attachments/assets/cdd0a0f8-e082-414a-a11a-730f5e01d7c7)
 
 Display the main button from Zup UI Kit. To display it, first import the `ZupPrimaryButton` widget:
@@ -79,6 +81,9 @@ final bool fixedIcon;
 /// Whether the button is in loading state. Defaults to false. If true it will show a loading indicator
 final bool isLoading;
 
+/// The maximum height of the button. Defaults to 50
+final double height;
+
 /// Whether to make the button fill the whole available space or only the minimum space. Defaults to minimum
 final MainAxisSize mainAxisSize;
 
@@ -87,8 +92,8 @@ final Function()? onPressed;
 ```
 
 #### Zup Icon Button
-![Zup Icon Button Showcase](https://github.com/user-attachments/assets/e0a9dbd4-21c5-4591-8287-515723b58a75)
 
+![Zup Icon Button Showcase](https://github.com/user-attachments/assets/e0a9dbd4-21c5-4591-8287-515723b58a75)
 
 Display an icon button from Zup UI Kit. To display it, first import the `ZupIconButton` widget:
 
@@ -121,9 +126,47 @@ final EdgeInsetsGeometry? padding;
 final Function()? onPressed;
 ```
 
+#### Zup Popup Menu Button
+
+display a dropdown-like button that open a menu and let the user select an item. To display it, first import the `ZupPopupMenuButton` widget:
+
+```dart
+import 'package:zup_ui_kit/buttons/zup_popup_menu_button.dart';
+```
+
+and then place it inside the widget tree:
+
+```dart
+return ZupPopupMenuButton(
+  initialSelectedIndex: Int,
+  items: List<ZupPopupMenuItem>,
+  onSelected: Function(int selectedIndex),
+);
+```
+
+it has the following parameters:
+
+```dart
+/// The initial selected item index, the one that will be visible in the button
+final int initialSelectedIndex;
+
+/// The list of items to show in the menu, when clicking the button
+final List<ZupPopupMenuItem> items;
+
+/// Callback which is called when any item is selected
+final Function(int selectedIndex) onSelected;
+
+/// Whether to close the menu when an item is selected or to keep it open
+final bool closeOnSelection;
+
+/// The height of the button to show the menu
+final double buttonHeight;
+```
+
 ### Modals
 
 #### Zup Modal
+
 <img width="300" alt="Zup Modal Showcase" src="https://github.com/user-attachments/assets/cabc317b-3338-44f6-802f-70c3ab06243f">
 
 Display a modal from Zup UI Kit. To display it, first import the `ZupModal` widget:
@@ -200,6 +243,7 @@ Available colors:
 - blue
 
 #### Zup Info State
+
 <img width="300" alt="Zup Info State Showcase" src="https://github.com/user-attachments/assets/dd4b5259-2ca9-4e4c-a51e-60284eb88af8">
 
 Display an info state from Zup UI Kit. To display it, first import the `ZupInfoState` class:
@@ -240,6 +284,7 @@ final Function()? onHelpButtonTap;
 ```
 
 #### Zup Snack Bar
+
 <img width="1438" alt="Screenshot 2024-09-21 at 10 49 07 AM" src="https://github.com/user-attachments/assets/19e5f5bd-77f3-4082-906f-f1136c0c2088">
 
 Display a snack bar from Zup UI Kit. To display it, first import the `ZupSnackBar` class:
