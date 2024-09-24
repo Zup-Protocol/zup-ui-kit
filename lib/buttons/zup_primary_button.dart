@@ -16,11 +16,15 @@ class ZupPrimaryButton extends StatefulWidget {
     required this.title,
     required this.onPressed,
     this.height = 50,
+    this.padding = const EdgeInsets.all(20),
     this.mainAxisSize = MainAxisSize.min,
   });
 
   /// The background color of the button. If null, the color will be derived from the theme, using the primary color
   final Color? backgroundColor;
+
+  /// The padding of the button. If null it will be 20 by default, for all sides
+  final EdgeInsets padding;
 
   /// The foreground color of the button. If null, the default color will be white.
   final Color? foregroundColor;
@@ -60,7 +64,21 @@ class ZupPrimaryButton extends StatefulWidget {
 }
 
 class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
-  late bool shouldExpand = widget.isLoading;
+  late bool shouldExpand = false;
+
+  bool get isLoadingOrExpanded => widget.isLoading || shouldExpand;
+
+  Widget get buildIcon => ColorFiltered(
+      colorFilter: ColorFilter.mode(widget.foregroundColor ?? Colors.white, BlendMode.srcIn),
+      child: widget.isLoading
+          ? const SizedBox(
+              width: 18,
+              height: 18,
+              child: Center(
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            )
+          : widget.icon);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +99,7 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
           disabledColor: ZupColors.gray5,
           color: widget.backgroundColor ?? Theme.of(context).primaryColor,
           animationDuration: const Duration(milliseconds: 800),
-          padding: const EdgeInsets.all(20),
+          padding: widget.padding,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
             side: widget.border ?? BorderSide.none,
@@ -94,33 +112,20 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
             children: [
               if (widget.icon != null && !widget.fixedIcon || widget.isLoading) ...[
                 AnimatedPadding(
-                  duration: Duration(milliseconds: shouldExpand ? 0 : 400),
+                  duration: Duration(milliseconds: isLoadingOrExpanded ? 0 : 400),
                   curve: Curves.decelerate,
-                  padding: EdgeInsets.only(right: shouldExpand ? 10 : 0),
+                  padding: EdgeInsets.only(right: isLoadingOrExpanded ? 10 : 0),
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 400),
                     curve: Curves.fastEaseInToSlowEaseOut,
-                    width: shouldExpand ? 20 : 0,
-                    child: Center(
-                      child: ColorFiltered(
-                        colorFilter: ColorFilter.mode(widget.foregroundColor ?? Colors.white, BlendMode.srcIn),
-                        child: widget.isLoading
-                            ? const SizedBox(
-                                width: 18,
-                                height: 18,
-                                child: Center(
-                                  child: CircularProgressIndicator(strokeWidth: 2),
-                                ),
-                              )
-                            : widget.icon,
-                      ),
-                    ),
+                    width: isLoadingOrExpanded ? 20 : 0,
+                    child: Center(child: buildIcon),
                   ),
                 ),
               ],
               if (widget.icon != null && widget.fixedIcon && !widget.isLoading) ...[
-                widget.icon!,
-                const SizedBox(width: 10)
+                buildIcon,
+                const SizedBox(width: 10),
               ],
               Text(
                 widget.title,

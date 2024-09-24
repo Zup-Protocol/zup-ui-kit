@@ -57,6 +57,9 @@ it has the following parameters:
 /// The background color of the button. If null, the color will be derived from the theme, using the primary color
 final Color? backgroundColor;
 
+/// The padding of the button. If null it will be 20 by default, for all sides
+final EdgeInsets padding;
+
 /// The foreground color of the button. If null, the default color will be white.
 final Color? foregroundColor;
 
@@ -127,8 +130,8 @@ final Function()? onPressed;
 ```
 
 #### Zup Popup Menu Button
-![Zup Popup Menu Button Showcase](https://github.com/user-attachments/assets/9287dfd3-1061-4e41-8720-91c149c44048)
 
+![Zup Popup Menu Button Showcase](https://github.com/user-attachments/assets/9287dfd3-1061-4e41-8720-91c149c44048)
 
 display a dropdown-like button that open a menu and let the user select an item. To display it, first import the `ZupPopupMenuButton` widget:
 
