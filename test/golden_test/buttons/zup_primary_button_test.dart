@@ -17,7 +17,9 @@ void main() {
     bool fixedIcon = false,
     FontWeight? fontWeight,
     String? title,
+    double height = 50,
     required dynamic Function()? onPressed,
+    EdgeInsets padding = const EdgeInsets.all(20),
     MainAxisSize mainAxisSize = MainAxisSize.min,
   }) async =>
       await goldenDeviceBuilder(
@@ -29,8 +31,10 @@ void main() {
           icon: icon,
           border: border,
           isLoading: isLoading,
+          height: height,
           hoverElevation: hoverElevation,
           fixedIcon: fixedIcon,
+          padding: padding,
           fontWeight: fontWeight,
           mainAxisSize: mainAxisSize,
         ),
@@ -103,5 +107,12 @@ void main() {
 
     await tester.hover(find.byType(ZupPrimaryButton));
     await tester.pumpAndSettle();
+  });
+
+  zGoldenTest("When setting a custom padding, it should change the button padding",
+      goldenFileName: "zup_primary_button_custom_padding", (tester) async {
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(onPressed: () {}, padding: const EdgeInsets.all(1), height: 20),
+    );
   });
 }
