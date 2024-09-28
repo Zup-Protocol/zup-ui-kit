@@ -18,6 +18,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Colors](#zup-colors)
   - [Zup Info State](#zup-info-state)
   - [Zup Snack Bar](#zup-snack-bar)
+  - [Zup Tag](#zup-tag)
 
 ## Installation
 
@@ -294,7 +295,7 @@ final double helpButtonSpacing;
 
 #### Zup Snack Bar
 
-<img width="1438" alt="Screenshot 2024-09-21 at 10 49 07 AM" src="https://github.com/user-attachments/assets/19e5f5bd-77f3-4082-906f-f1136c0c2088">
+<img width="1438" alt="Zup Snack Bar Showcase" src="https://github.com/user-attachments/assets/19e5f5bd-77f3-4082-906f-f1136c0c2088">
 
 Display a snack bar from Zup UI Kit. To display it, first import the `ZupSnackBar` class:
 
@@ -328,6 +329,7 @@ final Duration snackDuration;
 ```
 
 #### Zup Tag
+<img width="300" alt="Zup Tag Showcase" src="https://github.com/user-attachments/assets/5dabd4bb-4d26-4689-973e-13de62347f43">
 
 Display a tag from Zup UI Kit. To display it, first import the `ZupTag` class:
 
