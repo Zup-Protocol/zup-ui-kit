@@ -16,6 +16,7 @@ void main() {
     dynamic Function()? onHelpButtonTap,
     String? description,
     double iconSize = 140,
+    double helpButtonSpacing = 5,
   }) async =>
       await goldenDeviceBuilder(
         ZupInfoState(
@@ -26,6 +27,7 @@ void main() {
           onHelpButtonTap: onHelpButtonTap,
           description: description,
           iconSize: iconSize,
+          helpButtonSpacing: helpButtonSpacing,
         ),
       );
 
@@ -65,6 +67,11 @@ void main() {
     await tester.hover(find.byType(ZupPrimaryButton));
 
     await tester.pumpAndSettle();
+  });
+
+  zGoldenTest("When setting the help button spacing, it should be displayed",
+      goldenFileName: "zup_info_state_custom_help_button_spacing", (tester) async {
+    await tester.pumpDeviceBuilder(await goldenBuilder(helpButtonSpacing: 200, helpButtonTitle: "Help"));
   });
 
   zGoldenTest("When clicking the help button, it should call the callback", (tester) async {

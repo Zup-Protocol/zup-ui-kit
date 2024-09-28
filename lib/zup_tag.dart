@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+
+class ZupTag extends StatelessWidget {
+  const ZupTag({
+    super.key,
+    required this.title,
+    required this.color,
+    this.icon,
+    this.iconSize = 16,
+    this.applyColorToIcon = true,
+    this.iconSpacing = 8,
+  });
+
+  /// The text to be displayed inside the tag
+  final String title;
+
+  /// The main color of the tag
+  final Color color;
+
+  /// The icon to be displayed next to the title
+  final Widget? icon;
+
+  /// Whether to apply the color passed in [color] to the icon, defaults to true
+  final bool applyColorToIcon;
+
+  /// The size of the icon, defaults to 16. Note that the icon size will not change the tag height,
+  /// if the icon size is too big, it will likely throw an overflow error
+  final double iconSize;
+
+  /// The horizontal spacing between the icon and the title, defaults to 8
+  final double iconSpacing;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 28,
+      decoration: BoxDecoration(
+        border: Border.all(color: color),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null)
+            ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                color,
+                applyColorToIcon ? BlendMode.srcIn : BlendMode.dst,
+              ),
+              child: SizedBox(height: iconSize, width: iconSize, child: icon!),
+            ),
+          SizedBox(width: icon != null ? iconSpacing : 0),
+          Text(title, style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w500)),
+        ],
+      ),
+    );
+  }
+}

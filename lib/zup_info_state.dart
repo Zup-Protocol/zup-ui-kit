@@ -15,6 +15,7 @@ class ZupInfoState extends StatelessWidget {
     this.onHelpButtonTap,
     this.description,
     this.iconSize = 140,
+    this.helpButtonSpacing = 5,
   });
 
   /// The Main icon to be displayed
@@ -37,6 +38,9 @@ class ZupInfoState extends StatelessWidget {
 
   /// Callback to be executed when the user taps on the help button
   final Function()? onHelpButtonTap;
+
+  /// The vertical spacing between the text and the help button, defaults to 5
+  final double helpButtonSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +86,7 @@ class ZupInfoState extends StatelessWidget {
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: ZupColors.gray),
             textAlign: TextAlign.center,
           ),
-        const SizedBox(height: 5),
+        SizedBox(height: helpButtonSpacing),
         if (helpButtonTitle != null)
           ZupPrimaryButton(
             key: const Key("help-button"),

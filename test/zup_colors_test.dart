@@ -6,6 +6,10 @@ void main() {
     expect(ZupColors.brand.value.toRadixString(16), 'ff7357ff');
   });
 
+  test('ZupColors brand5', () {
+    expect(ZupColors.brand5.value.toRadixString(16), 'ffd5cfff');
+  });
+
   test('ZupColors tertiary', () {
     expect(ZupColors.tertiary.value.toRadixString(16), '12787880');
   });

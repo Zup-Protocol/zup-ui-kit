@@ -234,6 +234,7 @@ ZupColors.brand;
 Available colors:
 
 - brand
+- brand5
 - tertiary
 - black
 - black5
@@ -286,6 +287,9 @@ final Widget? helpButtonIcon;
 
 /// Callback to be executed when the user taps on the help button
 final Function()? onHelpButtonTap;
+
+/// The vertical spacing between the text and the help button, defaults to 5
+final double helpButtonSpacing;
 ```
 
 #### Zup Snack Bar
@@ -321,4 +325,41 @@ final Widget? customIcon;
 
 /// The display duration of the snack bar. If null, it will choose 5 seconds by default
 final Duration snackDuration;
+```
+
+#### Zup Tag
+
+Display a tag from Zup UI Kit. To display it, first import the `ZupTag` class:
+
+```dart
+import 'package:zup_ui_kit/zup_tag.dart';
+```
+
+and then use it wherever it you need to put a tag in your widget tree, by using the object `ZupTag`:
+
+```dart
+ZupTag(title: "String", color: ANY_COLOR)
+```
+
+it has the following parameters:
+
+```dart
+/// The text to be displayed inside the tag
+final String title;
+
+/// The main color of the tag
+final Color color;
+
+/// The icon to be displayed next to the title
+final Widget? icon;
+
+/// Whether to apply the color passed in [color] to the icon, defaults to true
+final bool applyColorToIcon;
+
+/// The size of the icon, defaults to 16. Note that the icon size will not change the tag height,
+/// if the icon size is too big, it will likely throw an overflow error
+final double iconSize;
+
+/// The horizontal spacing between the icon and the title, defaults to 8
+final double iconSpacing;
 ```
