@@ -18,6 +18,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Colors](#zup-colors)
   - [Zup Info State](#zup-info-state)
   - [Zup Snack Bar](#zup-snack-bar)
+  - [Zup Tag](#zup-tag)
 
 ## Installation
 
@@ -234,6 +235,7 @@ ZupColors.brand;
 Available colors:
 
 - brand
+- brand5
 - tertiary
 - black
 - black5
@@ -286,11 +288,14 @@ final Widget? helpButtonIcon;
 
 /// Callback to be executed when the user taps on the help button
 final Function()? onHelpButtonTap;
+
+/// The vertical spacing between the text and the help button, defaults to 5
+final double helpButtonSpacing;
 ```
 
 #### Zup Snack Bar
 
-<img width="1438" alt="Screenshot 2024-09-21 at 10 49 07 AM" src="https://github.com/user-attachments/assets/19e5f5bd-77f3-4082-906f-f1136c0c2088">
+<img width="1438" alt="Zup Snack Bar Showcase" src="https://github.com/user-attachments/assets/19e5f5bd-77f3-4082-906f-f1136c0c2088">
 
 Display a snack bar from Zup UI Kit. To display it, first import the `ZupSnackBar` class:
 
@@ -321,4 +326,42 @@ final Widget? customIcon;
 
 /// The display duration of the snack bar. If null, it will choose 5 seconds by default
 final Duration snackDuration;
+```
+
+#### Zup Tag
+<img width="300" alt="Zup Tag Showcase" src="https://github.com/user-attachments/assets/5dabd4bb-4d26-4689-973e-13de62347f43">
+
+Display a tag from Zup UI Kit. To display it, first import the `ZupTag` class:
+
+```dart
+import 'package:zup_ui_kit/zup_tag.dart';
+```
+
+and then use it wherever it you need to put a tag in your widget tree, by using the object `ZupTag`:
+
+```dart
+ZupTag(title: "String", color: ANY_COLOR)
+```
+
+it has the following parameters:
+
+```dart
+/// The text to be displayed inside the tag
+final String title;
+
+/// The main color of the tag
+final Color color;
+
+/// The icon to be displayed next to the title
+final Widget? icon;
+
+/// Whether to apply the color passed in [color] to the icon, defaults to true
+final bool applyColorToIcon;
+
+/// The size of the icon, defaults to 16. Note that the icon size will not change the tag height,
+/// if the icon size is too big, it will likely throw an overflow error
+final double iconSize;
+
+/// The horizontal spacing between the icon and the title, defaults to 8
+final double iconSpacing;
 ```
