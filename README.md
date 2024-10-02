@@ -93,6 +93,12 @@ final MainAxisSize mainAxisSize;
 
 /// The function to be called when the button is pressed. If null, the button will be in inactive state
 final Function()? onPressed;
+
+/// Whether the button text & icon should be in the center of the button. Defaults to false
+final bool alignCenter;
+
+/// The width of the button. If null, the button will be as tight as possible
+final double? width;
 ```
 
 #### Zup Icon Button
@@ -329,6 +335,7 @@ final Duration snackDuration;
 ```
 
 #### Zup Tag
+
 <img width="300" alt="Zup Tag Showcase" src="https://github.com/user-attachments/assets/5dabd4bb-4d26-4689-973e-13de62347f43">
 
 Display a tag from Zup UI Kit. To display it, first import the `ZupTag` class:

@@ -18,6 +18,8 @@ class ZupPrimaryButton extends StatefulWidget {
     this.height = 50,
     this.padding = const EdgeInsets.all(20),
     this.mainAxisSize = MainAxisSize.min,
+    this.alignCenter = false,
+    this.width,
   });
 
   /// The background color of the button. If null, the color will be derived from the theme, using the primary color
@@ -59,26 +61,38 @@ class ZupPrimaryButton extends StatefulWidget {
   /// The function to be called when the button is pressed. If null, the button will be in inactive state
   final Function()? onPressed;
 
+  /// Whether the button text & icon should be in the center of the button. Defaults to false
+  final bool alignCenter;
+
+  /// The width of the button. If null, the button will be as tight as possible
+  final double? width;
+
   @override
   State<ZupPrimaryButton> createState() => _ZupPrimaryButtonState();
 }
 
 class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
+  final disabledForegroundColor = ZupColors.gray;
+
   late bool shouldExpand = false;
 
   bool get isLoadingOrExpanded => widget.isLoading || shouldExpand;
 
   Widget get buildIcon => ColorFiltered(
-      colorFilter: ColorFilter.mode(widget.foregroundColor ?? Colors.white, BlendMode.srcIn),
-      child: widget.isLoading
-          ? const SizedBox(
-              width: 18,
-              height: 18,
-              child: Center(
-                child: CircularProgressIndicator(strokeWidth: 2),
-              ),
-            )
-          : widget.icon);
+        colorFilter: ColorFilter.mode(
+          widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : disabledForegroundColor,
+          BlendMode.srcIn,
+        ),
+        child: widget.isLoading
+            ? const SizedBox(
+                width: 18,
+                height: 18,
+                child: Center(
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+              )
+            : widget.icon,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +109,10 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
       },
       child: SizedBox(
         height: widget.height,
+        width: widget.width,
         child: MaterialButton(
           disabledColor: ZupColors.gray5,
+          disabledTextColor: disabledForegroundColor,
           color: widget.backgroundColor ?? Theme.of(context).primaryColor,
           animationDuration: const Duration(milliseconds: 800),
           padding: widget.padding,
@@ -108,6 +124,7 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
           hoverElevation: widget.hoverElevation,
           elevation: 0,
           child: Row(
+            mainAxisAlignment: widget.alignCenter ? MainAxisAlignment.center : MainAxisAlignment.start,
             mainAxisSize: widget.mainAxisSize,
             children: [
               if (widget.icon != null && !widget.fixedIcon || widget.isLoading) ...[
