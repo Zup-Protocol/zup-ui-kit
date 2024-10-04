@@ -10,6 +10,7 @@ class ZupIconButton extends StatelessWidget {
     this.iconColor,
     this.padding = const EdgeInsets.all(6),
     required this.onPressed,
+    this.borderSide,
   });
 
   /// The main icon to show in the button.
@@ -17,6 +18,9 @@ class ZupIconButton extends StatelessWidget {
 
   /// The background color of the button. If null, the background color will be derived from ZupColors, using [ZupColors.tertiary] as default.
   final Color? backgroundColor;
+
+  /// The border of the button. If null, the button will not have a border
+  final BorderSide? borderSide;
 
   /// The icon color of the button. If null, the icon color will be derived from ZupColors, using [ZupColors.gray] as default.
   final Color? iconColor;
@@ -34,6 +38,7 @@ class ZupIconButton extends StatelessWidget {
         padding: padding,
         style: ButtonStyle(
           minimumSize: const WidgetStatePropertyAll(Size.zero),
+          shape: WidgetStatePropertyAll(CircleBorder(side: borderSide ?? BorderSide.none)),
           backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
               if (states.contains(WidgetState.disabled)) {

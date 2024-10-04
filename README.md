@@ -129,6 +129,9 @@ final Color? backgroundColor;
 /// The icon color of the button. If null, the icon color will be derived from ZupColors, using [ZupColors.gray] as default.
 final Color? iconColor;
 
+/// The border of the button. If null, the button will not have a border
+final BorderSide? borderSide;
+
 /// The padding of the button, defaults to 6 on all sides.
 final EdgeInsetsGeometry? padding;
 
