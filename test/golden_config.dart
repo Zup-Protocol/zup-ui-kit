@@ -13,7 +13,9 @@ class GoldenConfig {
     await loadAppFonts();
 
     return MaterialApp(
-      home: Scaffold(body: Center(child: child)),
+      home: Scaffold(
+        body: Center(child: child),
+      ),
     );
   }
 }

@@ -12,6 +12,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Primary Button](#zup-primary-button)
   - [Zup Icon Button](#zup-icon-button)
   - [Zup Popup Menu Button](#zup-popup-menu-button)
+  - [Zup Mini Button](#zup-mini-button)
 - [Modals](#modals)
   - [Zup Modal](#zup-modal)
 - [Other](#other)
@@ -19,6 +20,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Info State](#zup-info-state)
   - [Zup Snack Bar](#zup-snack-bar)
   - [Zup Tag](#zup-tag)
+  - [Zup Text Field](#zup-text-field)
 
 ## Installation
 
@@ -178,6 +180,41 @@ final bool closeOnSelection;
 final double buttonHeight;
 ```
 
+#### Zup Mini Button
+
+![Zup Mini Button showcase](https://github.com/user-attachments/assets/4641202f-785a-4f99-999a-429836aa1b4e)
+
+
+Display a small size button from Zup UI Kit. To display it, first import the `ZupMiniButton` widget:
+
+```dart
+import 'package:zup_ui_kit/buttons/zup_mini_button.dart';
+```
+
+and then place it inside the widget tree:
+
+```dart
+ZupMiniButton(
+  title: "String",
+)
+```
+
+it has the following parameters:
+
+```dart
+/// the left icon of the button, it will not be displayed if null
+final Widget? icon;
+
+/// the title of the button to be displayed
+final String title;
+
+/// the size of the passed [icon]. By default it is 16
+final double iconSize;
+
+/// the function to be called when the button is pressed
+final void Function()? onPressed;
+```
+
 ### Modals
 
 #### Zup Modal
@@ -245,6 +282,7 @@ Available colors:
 
 - brand
 - brand5
+- brand6
 - tertiary
 - black
 - black5
@@ -374,4 +412,38 @@ final double iconSize;
 
 /// The horizontal spacing between the icon and the title, defaults to 8
 final double iconSpacing;
+
+
+/// The maximum height of the tag, defaults to 28
+final double maxHeight;
+
+/// The padding of the tag, defaults to 2 vertical and 10 horizontal
+final EdgeInsetsGeometry? padding;
+```
+
+#### Zup Text Field
+<img width="300" alt="Textfield showcase default" src="https://github.com/user-attachments/assets/3f3e6506-6e79-4f74-afe2-91af5bb75724">
+<img width="300" alt="Textfield showcase with text" src="https://github.com/user-attachments/assets/7c1cf76b-8394-4a8e-b9c4-cd2b365b037a">
+
+
+Display a text field from Zup UI Kit. To display it, first import the `ZupTextField` class:
+
+```dart
+import 'package:zup_ui_kit/zup_text_field.dart';
+```
+
+and then use it wherever it you need to put a text field in your widget tree, by using the object `ZupTextField`:
+
+```dart
+ZupTextField()
+```
+
+it has the following parameters:
+
+```dart
+/// the hint text that will be displayed in the text field, when it is empty
+final String? hintText;
+
+/// Called immediately when a value is typed in the textfield
+final Function(String)? onChanged;
 ```

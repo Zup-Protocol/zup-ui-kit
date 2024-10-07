@@ -12,6 +12,8 @@ void main() {
     bool applyColorToIcon = true,
     Widget icon = const Icon(Icons.add),
     double iconSize = 40,
+    double maxHeight = 50,
+    EdgeInsetsGeometry padding = const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
     double iconSpacing = 5,
   }) =>
       goldenDeviceBuilder(
@@ -20,6 +22,8 @@ void main() {
           color: color,
           applyColorToIcon: applyColorToIcon,
           icon: icon,
+          maxHeight: 28,
+          padding: padding,
           iconSize: iconSize,
           iconSpacing: iconSpacing,
         ),
@@ -58,5 +62,11 @@ void main() {
         color: Colors.black,
       ),
     ));
+  });
+
+  zGoldenTest("When setting the padding, it should be displayed", goldenFileName: "zup_tag_custom_padding",
+      (tester) async {
+    await tester
+        .pumpDeviceBuilder(await goldenBuilder(padding: const EdgeInsets.symmetric(horizontal: 100), maxHeight: 200));
   });
 }

@@ -10,6 +10,7 @@ void main() {
     Widget? icon,
     Color? backgroundColor,
     Color? iconColor,
+    BorderSide? border,
     EdgeInsetsGeometry? padding = const EdgeInsets.all(6),
     required dynamic Function()? onPressed,
   }) async =>
@@ -17,6 +18,7 @@ void main() {
         ZupIconButton(
           backgroundColor: backgroundColor,
           iconColor: iconColor,
+          borderSide: border,
           padding: padding,
           icon: icon ?? const Icon(Icons.add),
           onPressed: onPressed,
@@ -44,7 +46,7 @@ void main() {
 
   zGoldenTest("When setting the icon, the icon should change", goldenFileName: "zup_icon_button_custom_icon",
       (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, icon: const Text("Custom ICon")));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, icon: const Icon(Icons.place)));
   });
 
   zGoldenTest("When the on Pressed is null, it should be in inactive state", goldenFileName: "zup_icon_button_inactive",
@@ -59,5 +61,13 @@ void main() {
     await tester.tap(find.byType(ZupIconButton));
 
     expect(pressed, true);
+  });
+
+  zGoldenTest("When setting the border side param, the border should change",
+      goldenFileName: "zup_icon_button_custom_border", (tester) async {
+    await tester.pumpDeviceBuilder(await goldenBuilder(
+      onPressed: () {},
+      border: const BorderSide(color: Colors.red, width: 1),
+    ));
   });
 }
