@@ -46,7 +46,7 @@ void main() {
 
   zGoldenTest("When setting the icon, the icon should change", goldenFileName: "zup_icon_button_custom_icon",
       (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, icon: const Text("Custom ICon")));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, icon: const Icon(Icons.place)));
   });
 
   zGoldenTest("When the on Pressed is null, it should be in inactive state", goldenFileName: "zup_icon_button_inactive",
