@@ -419,6 +419,9 @@ final EdgeInsetsGeometry? padding;
 ```
 
 #### Zup Text Field
+<img width="300" alt="Textfield showcase default" src="https://github.com/user-attachments/assets/3f3e6506-6e79-4f74-afe2-91af5bb75724">
+<img width="300" alt="Textfield showcase with text" src="https://github.com/user-attachments/assets/7c1cf76b-8394-4a8e-b9c4-cd2b365b037a">
+
 
 Display a text field from Zup UI Kit. To display it, first import the `ZupTextField` class:
 
