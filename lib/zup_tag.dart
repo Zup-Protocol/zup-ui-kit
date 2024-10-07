@@ -9,6 +9,8 @@ class ZupTag extends StatelessWidget {
     this.iconSize = 16,
     this.applyColorToIcon = true,
     this.iconSpacing = 8,
+    this.maxHeight = 28,
+    this.padding = const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
   });
 
   /// The text to be displayed inside the tag
@@ -30,15 +32,21 @@ class ZupTag extends StatelessWidget {
   /// The horizontal spacing between the icon and the title, defaults to 8
   final double iconSpacing;
 
+  /// The maximum height of the tag, defaults to 28
+  final double maxHeight;
+
+  /// The padding of the tag, defaults to 2 vertical and 10 horizontal
+  final EdgeInsetsGeometry? padding;
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 28,
+      height: maxHeight,
       decoration: BoxDecoration(
         border: Border.all(color: color),
         borderRadius: BorderRadius.circular(8),
       ),
-      padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+      padding: padding,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

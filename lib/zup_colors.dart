@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 abstract class ZupColors {
   static const Color brand = Color(0xFF7357FF);
   static const Color brand5 = Color(0xFFD5CFFF);
+  static const Color brand6 = Color(0xFFDED7FF);
   static const Color tertiary = Color(0x12787880);
   static const Color black = Color(0xFF000000);
   static const Color black5 = Color.fromARGB(255, 64, 64, 64);
