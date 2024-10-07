@@ -182,6 +182,9 @@ final double buttonHeight;
 
 #### Zup Mini Button
 
+![Zup Mini Button showcase](https://github.com/user-attachments/assets/4641202f-785a-4f99-999a-429836aa1b4e)
+
+
 Display a small size button from Zup UI Kit. To display it, first import the `ZupMiniButton` widget:
 
 ```dart
