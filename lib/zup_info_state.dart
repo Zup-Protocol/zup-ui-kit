@@ -79,7 +79,6 @@ class ZupInfoState extends StatelessWidget {
           title,
           style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: ZupColors.black),
         ),
-        const SizedBox(height: 10),
         if (description != null)
           Text(
             description!,

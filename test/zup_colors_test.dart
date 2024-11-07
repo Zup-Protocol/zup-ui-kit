@@ -65,4 +65,16 @@ void main() {
   test('ZupColors brand6', () {
     expect(ZupColors.brand6.value.toRadixString(16), 'ffded7ff');
   });
+
+  test('ZupColors brand7', () {
+    expect(ZupColors.brand7.value.toRadixString(16), 'fff0ecff');
+  });
+
+  test("ZupColors orange", () {
+    expect(ZupColors.orange.value.toRadixString(16), 'ffff9500');
+  });
+
+  test("ZupColors orange5", () {
+    expect(ZupColors.orange5.value.toRadixString(16), 'ffffe5c0');
+  });
 }

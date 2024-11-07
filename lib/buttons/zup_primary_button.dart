@@ -146,6 +146,7 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
               ],
               Text(
                 widget.title,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 14,
                   color: widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : ZupColors.gray,
