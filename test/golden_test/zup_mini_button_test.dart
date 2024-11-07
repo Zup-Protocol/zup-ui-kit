@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/buttons/zup_mini_button.dart';
 
 import '../golden_config.dart';
-import '../helpers.dart';
 
 void main() {
   Future<DeviceBuilder> goldenBuilder({double? iconSize, Function()? onPressed, String? title, Widget? icon}) async =>
