@@ -86,7 +86,7 @@ class ZupModal extends StatelessWidget {
     return Center(
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(28),
+          borderRadius: BorderRadius.circular(18),
           color: backgroundColor ?? Colors.white,
         ),
         height: size.height,
