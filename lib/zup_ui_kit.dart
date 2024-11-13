@@ -4,6 +4,7 @@ export 'buttons/buttons.dart';
 export 'modals/modals.dart';
 export 'zup_colors.dart';
 export 'zup_info_state.dart';
+export 'zup_merged_widgets.dart';
 export 'zup_selectable_card.dart';
 export 'zup_snack_bar.dart';
 export 'zup_stepped_loading.dart';

@@ -21,6 +21,10 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Snack Bar](#zup-snack-bar)
   - [Zup Tag](#zup-tag)
   - [Zup Text Field](#zup-text-field)
+  - [Zup Tooltip](#zup-tooltip)
+  - [Zup Stepped Loading](#zup-stepped-loading)
+  - [Zup Merged Widgets](#zup-merged-widgets)
+  - [Zup Selectable Card](#zup-selectable-card)
 
 ## Installation
 
@@ -183,7 +187,6 @@ final double buttonHeight;
 #### Zup Mini Button
 
 ![Zup Mini Button showcase](https://github.com/user-attachments/assets/4641202f-785a-4f99-999a-429836aa1b4e)
-
 
 Display a small size button from Zup UI Kit. To display it, first import the `ZupMiniButton` widget:
 
@@ -422,9 +425,9 @@ final EdgeInsetsGeometry? padding;
 ```
 
 #### Zup Text Field
+
 <img width="300" alt="Textfield showcase default" src="https://github.com/user-attachments/assets/3f3e6506-6e79-4f74-afe2-91af5bb75724">
 <img width="300" alt="Textfield showcase with text" src="https://github.com/user-attachments/assets/7c1cf76b-8394-4a8e-b9c4-cd2b365b037a">
-
 
 Display a text field from Zup UI Kit. To display it, first import the `ZupTextField` class:
 
@@ -446,4 +449,146 @@ final String? hintText;
 
 /// Called immediately when a value is typed in the textfield
 final Function(String)? onChanged;
+```
+
+#### Zup Tooltip
+
+Display a tooltip from Zup UI Kit when the user hovers over a widget. To display it, first import the `ZupTooltip` class:
+
+```dart
+import 'package:zup_ui_kit/zup_tooltip.dart';
+```
+
+and then use it wherever it you need to put a tooltip in your widget tree, by using the object `ZupTooltip`:
+
+```dart
+ZupTooltip(
+  message: "String",
+  child: ANY_WIDGET,
+)
+```
+
+it has the following parameters:
+
+```dart
+/// Child that will show the tooltip once hovered
+final Widget child;
+
+/// Message to display once the tooltip is being shown
+final String message;
+
+/// Optional leading icon to show with the message
+final Widget? leadingIcon;
+
+/// Optional trailing icon to show with the message
+final Widget? trailingIcon;
+
+/// Optional title for the helper button, if null
+/// a helper button will not be shown
+///
+/// This helper button will appear right after the message,
+/// its very useful to put a button to guide the user with some action
+final String? helperButtonTitle;
+
+/// Optional Function that will be called once the helper button is pressed
+final Function()? helperButtonOnPressed;
+
+/// The maximum width of the tooltip box when the message is being shown, defaults to 300
+final double maxWidth;
+```
+
+#### Zup Stepped Loading
+
+Display a loading widget with steps (e.g Preparing, Scanning, Fetching). To display it, first import the `ZupSteppedLoading` class:
+
+```dart
+import 'package:zup_ui_kit/zup_stepped_loading.dart';
+```
+
+and then use it wherever it you need to put a loading in your widget tree, by using the object `ZupSteppedLoading`:
+
+```dart
+ZupSteppedLoading(
+  steps: [Instance of `ZupSteppedLoadingStep`],
+)
+```
+
+it has the following parameters:
+
+```dart
+/// List of steps to display while the loading is in progress.
+///
+/// The last step is the one that will remain active on the screen if the loading is still in progress
+/// but all the step has already been displayed
+final List<ZupSteppedLoadingStep> steps;
+
+/// The duration that each step should remain on the screen. After this duration, it will
+/// animate to the next step. Defaults to 5 seconds
+final Duration stepDuration;
+
+/// the constraints of the whole widget. Defaults to a max width of 400
+final BoxConstraints constraints;
+```
+
+#### Zup Merged Widgets
+
+Display a widget that will cut half of two passed widgets and merge them horizontally. To display it, first import the `ZupMergedWidgets` class:
+
+```dart
+import 'package:zup_ui_kit/zup_merged_widgets.dart';
+```
+
+and then use it wherever it you need to put a merged widget in your widget tree, by using the object `ZupMergedWidgets`:
+
+```dart
+ZupMergedWidgets(
+  firstWidget: ANY_WIDGET,
+  secondWidget: ANY_WIDGET,
+)
+```
+
+it has the following parameters:
+
+```dart
+/// The left widget of the [ZupMergedWidgets] that its right half will be clipped
+final Widget firstWidget;
+
+/// The right widget of the [ZupMergedWidgets] that its left half will be clipped
+final Widget secondWidget;
+```
+
+#### Zup Selectable Card
+
+Display a selectable card from Zup UI Kit. To display it, first import the `ZupSelectableCard` class:
+
+```dart
+import 'package:zup_ui_kit/zup_selectable_card.dart';
+```
+
+and then use it wherever it you need to put a selectable card in your widget tree, by using the object `ZupSelectableCard`:
+
+```dart
+ZupSelectableCard(
+  child: ANY_WIDGET,
+)
+```
+
+it has the following parameters:
+
+```dart
+/// The child widget that will be displayed inside the card
+final Widget child;
+
+/// Whether the card should be in the selected state or not. Defaults to false
+final bool isSelected;
+
+/// The inside padding of the card, padding between the child and the card edges.
+/// Defaults to 20 in all directions
+final EdgeInsetsGeometry padding;
+
+/// The function that will be called when the card is pressed
+final Function()? onPressed;
+
+/// The duration of the card selection animation, defaults to 200ms
+final Duration selectionAnimationDuration;
 ```
