@@ -452,6 +452,7 @@ final Function(String)? onChanged;
 ```
 
 #### Zup Tooltip
+<img width="300" alt="Zup Stepped Loading Showcase" src="https://github.com/user-attachments/assets/b2bf1954-b689-486e-9684-8bf51f314d82">
 
 Display a tooltip from Zup UI Kit when the user hovers over a widget. To display it, first import the `ZupTooltip` class:
 
@@ -498,6 +499,7 @@ final double maxWidth;
 ```
 
 #### Zup Stepped Loading
+<img width="300" alt="Zup Stepped Loading Showcase" src="https://github.com/user-attachments/assets/2ad3c039-5b33-488d-8112-f5bdf4379b37">
 
 Display a loading widget with steps (e.g Preparing, Scanning, Fetching). To display it, first import the `ZupSteppedLoading` class:
 
@@ -531,6 +533,7 @@ final BoxConstraints constraints;
 ```
 
 #### Zup Merged Widgets
+<img width="300" alt="Zup Merged Widgets Showcase" src="https://github.com/user-attachments/assets/915f3088-1b21-4abd-aa3a-52e47f1a6522">
 
 Display a widget that will cut half of two passed widgets and merge them horizontally. To display it, first import the `ZupMergedWidgets` class:
 
@@ -558,6 +561,7 @@ final Widget secondWidget;
 ```
 
 #### Zup Selectable Card
+<img width="300" alt="Selectable Card Showcase" src="https://github.com/user-attachments/assets/bd67b9fc-bf0f-4e05-874a-92e9d497da7b">
 
 Display a selectable card from Zup UI Kit. To display it, first import the `ZupSelectableCard` class:
 
