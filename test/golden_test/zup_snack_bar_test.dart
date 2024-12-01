@@ -69,12 +69,17 @@ void main() {
 
   zGoldenTest("When setting the show close icon to false, it should not show the close icon -> Error type",
       goldenFileName: "zup_snack_bar_error_no_close_icon", (tester) async {
-    return tester.pumpDeviceBuilder(await goldenBuilder(hideCloseIcon: true, type: ZupSnackBarType.error));
+    return tester.pumpDeviceBuilder(
+      await goldenBuilder(
+        hideCloseIcon: true,
+        type: ZupSnackBarType.error,
+      ),
+    );
   });
 
   zGoldenTest("When setting the show close icon to false, it should not show the close icon -> Info type",
       goldenFileName: "zup_snack_bar_info_no_close_icon", (tester) async {
-    return tester.pumpDeviceBuilder(await goldenBuilder(hideCloseIcon: false, type: ZupSnackBarType.info));
+    return tester.pumpDeviceBuilder(await goldenBuilder(hideCloseIcon: true, type: ZupSnackBarType.info));
   });
 
   zGoldenTest("When setting the show close icon to false, it should not show the close icon -> Success type",
