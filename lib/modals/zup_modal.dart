@@ -68,14 +68,16 @@ class ZupModal extends StatelessWidget {
         );
       },
       pageBuilder: (context, animation, secondaryAnimation) {
-        return ZupModal(
-          padding: padding,
-          backgroundColor: backgroundColor,
-          description: description,
-          dismissible: dismissible,
-          size: size,
-          title: title,
-          child: content,
+        return SelectionArea(
+          child: ZupModal(
+            padding: padding,
+            backgroundColor: backgroundColor,
+            description: description,
+            dismissible: dismissible,
+            size: size,
+            title: title,
+            child: content,
+          ),
         );
       },
     );
@@ -85,6 +87,7 @@ class ZupModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        margin: const EdgeInsets.all(40),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18),
           color: backgroundColor ?? Colors.white,

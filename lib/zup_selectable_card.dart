@@ -10,6 +10,7 @@ class ZupSelectableCard extends StatefulWidget {
     this.padding = const EdgeInsets.all(20),
     this.onPressed,
     this.selectionAnimationDuration = const Duration(milliseconds: 200),
+    this.width,
   });
 
   /// The child widget that will be displayed inside the card
@@ -28,6 +29,9 @@ class ZupSelectableCard extends StatefulWidget {
   /// The duration of the card selection animation, defaults to 200ms
   final Duration selectionAnimationDuration;
 
+  /// Gives a fixed width to the card, defaults to null, so it will adapt to the content width
+  final double? width;
+
   @override
   State<ZupSelectableCard> createState() => _ZupSelectableCardState();
 }
@@ -45,6 +49,7 @@ class _ZupSelectableCardState extends State<ZupSelectableCard> {
       borderRadius: BorderRadius.circular(borderRadius),
       child: AnimatedContainer(
         padding: widget.padding,
+        width: widget.width,
         duration: widget.selectionAnimationDuration,
         decoration: BoxDecoration(
           color: widget.isSelected ? ZupColors.brand7 : ZupColors.white,

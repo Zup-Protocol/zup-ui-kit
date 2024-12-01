@@ -115,4 +115,12 @@ void main() {
       await goldenBuilder(onPressed: () {}, padding: const EdgeInsets.all(1), height: 20),
     );
   });
+
+  zGoldenTest(
+    "When the param isLoading is true, the button should show a loading indicator",
+    goldenFileName: "zup_primary_button_loading",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, isLoading: true));
+    },
+  );
 }

@@ -10,18 +10,18 @@ enum ZupSnackBarType { error, success, info }
 extension _ZupSnackBarTypeExtension on ZupSnackBarType {
   Color get color => [
         ZupColors.red5,
-        ZupColors.green5,
+        ZupColors.brand7,
         ZupColors.gray5,
       ][index];
 
   Color get textColor => [
         ZupColors.red,
-        ZupColors.green,
+        ZupColors.brand,
         ZupColors.black5,
       ][index];
 
   Widget get icon => [
-        Assets.icons.xmark.svg(package: "zup_ui_kit"),
+        Assets.icons.exclamationmarkTriangle.svg(package: "zup_ui_kit"),
         Assets.icons.checkmark.svg(package: "zup_ui_kit"),
         Assets.icons.infoCircle.svg(package: "zup_ui_kit"),
       ][index];
@@ -39,7 +39,8 @@ class ZupSnackBar extends SnackBar {
     super.key,
     required this.message,
     this.customIcon,
-    super.showCloseIcon,
+    this.helperButton,
+    this.hideCloseIcon = false,
     this.snackDuration = const Duration(seconds: 5),
     this.type = ZupSnackBarType.error,
     this.maxWidth = double.infinity,
@@ -51,6 +52,16 @@ class ZupSnackBar extends SnackBar {
   /// The message to be displayed in the Snack bar
   final String message;
 
+  /// Whether to hide the close icon or not. Defaults to false
+  final bool hideCloseIcon;
+
+  /// Params for a possible helper button to have in the end of the Snack bar message.
+  /// If null, the button will not be displayed
+  ///
+  /// `title`: The title of the button to be shown
+  /// `onButtonTap`: The function to be called when the button is pressed
+  final ({String title, Function() onButtonTap})? helperButton;
+
   /// Current scaffold context
   final BuildContext context;
 
@@ -60,12 +71,12 @@ class ZupSnackBar extends SnackBar {
   /// The display duration of the snack bar. If null, it will choose 5 seconds by default
   final Duration snackDuration;
 
-  final int animationDuration = 600;
-
   /// The max width of the Snack bar, defaults to infinity, so it will fill the entire context.
   ///
   /// Note that is not a fixed width, if the context is smaller than the max width, it will not exceed it.
   final double maxWidth;
+
+  final int animationDuration = 600;
 
   @override
   Color get backgroundColor => Colors.transparent;
@@ -81,6 +92,9 @@ class ZupSnackBar extends SnackBar {
 
   @override
   EdgeInsetsGeometry? get padding => const EdgeInsets.all(20);
+
+  @override
+  DismissDirection? get dismissDirection => DismissDirection.none;
 
   @override
   Widget get content => ExcludeSemantics(
@@ -103,14 +117,45 @@ class ZupSnackBar extends SnackBar {
                   width: 10,
                 ),
                 Expanded(
-                  child: Text(
-                    message,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: type.textColor),
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: message,
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: type.textColor),
+                        ),
+                        if (helperButton != null)
+                          WidgetSpan(
+                              child: MouseRegion(
+                            key: const Key("helper-button-snack-bar"),
+                            cursor: SystemMouseCursors.click,
+                            child: InkWell(
+                              onTap: () => helperButton!.onButtonTap(),
+                              child: IgnorePointer(
+                                child: SizedBox(
+                                  height: 19,
+                                  child: Text(
+                                    helperButton!.title,
+                                    style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: type.textColor,
+                                      color: type.textColor,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ))
+                      ],
+                    ),
                   ),
                 ),
-                if (showCloseIcon ?? true) ...[
+                if (!hideCloseIcon) ...[
                   const SizedBox(width: 20),
                   ZupIconButton(
+                    key: const Key("close-snack-bar"),
                     backgroundColor: type.textColor.withOpacity(0.1),
                     iconColor: type.textColor,
                     padding: const EdgeInsets.all(6),

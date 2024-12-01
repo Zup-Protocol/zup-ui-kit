@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zup_ui_kit/zup_circular_loading_indicator.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
 
 /// Show a primary button from the Zup UI Kit.
@@ -83,15 +84,7 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
           widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : disabledForegroundColor,
           BlendMode.srcIn,
         ),
-        child: widget.isLoading
-            ? const SizedBox(
-                width: 18,
-                height: 18,
-                child: Center(
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                ),
-              )
-            : widget.icon,
+        child: widget.isLoading ? const ZupCircularLoadingIndicator(size: 18) : widget.icon,
       );
 
   @override

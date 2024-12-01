@@ -6,7 +6,7 @@ class ZupMergedWidgets extends StatelessWidget {
   /// Useful for representing a pair of something.
   ///
   /// Can be used with any widget
-  const ZupMergedWidgets({super.key, required this.firstWidget, required this.secondWidget});
+  const ZupMergedWidgets({super.key, required this.firstWidget, required this.secondWidget, this.spacing = 8});
 
   /// The left widget of the [ZupMergedWidgets] that its right half will be clipped
   final Widget firstWidget;
@@ -14,13 +14,16 @@ class ZupMergedWidgets extends StatelessWidget {
   /// The right widget of the [ZupMergedWidgets] that its left half will be clipped
   final Widget secondWidget;
 
+  /// The horizontal spacing betten the two widgets, defaults to 8
+  final double spacing;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 8),
+          padding: EdgeInsets.only(right: spacing),
           child: ClipPath(
             clipper: ZupHalfClipper(side: ZupHalfClipperSide.right),
             child: firstWidget,

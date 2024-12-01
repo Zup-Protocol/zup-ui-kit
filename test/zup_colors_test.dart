@@ -51,7 +51,7 @@ void main() {
   });
 
   test('ZupColors green5', () {
-    expect(ZupColors.green5.value.toRadixString(16), 'fff6fff8');
+    expect(ZupColors.green5.value.toRadixString(16), 'ffebf2ed');
   });
 
   test('ZupColors blue', () {

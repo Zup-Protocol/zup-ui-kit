@@ -8,10 +8,12 @@ import '../golden_config.dart';
 void main() {
   Future<DeviceBuilder> goldenBuilder({
     Widget? customIcon,
-    bool? showCloseIcon,
+    bool hideCloseIcon = false,
     Duration snackDuration = const Duration(seconds: 5),
     ZupSnackBarType type = ZupSnackBarType.error,
     double maxWidth = double.infinity,
+    String? message,
+    ({dynamic Function() onButtonTap, String title})? helperButton,
   }) async =>
       await goldenDeviceBuilder(
         Builder(
@@ -20,11 +22,12 @@ void main() {
               (_) => ScaffoldMessenger.of(context).showSnackBar(
                 ZupSnackBar(
                   context,
-                  message: "message",
+                  message: message ?? "message",
                   customIcon: customIcon,
-                  showCloseIcon: showCloseIcon,
+                  hideCloseIcon: hideCloseIcon,
                   snackDuration: snackDuration,
                   type: type,
+                  helperButton: helperButton,
                   maxWidth: maxWidth,
                 ),
               ),
@@ -66,17 +69,17 @@ void main() {
 
   zGoldenTest("When setting the show close icon to false, it should not show the close icon -> Error type",
       goldenFileName: "zup_snack_bar_error_no_close_icon", (tester) async {
-    return tester.pumpDeviceBuilder(await goldenBuilder(showCloseIcon: false, type: ZupSnackBarType.error));
+    return tester.pumpDeviceBuilder(await goldenBuilder(hideCloseIcon: true, type: ZupSnackBarType.error));
   });
 
   zGoldenTest("When setting the show close icon to false, it should not show the close icon -> Info type",
       goldenFileName: "zup_snack_bar_info_no_close_icon", (tester) async {
-    return tester.pumpDeviceBuilder(await goldenBuilder(showCloseIcon: false, type: ZupSnackBarType.info));
+    return tester.pumpDeviceBuilder(await goldenBuilder(hideCloseIcon: false, type: ZupSnackBarType.info));
   });
 
   zGoldenTest("When setting the show close icon to false, it should not show the close icon -> Success type",
       goldenFileName: "zup_snack_bar_success_no_close_icon", (tester) async {
-    return tester.pumpDeviceBuilder(await goldenBuilder(showCloseIcon: false, type: ZupSnackBarType.success));
+    return tester.pumpDeviceBuilder(await goldenBuilder(hideCloseIcon: true, type: ZupSnackBarType.success));
   });
 
   zGoldenTest(
@@ -84,4 +87,45 @@ void main() {
       goldenFileName: "zup_snack_bar_max_width_set", (tester) async {
     return tester.pumpDeviceBuilder(await goldenBuilder(maxWidth: 200, type: ZupSnackBarType.success));
   });
+
+  zGoldenTest(
+    "When setting the Helper button param, a helper button should be displayed at the end of the snack bar message",
+    goldenFileName: "zup_snack_bar_helper_button",
+    (tester) async {
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          message: "Helper butto test ",
+          helperButton: (
+            title: "Helper button title",
+            onButtonTap: () {},
+          ),
+          type: ZupSnackBarType.success,
+        ),
+      );
+    },
+  );
+
+  zGoldenTest(
+    "When clickint the helper button of the snackBar, the callback should be called",
+    (tester) async {
+      bool callbackCalled = false;
+
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          message: "Helper butto test ",
+          helperButton: (
+            title: "Helper button title",
+            onButtonTap: () => callbackCalled = true,
+          ),
+          type: ZupSnackBarType.success,
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key("helper-button-snack-bar")));
+      await tester.pumpAndSettle();
+
+      expect(callbackCalled, true);
+    },
+  );
 }

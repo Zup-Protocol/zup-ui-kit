@@ -2,6 +2,7 @@ library zup_ui_kit;
 
 export 'buttons/buttons.dart';
 export 'modals/modals.dart';
+export 'zup_circular_loading_indicator.dart';
 export 'zup_colors.dart';
 export 'zup_divider.dart';
 export 'zup_info_state.dart';

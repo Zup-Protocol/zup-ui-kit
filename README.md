@@ -286,6 +286,7 @@ Available colors:
 - brand
 - brand5
 - brand6
+- brand7
 - tertiary
 - black
 - black5
@@ -293,11 +294,14 @@ Available colors:
 - gray
 - gray4
 - gray5
+- gray6
 - red
 - red5
 - green
 - green5
 - blue
+- orange
+- orange5
 
 #### Zup Info State
 
@@ -370,6 +374,18 @@ final String message;
 
 /// Current scaffold context
 final BuildContext context;
+
+/// Whether to hide the close icon or not. Defaults to false
+///
+/// **`note`**: A hidden close icon will not allow the user to dismiss the snack bar manually
+final bool hideCloseIcon;
+
+/// Params for a possible helper button to have in the end of the Snack bar message.
+/// If null, the button will not be displayed
+///
+/// `title`: The title of the button to be shown
+/// `onButtonTap`: The function to be called when the button is pressed
+final ({String title, Function() onButtonTap})? helperButton;
 
 /// Custom icon to be added in the snack bar. If null, it will choose the default for each type
 final Widget? customIcon;
@@ -452,6 +468,7 @@ final Function(String)? onChanged;
 ```
 
 #### Zup Tooltip
+
 <img width="300" alt="Zup Stepped Loading Showcase" src="https://github.com/user-attachments/assets/b2bf1954-b689-486e-9684-8bf51f314d82">
 
 Display a tooltip from Zup UI Kit when the user hovers over a widget. To display it, first import the `ZupTooltip` class:
@@ -499,6 +516,7 @@ final double maxWidth;
 ```
 
 #### Zup Stepped Loading
+
 <img width="300" alt="Zup Stepped Loading Showcase" src="https://github.com/user-attachments/assets/2ad3c039-5b33-488d-8112-f5bdf4379b37">
 
 Display a loading widget with steps (e.g Preparing, Scanning, Fetching). To display it, first import the `ZupSteppedLoading` class:
@@ -533,6 +551,7 @@ final BoxConstraints constraints;
 ```
 
 #### Zup Merged Widgets
+
 <img width="300" alt="Zup Merged Widgets Showcase" src="https://github.com/user-attachments/assets/915f3088-1b21-4abd-aa3a-52e47f1a6522">
 
 Display a widget that will cut half of two passed widgets and merge them horizontally. To display it, first import the `ZupMergedWidgets` class:
@@ -558,9 +577,13 @@ final Widget firstWidget;
 
 /// The right widget of the [ZupMergedWidgets] that its left half will be clipped
 final Widget secondWidget;
+
+/// The horizontal spacing betten the two widgets, defaults to 8
+final double spacing;
 ```
 
 #### Zup Selectable Card
+
 <img width="300" alt="Selectable Card Showcase" src="https://github.com/user-attachments/assets/bd67b9fc-bf0f-4e05-874a-92e9d497da7b">
 
 Display a selectable card from Zup UI Kit. To display it, first import the `ZupSelectableCard` class:
@@ -595,4 +618,7 @@ final Function()? onPressed;
 
 /// The duration of the card selection animation, defaults to 200ms
 final Duration selectionAnimationDuration;
+
+/// Gives a fixed width to the card, defaults to null, so it will adapt to the content width
+final double? width;
 ```
