@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:zup_ui_kit/zup_ui_kit.dart';
 
@@ -21,7 +22,7 @@ class ZupCircularLoadingIndicator extends StatelessWidget {
       height: size,
       width: size,
       child: CircularProgressIndicator(
-        value: Platform.environment.containsKey('FLUTTER_TEST') ? 0.5 : null,
+        value: (!kIsWeb && Platform.environment.containsKey('FLUTTER_TEST')) ? 0.5 : null,
         strokeWidth: size / 13,
         backgroundColor: (backgroundColor ?? ZupColors.gray5).withOpacity(0.2),
         color: (indicatorColor ?? ZupColors.gray),
