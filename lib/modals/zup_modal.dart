@@ -68,16 +68,14 @@ class ZupModal extends StatelessWidget {
         );
       },
       pageBuilder: (context, animation, secondaryAnimation) {
-        return SelectionArea(
-          child: ZupModal(
-            padding: padding,
-            backgroundColor: backgroundColor,
-            description: description,
-            dismissible: dismissible,
-            size: size,
-            title: title,
-            child: content,
-          ),
+        return ZupModal(
+          padding: padding,
+          backgroundColor: backgroundColor,
+          description: description,
+          dismissible: dismissible,
+          size: size,
+          title: title,
+          child: content,
         );
       },
     );
@@ -97,59 +95,61 @@ class ZupModal extends StatelessWidget {
         child: ScaffoldMessenger(
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            body: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20).copyWith(bottom: 0),
-                  child: Stack(
-                    alignment: description != null ? Alignment.topLeft : Alignment.centerLeft,
-                    children: [
-                      if (title != null)
-                        SizedBox(
-                          width: size.width - (dismissible ? 100 : 0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                title!,
-                                style: const TextStyle(
-                                  fontSize: 17,
-                                  fontWeight: FontWeight.w600,
-                                  color: ZupColors.black,
-                                ),
-                              ),
-                              if (description != null)
+            body: SelectionArea(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20).copyWith(bottom: 0),
+                    child: Stack(
+                      alignment: description != null ? Alignment.topLeft : Alignment.centerLeft,
+                      children: [
+                        if (title != null)
+                          SizedBox(
+                            width: size.width - (dismissible ? 100 : 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
                                 Text(
-                                  description!,
+                                  title!,
                                   style: const TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w400,
-                                    color: ZupColors.gray,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600,
+                                    color: ZupColors.black,
                                   ),
                                 ),
-                            ],
+                                if (description != null)
+                                  Text(
+                                    description!,
+                                    style: const TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color: ZupColors.gray,
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
-                        ),
-                      if (dismissible) ...[
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: ZupIconButton(
-                            icon: const Icon(Icons.close, size: 20),
-                            onPressed: Navigator.of(context).pop,
+                        if (dismissible) ...[
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: ZupIconButton(
+                              icon: const Icon(Icons.close, size: 20),
+                              onPressed: Navigator.of(context).pop,
+                            ),
                           ),
-                        ),
-                      ]
-                    ],
+                        ]
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                Expanded(
-                    child: Padding(
-                  padding: padding ?? EdgeInsets.zero,
-                  child: child,
-                )),
-              ],
+                  const SizedBox(height: 10),
+                  Expanded(
+                      child: Padding(
+                    padding: padding ?? EdgeInsets.zero,
+                    child: child,
+                  )),
+                ],
+              ),
             ),
           ),
         ),
