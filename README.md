@@ -221,6 +221,7 @@ final void Function()? onPressed;
 ```
 
 #### Zup Pill Button
+![zup_pill_button](https://github.com/user-attachments/assets/314c4758-ec6a-49dd-8beb-be21a9867185)
 
 Display a pill-style button from Zup UI Kit. To display it, first import the `ZupPillButton` widget:
 
