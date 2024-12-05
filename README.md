@@ -13,6 +13,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Icon Button](#zup-icon-button)
   - [Zup Popup Menu Button](#zup-popup-menu-button)
   - [Zup Mini Button](#zup-mini-button)
+  - [Zup Pill Button](#zup-pill-button)
 - [Modals](#modals)
   - [Zup Modal](#zup-modal)
 - [Other](#other)
@@ -25,6 +26,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Stepped Loading](#zup-stepped-loading)
   - [Zup Merged Widgets](#zup-merged-widgets)
   - [Zup Selectable Card](#zup-selectable-card)
+  - [Zup Dropdown](#zup-dropdown)
 
 ## Installation
 
@@ -218,6 +220,45 @@ final double iconSize;
 final void Function()? onPressed;
 ```
 
+#### Zup Pill Button
+
+Display a pill-style button from Zup UI Kit. To display it, first import the `ZupPillButton` widget:
+
+```dart
+import 'package:zup_ui_kit/buttons/zup_pill_button.dart';
+```
+
+and then place it inside the widget tree:
+
+```dart
+ZupPillButton(
+  title: "String",
+  icon: ANY_WIDGET,
+);
+```
+
+it has the following parameters:
+
+```dart
+/// The background color of the button, where the text will be placed at. Defaults to [ZupColors.brand7]
+final Color backgroundColor;
+
+/// The color of the text, and of the icon background in the button (If an icon is provided). Defaults to [ZupColors.brand]
+///
+/// Note that if there's no text in the button, the passed background color will be applied to the icon background instead
+/// of using the passed foreground color, and the foreground color will be applied to the icon itself
+final Color foregroundColor;
+
+/// An optional icon to de displayed at the left side of the button, besides the title
+final Widget? icon;
+
+/// An optional title to be displayed at the center of the button
+final String? title;
+
+/// The callback to be called once the button is pressed
+final void Function(BuildContext buttonContext) onPressed;
+```
+
 ### Modals
 
 #### Zup Modal
@@ -297,11 +338,13 @@ Available colors:
 - gray6
 - red
 - red5
+- red6
 - green
 - green5
 - blue
 - orange
 - orange5
+- orange6
 
 #### Zup Info State
 
@@ -621,4 +664,32 @@ final Duration selectionAnimationDuration;
 
 /// Gives a fixed width to the card, defaults to null, so it will adapt to the content width
 final double? width;
+```
+
+#### Zup Dropdown
+
+Simply display a dropdown from anywhere, below a given context. To display it, first import the `ZupDropdown` class:
+
+```dart
+import 'package:zup_ui_kit/zup_dropdown.dart';
+```
+
+and then use it wherever it you need to put a dropdown in your screen, by using the object `ZupDropdown` and it's static method [ZupDropdown.show]:
+
+```dart
+ZupDropdown.show(
+  showBelowContext: context,
+  child: ANY_WIDGET,
+)
+```
+
+it has the following parameters:
+
+```dart
+/// The child widget that will be displayed inside the dropdown
+final Widget child;
+
+/// The context that the dropdown should be displayed below, usually the context of a button. It will be used to calculate the position of the dropdown
+/// Based on its parent (using the context passed)
+final BuildContext showBelowContext
 ```

@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/src/gen/assets.gen.dart';
 import 'package:zup_ui_kit/src/pop_up_menu_item_wrapper.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
@@ -53,22 +54,12 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
   late final Stream<int> _selectedItemIndexStream = _selectedItemIndexStreamController.stream;
 
   void _showMenu() {
-    final RenderBox button = context.findRenderObject()! as RenderBox;
-    final RenderBox overlay = Navigator.of(context).overlay!.context.findRenderObject()! as RenderBox;
-
-    Offset offset = Offset(0.0, button.size.height) + const Offset(0, 5);
-
-    final RelativeRect menuPosition = RelativeRect.fromRect(
-      Rect.fromPoints(
-        button.localToGlobal(offset, ancestor: overlay),
-        button.localToGlobal(button.size.bottomRight(Offset.zero) + offset, ancestor: overlay),
-      ),
-      Offset.zero & overlay.size,
-    );
-
     showMenu(
       context: context,
-      position: menuPosition,
+      position: context.relativeRect(
+        adjustOffsetBy: const Offset(0, 5),
+        relativePosition: RelativePosition.below,
+      ),
       color: ZupColors.white,
       menuPadding: const EdgeInsets.all(12),
       elevation: 0,
