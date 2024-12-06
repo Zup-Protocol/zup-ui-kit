@@ -14,6 +14,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Popup Menu Button](#zup-popup-menu-button)
   - [Zup Mini Button](#zup-mini-button)
   - [Zup Pill Button](#zup-pill-button)
+  - [Zup Light Button](#zup-light-button)
 - [Modals](#modals)
   - [Zup Modal](#zup-modal)
 - [Other](#other)
@@ -258,6 +259,39 @@ final String? title;
 
 /// The callback to be called once the button is pressed
 final void Function(BuildContext buttonContext) onPressed;
+```
+
+#### Zup Light Button
+
+Display a button that change its child color when hovered, otherwise it keep the child in a rest color. To display it, first import the `ZupLightButton` widget:
+
+```dart
+import 'package:zup_ui_kit/buttons/zup_light_button.dart';
+```
+
+and then place it inside the widget tree:
+
+```dart
+ZupLightButton(
+  child: ANY_WIDGET,
+  onPressed: () {},
+);
+```
+
+it has the following parameters:
+
+```dart
+/// The child to be used in the button, can be a text, icon or any other widget
+final Widget child;
+
+/// The color to be used when the button is not hovered, note that it will be forced in the child. Defaults to [ZupColors.gray4]
+final Color? restColor;
+
+/// The color to be used when the button is hovered, note that it will be forced in the child. Defaults to [ZupColors.black]
+final Color? hoverColor;
+
+/// The function to be called when the button is pressed
+final Function() onPressed;
 ```
 
 ### Modals
