@@ -103,4 +103,12 @@ void main() {
     await tester.hover(find.byType(ZupTooltip));
     await tester.pumpAndSettle();
   });
+
+  zGoldenTest("When clicking the tooltip child, it should also show the tooltip", goldenFileName: "zup_tooltip_click",
+      (tester) async {
+    await tester.pumpDeviceBuilder(await goldenBuilder());
+
+    await tester.tap(find.byType(ZupTooltip));
+    await tester.pumpAndSettle();
+  });
 }

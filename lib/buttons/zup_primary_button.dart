@@ -17,7 +17,7 @@ class ZupPrimaryButton extends StatefulWidget {
     required this.title,
     required this.onPressed,
     this.height = 50,
-    this.padding = const EdgeInsets.all(20),
+    this.padding = const EdgeInsets.symmetric(horizontal: 20),
     this.mainAxisSize = MainAxisSize.min,
     this.alignCenter = false,
     this.width,
@@ -26,7 +26,7 @@ class ZupPrimaryButton extends StatefulWidget {
   /// The background color of the button. If null, the color will be derived from the theme, using the primary color
   final Color? backgroundColor;
 
-  /// The padding of the button. If null it will be 20 by default, for all sides
+  /// The padding of the button. If null it will be 20 by default, for horizontal padding
   final EdgeInsets padding;
 
   /// The foreground color of the button. If null, the default color will be white.

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
 
 /// Show a button with a small size from the Zup UI Kit.
@@ -21,7 +22,7 @@ class ZupMiniButton extends StatefulWidget {
   State<ZupMiniButton> createState() => _ZupMiniButtonState();
 }
 
-class _ZupMiniButtonState extends State<ZupMiniButton> {
+class _ZupMiniButtonState extends State<ZupMiniButton> with DeviceInfoMixin {
   bool isHovering = false;
 
   bool get isActive => widget.onPressed != null;
@@ -38,7 +39,7 @@ class _ZupMiniButtonState extends State<ZupMiniButton> {
       onEnter: (event) => setState(() => isHovering = true),
       onExit: (event) => setState(() => isHovering = false),
       child: MaterialButton(
-        padding: const EdgeInsets.all(18),
+        padding: EdgeInsets.symmetric(horizontal: 18, vertical: isMobileDevice ? 12 : 18),
         color: ZupColors.gray6,
         disabledColor: ZupColors.gray6,
         hoverColor: Theme.of(context).primaryColor.withOpacity(0.1),

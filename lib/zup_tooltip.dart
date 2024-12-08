@@ -51,6 +51,7 @@ class _ZupTooltipState extends State<ZupTooltip> {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
+      triggerMode: TooltipTriggerMode.tap,
       richMessage: TextSpan(children: [
         WidgetSpan(
             child: ConstrainedBox(

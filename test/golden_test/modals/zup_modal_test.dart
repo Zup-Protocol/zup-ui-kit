@@ -13,6 +13,7 @@ void main() {
     String? description,
     Color? backgroundColor,
     EdgeInsetsGeometry? padding,
+    bool showAsBottomSheet = false,
   }) async =>
       await goldenDeviceBuilder(Builder(builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) => ZupModal.show(context,
@@ -22,6 +23,7 @@ void main() {
             padding: padding,
             size: size,
             title: title,
+            showAsBottomSheet: showAsBottomSheet,
             content: Container(
               height: 500,
               width: 500,
@@ -64,4 +66,15 @@ void main() {
       (tester) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(size: const Size(800, 800)));
   });
+
+  zGoldenTest(
+    "When the param `showAsBottomSheet` is true, the modal should be displayed as a modal bottom sheet",
+    goldenFileName: "zup_modal_show_as_bottom_sheet",
+    (tester) async {
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(showAsBottomSheet: true, title: "Title", description: "description"),
+      );
+      await tester.pumpAndSettle();
+    },
+  );
 }

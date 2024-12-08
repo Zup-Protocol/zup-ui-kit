@@ -20,14 +20,22 @@ class ZupPopupMenuItem {
 
 /// Display a button that opens a popup with a list of items on it.
 class ZupPopupMenuButton extends StatefulWidget {
-  const ZupPopupMenuButton({
+  ZupPopupMenuButton({
     super.key,
     required this.initialSelectedIndex,
     required this.items,
     required this.onSelected,
     this.closeOnSelection = true,
     this.buttonHeight = 50,
-  });
+    this.compact = false,
+  }) {
+    if (compact) {
+      assert(
+        items.map((item) => item.icon).every((icon) => icon != null),
+        "All items must have an icon when the button is compact",
+      );
+    }
+  }
 
   /// The initial selected item index, the one that will be visible in the button
   final int initialSelectedIndex;
@@ -43,6 +51,15 @@ class ZupPopupMenuButton extends StatefulWidget {
 
   /// The height of the button to show the menu
   final double buttonHeight;
+
+  /// Whether the button to show the popup should be compact or not.
+  ///
+  /// A compact button will only show the icon of the selected item, while the normal
+  /// button will show the icon + title.
+  ///
+  /// Note that an icon is necessary for the compact button, so every item must have one,
+  /// if the button is compact.
+  final bool compact;
 
   @override
   State<ZupPopupMenuButton> createState() => _ZupPopupMenuButtonState();
@@ -163,7 +180,7 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
               borderRadius: BorderRadius.circular(12),
               side: const BorderSide(color: ZupColors.gray5),
             ),
-            padding: const EdgeInsets.all(20).copyWith(right: 25),
+            padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(right: 25),
             elevation: 0,
             hoverElevation: 0,
             onPressed: () => _showMenu(),
@@ -180,8 +197,10 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
                     ),
                   ),
                 const SizedBox(width: 5),
-                Text(widget.items[snapshot.data!].title, style: const TextStyle(fontWeight: FontWeight.w600)),
-                const SizedBox(width: 10),
+                if (!widget.compact) ...[
+                  Text(widget.items[snapshot.data!].title, style: const TextStyle(fontWeight: FontWeight.w600)),
+                  const SizedBox(width: 10),
+                ],
                 Assets.icons.chevronUpChevronDown.svg(
                   package: "zup_ui_kit",
                   height: 12,

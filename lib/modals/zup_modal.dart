@@ -15,6 +15,7 @@ class ZupModal extends StatelessWidget {
     required this.backgroundColor,
     required this.description,
     required this.padding,
+    required this.isBottomSheet,
   });
 
   final Widget child;
@@ -24,6 +25,7 @@ class ZupModal extends StatelessWidget {
   final Color? backgroundColor;
   final String? description;
   final EdgeInsetsGeometry? padding;
+  final bool isBottomSheet;
 
   /// Show a modal for the user from the given context
   ///
@@ -33,7 +35,8 @@ class ZupModal extends StatelessWidget {
   ///
   /// @param `dismissible` -> whether the modal can be dismissed by tapping outside of it. Defaults to true
   ///
-  /// @param `size` -> the size of the modal, defaults to 500x500
+  /// @param `size` -> the size of the modal, defaults to 500x500. Note that if [showAsBottomSheet] is true,
+  /// the width param will not work, as it will be set by default to occupy the whole width
   ///
   /// @param `title` -> the title of the modal. If null, the title will not be displayed
   ///
@@ -43,6 +46,10 @@ class ZupModal extends StatelessWidget {
   /// @param `backgroundColor` -> the background color of the modal. Defaults to white
   ///
   /// @param `padding` -> the padding of the content inside the modal
+  ///
+  /// @param `showAsBottomSheet` -> whether to show the modal as a bottom sheet, useful to adapt the modal for mobile also. Defaults to false
+  ///
+  /// @param `useRootNavigator` -> whether to use the root navigator to show the modal. Defaults to true
   static Future<void> show(
     BuildContext context, {
     required Widget content,
@@ -52,7 +59,28 @@ class ZupModal extends StatelessWidget {
     String? description,
     Color? backgroundColor,
     EdgeInsetsGeometry? padding,
+    bool showAsBottomSheet = false,
+    bool useRootNavigator = true,
   }) async {
+    if (showAsBottomSheet) {
+      return showModalBottomSheet(
+        context: context,
+        useRootNavigator: useRootNavigator,
+        isScrollControlled: true,
+        constraints: BoxConstraints(maxHeight: size.height),
+        backgroundColor: Colors.transparent,
+        builder: (context) => ZupModal(
+            isBottomSheet: true,
+            dismissible: dismissible,
+            size: size,
+            title: title,
+            backgroundColor: backgroundColor,
+            description: description,
+            padding: padding,
+            child: content),
+      );
+    }
+
     showGeneralDialog(
       context: context,
       barrierDismissible: dismissible,
@@ -70,6 +98,7 @@ class ZupModal extends StatelessWidget {
       pageBuilder: (context, animation, secondaryAnimation) {
         return ZupModal(
           padding: padding,
+          isBottomSheet: false,
           backgroundColor: backgroundColor,
           description: description,
           dismissible: dismissible,
@@ -85,13 +114,16 @@ class ZupModal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: const EdgeInsets.all(40),
+        margin: EdgeInsets.all(isBottomSheet ? 0 : 40),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(isBottomSheet ? 0 : 18).copyWith(
+            topLeft: isBottomSheet ? const Radius.circular(20) : null,
+            topRight: isBottomSheet ? const Radius.circular(20) : null,
+          ),
           color: backgroundColor ?? Colors.white,
         ),
         height: size.height,
-        width: size.width,
+        width: isBottomSheet ? double.maxFinite : size.width,
         child: ScaffoldMessenger(
           child: Scaffold(
             backgroundColor: Colors.transparent,
@@ -105,7 +137,7 @@ class ZupModal extends StatelessWidget {
                       children: [
                         if (title != null)
                           SizedBox(
-                            width: size.width - (dismissible ? 100 : 0),
+                            width: size.width - (dismissible ? 140 : 0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,

@@ -12,9 +12,11 @@ void main() {
     double buttonHeight = 60.0,
     bool closeOnSelection = true,
     Function(int index)? onSelected,
+    bool isCompact = false,
   }) =>
       goldenDeviceBuilder(
         ZupPopupMenuButton(
+          compact: isCompact,
           initialSelectedIndex: initialSelectedIndex,
           buttonHeight: buttonHeight,
           items: items ??
@@ -145,4 +147,19 @@ void main() {
     await tester.tap(find.byKey(const Key("zup-popup-menu-item-1")));
     await tester.pumpAndSettle();
   });
+
+  zGoldenTest(
+    "When `isCompact` param is passed as true, the title should not be displayed in the button, only the icon",
+    goldenFileName: "zup_popup_menu_button_compact",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder(
+        initialSelectedIndex: 0,
+        items: [
+          ZupPopupMenuItem(title: "Title 1", icon: const Icon(Icons.abc)),
+          ZupPopupMenuItem(title: "Title 2", icon: const Icon(Icons.ac_unit)),
+        ],
+        isCompact: true,
+      ));
+    },
+  );
 }

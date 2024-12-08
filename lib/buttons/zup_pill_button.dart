@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
 
 class ZupPillButton extends StatefulWidget {
@@ -36,7 +37,7 @@ class ZupPillButton extends StatefulWidget {
   State<ZupPillButton> createState() => _ZupPillButtonState();
 }
 
-class _ZupPillButtonState extends State<ZupPillButton> {
+class _ZupPillButtonState extends State<ZupPillButton> with DeviceInfoMixin {
   late bool shouldShowText = false || widget.title != null;
 
   TextStyle get titleStyle => TextStyle(
@@ -63,7 +64,9 @@ class _ZupPillButtonState extends State<ZupPillButton> {
       color: widget.backgroundColor,
       hoverElevation: 0,
       elevation: 0,
-      padding: const EdgeInsets.all(12).copyWith(right: widget.title == null ? 12 : 0),
+      padding: EdgeInsets.all(isMobileDevice ? 6 : 12).copyWith(
+        right: widget.title == null ? (isMobileDevice ? 6 : 12) : 0,
+      ),
       minWidth: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
       child: Row(
@@ -72,7 +75,7 @@ class _ZupPillButtonState extends State<ZupPillButton> {
           if (widget.icon != null) ...[
             AnimatedContainer(
               duration: const Duration(milliseconds: 600),
-              padding: const EdgeInsets.all(6),
+              padding: EdgeInsets.all(isMobileDevice ? 4 : 6),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: widget.title != null ? widget.foregroundColor : widget.backgroundColor.withOpacity(0.01),
