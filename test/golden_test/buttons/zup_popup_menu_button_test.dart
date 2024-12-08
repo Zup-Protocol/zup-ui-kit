@@ -162,4 +162,21 @@ void main() {
       ));
     },
   );
+
+  zGoldenTest(
+    "When `isCompact` param is true, and any of the passed items does not have an icon, it should assert",
+    (tester) async {
+      expect(
+        () async => await tester.pumpDeviceBuilder(await goldenBuilder(
+          initialSelectedIndex: 0,
+          items: [
+            ZupPopupMenuItem(title: "Title 1"),
+            ZupPopupMenuItem(title: "Title 2", icon: const Icon(Icons.ac_unit)),
+          ],
+          isCompact: true,
+        )),
+        throwsAssertionError,
+      );
+    },
+  );
 }
