@@ -59,10 +59,10 @@ class ZupSteppedLoadingState extends State<ZupSteppedLoading> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _periodicTask.register(() async {
-        if (_currentStep == widget.steps.last || !mounted) return _periodicTask.unregister();
+        if (_currentStep.equals(widget.steps.last) || !mounted) return _periodicTask.unregister();
 
+        setState(() => _currentStep = widget.steps[_pageController.page!.toInt() + 1]);
         _pageController.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
-        setState(() => _currentStep = widget.steps[widget.steps.indexOf(_currentStep) + 1]);
       });
     });
     super.initState();
