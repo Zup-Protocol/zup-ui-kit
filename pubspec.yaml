@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   flutter_animate: ^4.5.0
   flutter_svg: ^2.0.10+1
+  mocktail: ^1.0.4
   zup_core:
     # path: ../zup_core
     git:

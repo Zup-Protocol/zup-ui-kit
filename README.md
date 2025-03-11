@@ -15,6 +15,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Mini Button](#zup-mini-button)
   - [Zup Pill Button](#zup-pill-button)
   - [Zup Light Button](#zup-light-button)
+  - [Zup Refresh Button](#zup-refresh-button)
 - [Modals](#modals)
   - [Zup Modal](#zup-modal)
 - [Other](#other)
@@ -222,6 +223,7 @@ final void Function()? onPressed;
 ```
 
 #### Zup Pill Button
+
 ![zup_pill_button](https://github.com/user-attachments/assets/314c4758-ec6a-49dd-8beb-be21a9867185)
 
 Display a pill-style button from Zup UI Kit. To display it, first import the `ZupPillButton` widget:
@@ -295,6 +297,45 @@ final Color? hoverColor;
 
 /// The function to be called when the button is pressed
 final Function() onPressed;
+```
+
+#### Zup Refresh Button
+
+![Zup Refresh Button Showcase](https://github.com/user-attachments/assets/7d8a8b5b-2c3e-4e0c-8a5b-2d4e0c8a5b2c)
+
+Display a refresh button from Zup UI Kit. To display it, first import the `ZupRefreshButton` widget:
+
+```dart
+import 'package:zup_ui_kit/buttons/zup_refresh_button.dart';
+```
+
+and then place it inside the widget tree:
+
+```dart
+ZupRefreshButton(
+  onPressed: () {},
+);
+```
+
+it has the following parameters:
+
+```dart
+  /// Callback when the button is pressed.
+  /// Use the Future in the callback to set when the button
+  /// animation should start and stop. While this function is
+  /// being executed, the button will be animated (rotating), so you can
+  /// control it using `await` for example
+  final Future Function() onPressed;
+
+  /// A custom color for the refresh icon. Defaults to [ZupIconButton] icon color
+  final Color? iconColor;
+
+  /// The size of the refresh icon (which also sets the button size). Defaults to 20
+  final double size;
+
+  /// A custom animation controller to use for the rotating animation in cases that
+  /// the animation needs to be controlled from outside the button also
+  final AnimationController? animationController;
 ```
 
 ### Modals
