@@ -109,6 +109,10 @@ final bool alignCenter;
 
 /// The width of the button. If null, the button will be as tight as possible
 final double? width;
+
+/// Choose whether to display an icon in the trailing side of the button or the leading side.
+/// Defaults to false
+final bool isTrailingIcon;
 ```
 
 #### Zup Icon Button

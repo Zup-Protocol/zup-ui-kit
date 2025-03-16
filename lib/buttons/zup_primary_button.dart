@@ -21,6 +21,7 @@ class ZupPrimaryButton extends StatefulWidget {
     this.mainAxisSize = MainAxisSize.min,
     this.alignCenter = false,
     this.width,
+    this.isTrailingIcon = false,
   });
 
   /// The background color of the button. If null, the color will be derived from the theme, using the primary color
@@ -68,6 +69,10 @@ class ZupPrimaryButton extends StatefulWidget {
   /// The width of the button. If null, the button will be as tight as possible
   final double? width;
 
+  /// Choose whether to display an icon in the trailing side of the button or the leading side.
+  /// Defaults to false
+  final bool isTrailingIcon;
+
   @override
   State<ZupPrimaryButton> createState() => _ZupPrimaryButtonState();
 }
@@ -105,6 +110,8 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
         width: widget.width,
         child: MaterialButton(
           disabledColor: ZupColors.gray5,
+          focusElevation: widget.hoverElevation,
+          highlightElevation: 0,
           disabledTextColor: disabledForegroundColor,
           color: widget.backgroundColor ?? Theme.of(context).primaryColor,
           animationDuration: const Duration(milliseconds: 800),
@@ -116,37 +123,59 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
           onPressed: widget.onPressed,
           hoverElevation: widget.hoverElevation,
           elevation: 0,
-          child: Row(
-            mainAxisAlignment: widget.alignCenter ? MainAxisAlignment.center : MainAxisAlignment.start,
-            mainAxisSize: widget.mainAxisSize,
-            children: [
-              if (widget.icon != null && !widget.fixedIcon || widget.isLoading) ...[
-                AnimatedPadding(
-                  duration: Duration(milliseconds: isLoadingOrExpanded ? 0 : 400),
-                  curve: Curves.decelerate,
-                  padding: EdgeInsets.only(right: isLoadingOrExpanded ? 10 : 0),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.fastEaseInToSlowEaseOut,
-                    width: isLoadingOrExpanded ? 20 : 0,
-                    child: Center(child: buildIcon),
+          child: SizedBox(
+            width: widget.width,
+            child: Row(
+              mainAxisAlignment: widget.alignCenter ? MainAxisAlignment.center : MainAxisAlignment.start,
+              mainAxisSize: widget.mainAxisSize,
+              children: [
+                if ((!widget.isTrailingIcon && widget.icon != null && !widget.fixedIcon) ||
+                    (widget.isLoading && !widget.isTrailingIcon)) ...[
+                  AnimatedPadding(
+                    duration: Duration(milliseconds: isLoadingOrExpanded ? 0 : 400),
+                    curve: Curves.decelerate,
+                    padding: EdgeInsets.only(right: isLoadingOrExpanded ? 10 : 0),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.fastEaseInToSlowEaseOut,
+                      width: isLoadingOrExpanded ? 20 : 0,
+                      child: Center(child: buildIcon),
+                    ),
+                  ),
+                ],
+                if (!widget.isTrailingIcon && widget.icon != null && widget.fixedIcon && !widget.isLoading) ...[
+                  buildIcon,
+                  const SizedBox(width: 10),
+                ],
+                Text(
+                  widget.title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : ZupColors.gray,
+                    fontWeight: widget.onPressed != null ? (widget.fontWeight ?? FontWeight.w600) : FontWeight.w400,
                   ),
                 ),
+                if (widget.isTrailingIcon && widget.icon != null && widget.fixedIcon && !widget.isLoading) ...[
+                  const SizedBox(width: 10),
+                  buildIcon,
+                ],
+                if ((widget.isTrailingIcon && widget.icon != null && !widget.fixedIcon) ||
+                    (widget.isLoading && widget.isTrailingIcon)) ...[
+                  AnimatedPadding(
+                    duration: Duration(milliseconds: isLoadingOrExpanded ? 0 : 400),
+                    curve: Curves.decelerate,
+                    padding: EdgeInsets.only(left: isLoadingOrExpanded ? 10 : 0),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.fastEaseInToSlowEaseOut,
+                      width: isLoadingOrExpanded ? 20 : 0,
+                      child: Center(child: buildIcon),
+                    ),
+                  ),
+                ],
               ],
-              if (widget.icon != null && widget.fixedIcon && !widget.isLoading) ...[
-                buildIcon,
-                const SizedBox(width: 10),
-              ],
-              Text(
-                widget.title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : ZupColors.gray,
-                  fontWeight: widget.onPressed != null ? (widget.fontWeight ?? FontWeight.w600) : FontWeight.w400,
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

@@ -21,6 +21,7 @@ void main() {
     required dynamic Function()? onPressed,
     EdgeInsets padding = const EdgeInsets.all(20),
     MainAxisSize mainAxisSize = MainAxisSize.min,
+    bool isTrailingIcon = false,
   }) async =>
       await goldenDeviceBuilder(
         ZupPrimaryButton(
@@ -37,6 +38,7 @@ void main() {
           padding: padding,
           fontWeight: fontWeight,
           mainAxisSize: mainAxisSize,
+          isTrailingIcon: isTrailingIcon,
         ),
       );
 
@@ -123,4 +125,40 @@ void main() {
       await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, isLoading: true));
     },
   );
+
+  zGoldenTest(
+      "When passing 'isTrailing' icon as true and the fixedIcon is true, the icon passed to the button should be trailing",
+      goldenFileName: "zup_primary_button_trailing_icon", (tester) async {
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(
+        onPressed: () {},
+        isTrailingIcon: true,
+        fixedIcon: true,
+        icon: const Icon(Icons.add),
+      ),
+    );
+  });
+
+  zGoldenTest(
+      "When passing 'isTrailing' icon as true and the fixedIcon is false, the icon passed to the button should be trailing when hovered",
+      goldenFileName: "zup_primary_button_trailing_icon_hover", (tester) async {
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(
+        onPressed: () {},
+        isTrailingIcon: true,
+        fixedIcon: true,
+        icon: const Icon(Icons.add),
+      ),
+    );
+
+    await tester.hover(find.byType(ZupPrimaryButton));
+    await tester.pumpAndSettle();
+  });
+
+  zGoldenTest("When loading and 'isTrailing' is true, the loading icon should be trailing",
+      goldenFileName: "zup_primary_button_loading_trailing", (tester) async {
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(onPressed: () {}, isLoading: true, isTrailingIcon: true),
+    );
+  });
 }
