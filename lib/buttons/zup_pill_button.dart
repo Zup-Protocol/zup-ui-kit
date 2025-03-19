@@ -78,7 +78,7 @@ class _ZupPillButtonState extends State<ZupPillButton> with DeviceInfoMixin {
               padding: EdgeInsets.all(isMobileDevice ? 4 : 6),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: widget.title != null ? widget.foregroundColor : widget.backgroundColor.withOpacity(0.01),
+                color: widget.title != null ? widget.foregroundColor : widget.backgroundColor.withValues(alpha: 0.01),
               ),
               child: ColorFiltered(
                 colorFilter: ColorFilter.mode(

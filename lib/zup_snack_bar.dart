@@ -156,7 +156,7 @@ class ZupSnackBar extends SnackBar {
                   const SizedBox(width: 20),
                   ZupIconButton(
                     key: const Key("close-snack-bar"),
-                    backgroundColor: type.textColor.withOpacity(0.1),
+                    backgroundColor: type.textColor.withValues(alpha: 0.1),
                     iconColor: type.textColor,
                     padding: const EdgeInsets.all(6),
                     icon: const Icon(Icons.close, size: 16),

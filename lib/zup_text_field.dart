@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
 
 /// Show a text field from the Zup UI Kit.
@@ -14,6 +15,8 @@ class ZupTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoSearchTextField(
+      prefixIcon: const Icon(Icons.search),
+      suffixIcon: const Icon(Icons.close),
       onChanged: onChanged,
       backgroundColor: ZupColors.gray6,
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),

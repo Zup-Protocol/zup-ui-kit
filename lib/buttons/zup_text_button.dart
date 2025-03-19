@@ -41,7 +41,7 @@ class _ZupTextButtonState extends State<ZupTextButton> {
   Color get foregroundColor {
     if (widget.onPressed == null) return ZupColors.gray4;
 
-    return isHovering ? Theme.of(context).primaryColor.withOpacity(0.7) : Theme.of(context).primaryColor;
+    return isHovering ? Theme.of(context).primaryColor.withValues(alpha: 0.7) : Theme.of(context).primaryColor;
   }
 
   @override

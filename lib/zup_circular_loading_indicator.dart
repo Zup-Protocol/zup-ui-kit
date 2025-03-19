@@ -24,7 +24,7 @@ class ZupCircularLoadingIndicator extends StatelessWidget {
       child: CircularProgressIndicator(
         value: (!kIsWeb && Platform.environment.containsKey('FLUTTER_TEST')) ? 0.5 : null,
         strokeWidth: size / 13,
-        backgroundColor: (backgroundColor ?? ZupColors.gray5).withOpacity(0.2),
+        backgroundColor: (backgroundColor ?? ZupColors.gray5).withValues(alpha: 0.2),
         color: (indicatorColor ?? ZupColors.gray),
       ),
     );
