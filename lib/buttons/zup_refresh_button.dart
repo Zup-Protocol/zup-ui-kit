@@ -49,7 +49,7 @@ class _ZupRefreshButtonState extends State<ZupRefreshButton> with TickerProvider
 
   @override
   void dispose() {
-    animationController?.dispose();
+    if (widget.animationController == null) animationController?.dispose();
     super.dispose();
   }
 

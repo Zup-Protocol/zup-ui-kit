@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
 import 'package:mocktail/mocktail.dart';
@@ -77,5 +78,37 @@ void main() {
 
     expect(callbacked, true);
     verify(() => animationController.forward()).called(1);
+  });
+
+  zGoldenTest(
+    "When disposing the button, if an animation controller is passed, the controller should not be disposed",
+    (tester) async {
+      final animationController = AnimationControllerMock();
+
+      when(() => animationController.status).thenReturn(AnimationStatus.completed);
+      when(() => animationController.value).thenReturn(0);
+
+      await tester.pumpDeviceBuilder(await goldenBuilder(animationController: animationController));
+      await tester.pumpAndSettle();
+
+      await tester.pumpWidget(Container()); // Making the button dispose
+      await tester.pumpAndSettle();
+
+      verifyNever(() => animationController.dispose());
+    },
+  );
+
+  zGoldenTest("""When the button is disposed,
+  and there is not an animation controller passed on its builder,
+  the controller should be disposed""", (tester) async {
+    await tester.pumpDeviceBuilder(await goldenBuilder());
+    await tester.pumpAndSettle();
+
+    final animateWidget = find.byType(Animate).first.evaluate().first.widget as Animate;
+
+    await tester.pumpWidget(Container()); // Making the button dispose
+    await tester.pumpAndSettle();
+
+    expect(() => animateWidget.controller!.forward(), throwsAssertionError);
   });
 }
