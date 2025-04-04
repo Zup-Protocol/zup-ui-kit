@@ -10,6 +10,7 @@ export 'zup_merged_widgets.dart';
 export 'zup_selectable_card.dart';
 export 'zup_snack_bar.dart';
 export 'zup_stepped_loading.dart';
+export 'zup_switch.dart';
 export 'zup_tag.dart';
 export 'zup_text_field.dart';
 export 'zup_tooltip.dart';

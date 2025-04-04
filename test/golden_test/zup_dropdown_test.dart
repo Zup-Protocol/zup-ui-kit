@@ -6,13 +6,14 @@ import 'package:zup_ui_kit/zup_ui_kit.dart';
 import '../golden_config.dart';
 
 void main() {
-  Future<DeviceBuilder> goldenBuilder() async => await goldenDeviceBuilder(Center(
+  Future<DeviceBuilder> goldenBuilder({Offset? offset}) async => await goldenDeviceBuilder(Center(
         child: Builder(builder: (context) {
           return Container(
             color: Colors.yellow,
             child: TextButton(
               onPressed: () {
                 ZupDropdown.show(
+                  offset: offset,
                   showBelowContext: context,
                   child: Container(
                     color: Colors.green,
@@ -33,4 +34,15 @@ void main() {
     await tester.tap(find.byType(TextButton));
     await tester.pumpAndSettle();
   });
+
+  zGoldenTest(
+    "When passing an offset, it should adjust the dropdown position by the offset passed",
+    goldenFileName: "zup_dropdown_custom_offset",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder(offset: const Offset(50, 100)));
+
+      await tester.tap(find.byType(TextButton));
+      await tester.pumpAndSettle();
+    },
+  );
 }

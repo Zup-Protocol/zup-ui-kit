@@ -29,6 +29,7 @@ Zup UI Kit is a Flutter library containing all the UI components for the [Zup ap
   - [Zup Merged Widgets](#zup-merged-widgets)
   - [Zup Selectable Card](#zup-selectable-card)
   - [Zup Dropdown](#zup-dropdown)
+  - [Zup Switch](#zup-switch)
 
 ## Installation
 
@@ -140,17 +141,24 @@ final Widget icon;
 /// The background color of the button. If null, the background color will be derived from ZupColors, using [ZupColors.tertiary] as default.
 final Color? backgroundColor;
 
-/// The icon color of the button. If null, the icon color will be derived from ZupColors, using [ZupColors.gray] as default.
-final Color? iconColor;
-
 /// The border of the button. If null, the button will not have a border
 final BorderSide? borderSide;
+
+/// The icon color of the button. If null, the icon color will be derived from ZupColors, using [ZupColors.gray] as default.
+final Color? iconColor;
 
 /// The padding of the button, defaults to 6 on all sides.
 final EdgeInsetsGeometry? padding;
 
+/// The minimum height of the button. If null, the button will have no minimum height, it will be determined by the icon size.
+/// This is useful when you want to have a button with a fixed height, not depending on the icon size.
+final double? minimumHeight;
+
+/// Whether the button should be circular or not. If true, the button will be circular, if false, it will be rectangular with rounded corners.
+final bool circle;
+
 /// The callback that is called when the button is pressed. If null, the button will be in inactive state
-final Function()? onPressed;
+final void Function(BuildContext context)? onPressed;
 ```
 
 #### Zup Popup Menu Button
@@ -775,4 +783,34 @@ final Widget child;
 /// The context that the dropdown should be displayed below, usually the context of a button. It will be used to calculate the position of the dropdown
 /// Based on its parent (using the context passed)
 final BuildContext showBelowContext
+```
+
+#### Zup Switch
+
+Display a switch button anywhere in the widget tree. To display it, first import the `ZupSwitch` class:
+
+```dart
+import 'package:zup_ui_kit/zup_switch.dart';
+```
+
+and then use it where you need to put a switch in your widget tree, by using the object `ZupSwitch`:
+
+```dart
+ZupSwitch(
+  value: BOOLEAN_VALUE,
+  onChanged: (value) {},
+)
+```
+
+it has the following parameters:
+
+```dart
+/// The value of the switch. If true, the switch is on. If false, the switch is off.
+final bool value;
+
+/// The callback that is called when the switch is toggled. If null, the switch is disabled.
+final void Function(bool)? onChanged;
+
+/// The size of the switch. The default size is 40.
+final double size;
 ```

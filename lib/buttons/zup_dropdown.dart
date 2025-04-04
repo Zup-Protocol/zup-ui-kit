@@ -8,14 +8,14 @@ class ZupDropdown {
   ///
   /// @param `showBelowContext` -> the context that the dropdown should be displayed below, usually the context of a button
   /// @param `child` -> the content that the dropdown will show
-  static Future<void> show({required BuildContext showBelowContext, required Widget child}) {
+  static Future<void> show({required BuildContext showBelowContext, required Widget child, Offset? offset}) {
     return showMenu(
       context: showBelowContext,
       position: showBelowContext.relativeRect(
-        adjustOffsetBy: const Offset(0, 5),
+        adjustOffsetBy: offset ?? const Offset(0, 5),
         relativePosition: RelativePosition.below,
       ),
-      menuPadding: const EdgeInsets.all(0),
+      menuPadding: EdgeInsets.zero,
       constraints: const BoxConstraints(),
       color: Colors.transparent,
       elevation: 0,

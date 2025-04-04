@@ -56,6 +56,7 @@ class _ZupRefreshButtonState extends State<ZupRefreshButton> with TickerProvider
   @override
   Widget build(BuildContext context) {
     return ZupIconButton(
+      circle: true,
       key: const Key("refresh-button"),
       backgroundColor: Colors.transparent,
       iconColor: widget.iconColor,
@@ -64,7 +65,7 @@ class _ZupRefreshButtonState extends State<ZupRefreshButton> with TickerProvider
         height: widget.size,
         package: "zup_ui_kit",
       ),
-      onPressed: () async {
+      onPressed: (_) async {
         animationController?.repeat();
         await widget.onPressed();
         if (animationController?.status != AnimationStatus.completed) animationController?.forward();

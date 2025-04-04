@@ -174,6 +174,7 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
         return SizedBox(
           height: widget.buttonHeight,
           child: MaterialButton(
+            minWidth: widget.compact ? 0 : null,
             key: const Key("zup-pop-up-menu-button"),
             color: ZupColors.white,
             shape: RoundedRectangleBorder(

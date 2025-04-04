@@ -11,6 +11,8 @@ class ZupIconButton extends StatelessWidget {
     this.padding = const EdgeInsets.all(6),
     required this.onPressed,
     this.borderSide,
+    this.minimumHeight,
+    this.circle = false,
   });
 
   /// The main icon to show in the button.
@@ -28,8 +30,15 @@ class ZupIconButton extends StatelessWidget {
   /// The padding of the button, defaults to 6 on all sides.
   final EdgeInsetsGeometry? padding;
 
+  /// The minimum height of the button. If null, the button will have no minimum height, it will be determined by the icon size.
+  /// This is useful when you want to have a button with a fixed height, not depending on the icon size.
+  final double? minimumHeight;
+
+  /// Whether the button should be circular or not. If true, the button will be circular, if false, it will be rectangular with rounded corners.
+  final bool circle;
+
   /// The callback that is called when the button is pressed. If null, the button will be in inactive state
-  final Function()? onPressed;
+  final void Function(BuildContext context)? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +46,13 @@ class ZupIconButton extends StatelessWidget {
       child: IconButton(
         padding: padding,
         style: ButtonStyle(
-          minimumSize: const WidgetStatePropertyAll(Size.zero),
-          shape: WidgetStatePropertyAll(CircleBorder(side: borderSide ?? BorderSide.none)),
+          minimumSize: WidgetStatePropertyAll(Size(0, minimumHeight ?? 0)),
+          shape: WidgetStatePropertyAll(circle
+              ? CircleBorder(side: borderSide ?? BorderSide.none)
+              : RoundedRectangleBorder(
+                  side: borderSide ?? BorderSide.none,
+                  borderRadius: BorderRadius.circular(12),
+                )),
           backgroundColor: WidgetStateProperty.resolveWith(
             (states) {
               if (states.contains(WidgetState.disabled)) {
@@ -55,7 +69,7 @@ class ZupIconButton extends StatelessWidget {
           ),
           child: icon,
         ),
-        onPressed: onPressed,
+        onPressed: onPressed == null ? null : () => onPressed!(context),
       ),
     );
   }
