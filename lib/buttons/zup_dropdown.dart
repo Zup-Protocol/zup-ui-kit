@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zup_core/extensions/build_context_extension.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/src/pop_up_menu_item_wrapper.dart';
 
 /// Show a dropdown from anywhere by calling the static method [ZupDropdown.show]
@@ -18,6 +18,7 @@ class ZupDropdown {
       menuPadding: EdgeInsets.zero,
       constraints: const BoxConstraints(),
       color: Colors.transparent,
+      useRootNavigator: true,
       elevation: 0,
       items: [
         PopupMenuItemWrapper(
