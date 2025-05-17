@@ -78,7 +78,7 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
         relativePosition: RelativePosition.below,
       ),
       color: ZupColors.white,
-      menuPadding: const EdgeInsets.all(12),
+      menuPadding: const EdgeInsets.all(11),
       elevation: 0,
       surfaceTintColor: ZupColors.white,
       semanticLabel: "ZupPopupMenuButton",
