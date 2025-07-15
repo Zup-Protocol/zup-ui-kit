@@ -7,13 +7,15 @@ import 'package:zup_ui_kit/buttons/zup_mini_button.dart';
 import '../golden_config.dart';
 
 void main() {
-  Future<DeviceBuilder> goldenBuilder({double? iconSize, Function()? onPressed, String? title, Widget? icon}) async =>
+  Future<DeviceBuilder> goldenBuilder(
+          {double? iconSize, Function()? onPressed, String? title, Widget? icon, bool? isSelected}) async =>
       await goldenDeviceBuilder(
         ZupMiniButton(
           iconSize: iconSize ?? 16,
           icon: icon,
           onPressed: onPressed,
           title: title ?? "Title",
+          isSelected: isSelected,
         ),
       );
 
@@ -51,5 +53,10 @@ void main() {
   zGoldenTest("When setting the icon size, it should be displayed", goldenFileName: "zup_mini_button_with_icon_size",
       (tester) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(iconSize: 50, icon: const Icon(Icons.place)));
+  });
+
+  zGoldenTest("When setting the isSelected to true, it should keep the button in the selected state",
+      goldenFileName: "zup_mini_button_selected", (tester) async {
+    await tester.pumpDeviceBuilder(await goldenBuilder(isSelected: true));
   });
 }
