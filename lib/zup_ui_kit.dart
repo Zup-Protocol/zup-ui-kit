@@ -2,11 +2,13 @@ library zup_ui_kit;
 
 export 'buttons/buttons.dart';
 export 'modals/modals.dart';
+export 'zup_checkbox_list_popover.dart';
 export 'zup_circular_loading_indicator.dart';
 export 'zup_colors.dart';
 export 'zup_divider.dart';
 export 'zup_info_state.dart';
 export 'zup_merged_widgets.dart';
+export 'zup_popover.dart';
 export 'zup_selectable_card.dart';
 export 'zup_snack_bar.dart';
 export 'zup_stepped_loading.dart';

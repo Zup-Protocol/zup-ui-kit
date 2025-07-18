@@ -16,6 +16,7 @@ class ZupInfoState extends StatelessWidget {
     this.description,
     this.iconSize = 140,
     this.helpButtonSpacing = 5,
+    this.iconSpacing = 30,
   });
 
   /// The Main icon to be displayed
@@ -41,6 +42,9 @@ class ZupInfoState extends StatelessWidget {
 
   /// The vertical spacing between the text and the help button, defaults to 5
   final double helpButtonSpacing;
+
+  /// The vertical spacing between the icon and the title
+  final double iconSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +78,7 @@ class ZupInfoState extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 30),
+        SizedBox(height: iconSpacing),
         Text(
           title,
           style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: ZupColors.black),
@@ -92,7 +96,7 @@ class ZupInfoState extends StatelessWidget {
             title: helpButtonTitle!,
             fontWeight: FontWeight.w500,
             foregroundColor: Theme.of(context).primaryColor,
-            onPressed: onHelpButtonTap ?? () {},
+            onPressed: onHelpButtonTap != null ? (buttonContext) => onHelpButtonTap!() : null,
             backgroundColor: Colors.transparent,
             hoverElevation: 0,
             icon: helpButtonIcon,

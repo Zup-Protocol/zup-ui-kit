@@ -61,7 +61,7 @@ class ZupPrimaryButton extends StatefulWidget {
   final MainAxisSize mainAxisSize;
 
   /// The function to be called when the button is pressed. If null, the button will be in inactive state
-  final Function()? onPressed;
+  final Function(BuildContext buttonContext)? onPressed;
 
   /// Whether the button text & icon should be in the center of the button. Defaults to false
   final bool alignCenter;
@@ -120,7 +120,7 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
             borderRadius: BorderRadius.circular(12),
             side: widget.border ?? BorderSide.none,
           ),
-          onPressed: widget.onPressed,
+          onPressed: widget.onPressed != null ? () => widget.onPressed!(context) : null,
           hoverElevation: widget.hoverElevation,
           elevation: 0,
           child: SizedBox(

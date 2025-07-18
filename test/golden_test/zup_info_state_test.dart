@@ -17,9 +17,11 @@ void main() {
     String? description,
     double iconSize = 140,
     double helpButtonSpacing = 5,
+    double iconSpacing = 30,
   }) async =>
       await goldenDeviceBuilder(
         ZupInfoState(
+          iconSpacing: iconSpacing,
           icon: icon,
           title: title,
           helpButtonTitle: helpButtonTitle,
@@ -87,4 +89,12 @@ void main() {
 
     expect(tapped, true);
   });
+
+  zGoldenTest(
+    "When passing a icon spacing, it should be applied between the icon and the title",
+    goldenFileName: "zup_info_state_custom_icon_spacing",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder(iconSpacing: 400));
+    },
+  );
 }

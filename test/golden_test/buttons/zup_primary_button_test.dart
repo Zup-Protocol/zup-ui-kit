@@ -18,7 +18,7 @@ void main() {
     FontWeight? fontWeight,
     String? title,
     double height = 50,
-    required dynamic Function()? onPressed,
+    required dynamic Function(BuildContext buttonContext)? onPressed,
     EdgeInsets padding = const EdgeInsets.all(20),
     MainAxisSize mainAxisSize = MainAxisSize.min,
     bool isTrailingIcon = false,
@@ -43,7 +43,7 @@ void main() {
       );
 
   zGoldenTest("Zup Primary Button Default", goldenFileName: "zup_primary_button_default", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (buttonContext) {}));
   });
 
   zGoldenTest("When the `onPressed` is null, the button should be inactive",
@@ -54,7 +54,7 @@ void main() {
   zGoldenTest("When clicking the button, the `onPressed` callback should be called", (tester) async {
     bool pressed = false;
 
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () => pressed = true));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (buttonContext) => pressed = true));
     await tester.tap(find.byType(ZupPrimaryButton));
     await tester.pumpAndSettle();
 
@@ -63,28 +63,29 @@ void main() {
 
   zGoldenTest("When setting a custom background color, the button color should change",
       goldenFileName: "zup_primary_button_custom_background_color", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, backgroundColor: Colors.pink));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (buttonContext) {}, backgroundColor: Colors.pink));
   });
 
   zGoldenTest("When setting a custom foreground color, the button text color should change",
       goldenFileName: "zup_primary_button_custom_foreground_color", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, foregroundColor: Colors.pink));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (buttonContext) {}, foregroundColor: Colors.pink));
   });
 
   zGoldenTest("When setting a custom icon, the icon should change", goldenFileName: "zup_primary_button_custom_icon",
       (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, icon: const Icon(Icons.add), fixedIcon: true));
+    await tester.pumpDeviceBuilder(
+        await goldenBuilder(onPressed: (buttonContext) {}, icon: const Icon(Icons.add), fixedIcon: true));
   });
 
   zGoldenTest("When setting a custom border, the border should change",
       goldenFileName: "zup_primary_button_custom_border", (tester) async {
     await tester.pumpDeviceBuilder(
-        await goldenBuilder(onPressed: () {}, border: const BorderSide(width: 5, color: Colors.pink)));
+        await goldenBuilder(onPressed: (buttonContext) {}, border: const BorderSide(width: 5, color: Colors.pink)));
   });
 
   zGoldenTest("When setting a custom hover elevation, the hover elevation should change",
       goldenFileName: "zup_primary_button_custom_hover_elevation", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, hoverElevation: 5));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (buttonContext) {}, hoverElevation: 5));
 
     await tester.hover(find.byType(ZupPrimaryButton));
     await tester.pumpAndSettle();
@@ -93,18 +94,18 @@ void main() {
   zGoldenTest("When setting a custom font weight, the font weight should change",
       goldenFileName: "zup_primary_button_custom_font_weight", (tester) async {
     const fontWeight = FontWeight.w900;
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, fontWeight: fontWeight));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (buttonContext) {}, fontWeight: fontWeight));
   });
 
   zGoldenTest("When setting a custom main axis size, the main axis size should change",
       goldenFileName: "zup_primary_button_custom_main_axis_size", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, mainAxisSize: MainAxisSize.max));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (buttonContext) {}, mainAxisSize: MainAxisSize.max));
   });
 
   zGoldenTest("When hovering the button, the icon should appear and the button should elevate",
       goldenFileName: "zup_primary_button_hover", (tester) async {
     await tester.pumpDeviceBuilder(
-      await goldenBuilder(onPressed: () {}, icon: const Icon(Icons.add), fixedIcon: false),
+      await goldenBuilder(onPressed: (buttonContext) {}, icon: const Icon(Icons.add), fixedIcon: false),
     );
 
     await tester.hover(find.byType(ZupPrimaryButton));
@@ -114,7 +115,7 @@ void main() {
   zGoldenTest("When setting a custom padding, it should change the button padding",
       goldenFileName: "zup_primary_button_custom_padding", (tester) async {
     await tester.pumpDeviceBuilder(
-      await goldenBuilder(onPressed: () {}, padding: const EdgeInsets.all(1), height: 20),
+      await goldenBuilder(onPressed: (buttonContext) {}, padding: const EdgeInsets.all(1), height: 20),
     );
   });
 
@@ -122,7 +123,7 @@ void main() {
     "When the param isLoading is true, the button should show a loading indicator",
     goldenFileName: "zup_primary_button_loading",
     (tester) async {
-      await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () {}, isLoading: true));
+      await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (buttonContext) {}, isLoading: true));
     },
   );
 
@@ -131,7 +132,7 @@ void main() {
       goldenFileName: "zup_primary_button_trailing_icon", (tester) async {
     await tester.pumpDeviceBuilder(
       await goldenBuilder(
-        onPressed: () {},
+        onPressed: (buttonContext) {},
         isTrailingIcon: true,
         fixedIcon: true,
         icon: const Icon(Icons.add),
@@ -144,7 +145,7 @@ void main() {
       goldenFileName: "zup_primary_button_trailing_icon_hover", (tester) async {
     await tester.pumpDeviceBuilder(
       await goldenBuilder(
-        onPressed: () {},
+        onPressed: (buttonContext) {},
         isTrailingIcon: true,
         fixedIcon: true,
         icon: const Icon(Icons.add),
@@ -158,7 +159,7 @@ void main() {
   zGoldenTest("When loading and 'isTrailing' is true, the loading icon should be trailing",
       goldenFileName: "zup_primary_button_loading_trailing", (tester) async {
     await tester.pumpDeviceBuilder(
-      await goldenBuilder(onPressed: () {}, isLoading: true, isTrailingIcon: true),
+      await goldenBuilder(onPressed: (buttonContext) {}, isLoading: true, isTrailingIcon: true),
     );
   });
 }

@@ -12,23 +12,23 @@ void main() {
             color: Colors.yellow,
             child: TextButton(
               onPressed: () {
-                ZupDropdown.show(
-                  offset: offset,
-                  showBelowContext: context,
+                ZupPopover.show(
+                  adjustment: offset,
+                  showBasedOnContext: context,
                   child: Container(
                     color: Colors.green,
-                    child: const Text("Dropdown CHild"),
+                    child: const Text("popover CHild"),
                   ),
                 );
               },
-              child: const Text("Show dropdown"),
+              child: const Text("Show popover"),
             ),
           );
         }),
       ));
 
-  zGoldenTest("When callling .show in the zup dropdown, it should be displayed below the button",
-      goldenFileName: "zup_dropdown", (tester) async {
+  zGoldenTest("When callling .show in the zup popover, it should be displayed below the button",
+      goldenFileName: "zup_popover", (tester) async {
     await tester.pumpDeviceBuilder(await goldenBuilder());
 
     await tester.tap(find.byType(TextButton));
@@ -36,8 +36,8 @@ void main() {
   });
 
   zGoldenTest(
-    "When passing an offset, it should adjust the dropdown position by the offset passed",
-    goldenFileName: "zup_dropdown_custom_offset",
+    "When passing an offset, it should adjust the popover position by the offset passed",
+    goldenFileName: "zup_popover_custom_offset",
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(offset: const Offset(50, 100)));
 
