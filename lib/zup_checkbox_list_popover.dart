@@ -189,7 +189,7 @@ class _ZupCheckboxListPopoverState extends State<ZupCheckboxListPopover> {
                       ? Assets.icons.checkmark.svg(package: "zup_ui_kit")
                       : Assets.icons.xmark.svg(package: "zup_ui_kit"),
                   iconSize: 10,
-                  onPressed: () => batchUpdateValue(isAllUnchecked),
+                  onPressed: (_) => batchUpdateValue(isAllUnchecked),
                   title: isAllUnchecked
                       ? widget.allSelectionButtonText!.selectAll
                       : widget.allSelectionButtonText!.clearAll,

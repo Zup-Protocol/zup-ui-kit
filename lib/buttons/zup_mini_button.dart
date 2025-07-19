@@ -23,7 +23,7 @@ class ZupMiniButton extends StatefulWidget {
   final double iconSize;
 
   /// the function to be called when the button is pressed
-  final void Function()? onPressed;
+  final void Function(BuildContext buttonContext)? onPressed;
 
   /// whether to keep the button in selected state
   final bool? isSelected;
@@ -69,7 +69,7 @@ class _ZupMiniButtonState extends State<ZupMiniButton> with DeviceInfoMixin {
         hoverElevation: 0,
         focusElevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        onPressed: widget.onPressed,
+        onPressed: isActive ? () => widget.onPressed!(context) : null,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

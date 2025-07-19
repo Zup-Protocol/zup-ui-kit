@@ -13,7 +13,7 @@ void main() {
         ZupMiniButton(
           iconSize: iconSize ?? 16,
           icon: icon,
-          onPressed: onPressed,
+          onPressed: onPressed != null ? (_) => onPressed() : null,
           title: title ?? "Title",
           isSelected: isSelected,
         ),
