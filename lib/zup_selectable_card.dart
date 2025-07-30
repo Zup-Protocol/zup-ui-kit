@@ -10,6 +10,8 @@ class ZupSelectableCard extends StatefulWidget {
     this.padding = const EdgeInsets.all(20),
     this.onPressed,
     this.selectionAnimationDuration = const Duration(milliseconds: 200),
+    this.boxShadow,
+    this.onHoverChanged,
     this.width,
   });
 
@@ -26,11 +28,19 @@ class ZupSelectableCard extends StatefulWidget {
   /// The function that will be called when the card is pressed
   final Function()? onPressed;
 
+  /// A callback that will be called when the card is hovered in or out
+  /// with the value of the hovered state (true for hovered, false for not hovered)
+  final Function(bool value)? onHoverChanged;
+
   /// The duration of the card selection animation, defaults to 200ms
   final Duration selectionAnimationDuration;
 
   /// Gives a fixed width to the card, defaults to null, so it will adapt to the content width
   final double? width;
+
+  /// Add a custom shadow to the card. In case of null, the default shadow will be used.
+  /// If you wish to remove the default shadow, you can pass an empty list
+  final List<BoxShadow>? boxShadow;
 
   @override
   State<ZupSelectableCard> createState() => _ZupSelectableCardState();
@@ -45,7 +55,10 @@ class _ZupSelectableCardState extends State<ZupSelectableCard> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => widget.onPressed?.call(),
-      onHover: (value) => setState(() => isHovering = value),
+      onHover: (value) {
+        setState(() => isHovering = value);
+        widget.onHoverChanged?.call(value);
+      },
       borderRadius: BorderRadius.circular(borderRadius),
       child: AnimatedContainer(
         padding: widget.padding,
@@ -53,17 +66,21 @@ class _ZupSelectableCardState extends State<ZupSelectableCard> {
         duration: widget.selectionAnimationDuration,
         decoration: BoxDecoration(
           color: widget.isSelected ? ZupColors.brand7 : ZupColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: (isHovering) ? ZupColors.brand6 : ZupColors.gray6,
-              blurRadius: 10,
-              offset: const Offset(5, 5),
-            ),
-          ],
+          boxShadow:
+              widget.boxShadow ??
+              [
+                BoxShadow(
+                  color: (isHovering) ? ZupColors.brand6 : ZupColors.gray6,
+                  blurRadius: 10,
+                  offset: const Offset(5, 5),
+                ),
+              ],
           border: Border.all(
             strokeAlign: 1,
             width: (widget.isSelected || isHovering) ? 1.5 : 0.5,
-            color: (widget.isSelected || isHovering) ? Theme.of(context).primaryColor : ZupColors.gray5,
+            color: (widget.isSelected || isHovering)
+                ? Theme.of(context).primaryColor.withValues(alpha: 0.5)
+                : ZupColors.gray5,
           ),
           borderRadius: BorderRadius.circular(borderRadius),
         ),

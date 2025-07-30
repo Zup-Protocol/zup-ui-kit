@@ -1,7 +1,9 @@
 library zup_ui_kit;
 
 export 'buttons/buttons.dart';
+export 'extensions/widget_extension.dart';
 export 'modals/modals.dart';
+export 'zup_animated_hover.dart';
 export 'zup_checkbox_list_popover.dart';
 export 'zup_circular_loading_indicator.dart';
 export 'zup_colors.dart';

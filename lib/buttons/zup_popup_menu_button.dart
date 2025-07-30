@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/src/gen/assets.gen.dart';
 import 'package:zup_ui_kit/src/pop_up_menu_item_wrapper.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
@@ -71,12 +70,17 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
   late final Stream<int> _selectedItemIndexStream = _selectedItemIndexStreamController.stream;
 
   void _showMenu() {
+    final renderBox = context.findRenderObject() as RenderBox?;
+    final offset = renderBox!.localToGlobal(const Offset(0, 10));
+
+    final left = offset.dx;
+    final top = offset.dy + renderBox.size.height;
+    final right = left;
+
     showMenu(
       context: context,
-      position: context.relativeRect(
-        adjustOffsetBy: const Offset(0, 5),
-        relativePosition: RelativePosition.below,
-      ),
+      useRootNavigator: true,
+      position: RelativeRect.fromLTRB(left, top, right, 0.0),
       color: ZupColors.white,
       menuPadding: const EdgeInsets.all(11),
       elevation: 0,
@@ -100,48 +104,51 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
                 onTap: () => _updateSelectedIndex(index),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
-                  child: Row(
-                    children: [
-                      if (widget.items[index].icon != null)
-                        Badge(
-                          label: Assets.icons.checkmarkCircleFill.svg(
-                            package: "zup_ui_kit",
-                            colorFilter: ColorFilter.mode(Theme.of(context).primaryColor, BlendMode.srcIn),
-                          ),
-                          alignment: Alignment.bottomRight,
-                          backgroundColor: Colors.transparent,
-                          isLabelVisible: snapshot.data == index,
-                          offset: const Offset(0, -15),
-                          child: Container(
-                            height: 30,
-                            width: 30,
-                            padding: const EdgeInsets.all(2),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(6),
-                              border: Border.all(color: ZupColors.gray5),
+                  child:
+                      Row(
+                        children: [
+                          if (widget.items[index].icon != null)
+                            Badge(
+                              label: Assets.icons.checkmarkCircleFill.svg(
+                                package: "zup_ui_kit",
+                                colorFilter: ColorFilter.mode(Theme.of(context).primaryColor, BlendMode.srcIn),
+                              ),
+                              alignment: Alignment.bottomRight,
+                              backgroundColor: Colors.transparent,
+                              isLabelVisible: snapshot.data == index,
+                              offset: const Offset(0, -15),
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                padding: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6),
+                                  border: Border.all(color: ZupColors.gray5),
+                                ),
+                                child: widget.items[index].icon!,
+                              ),
                             ),
-                            child: widget.items[index].icon!,
+                          const SizedBox(width: 10),
+                          Text(
+                            widget.items[index].title,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: snapshot.data == index ? FontWeight.w600 : FontWeight.w500,
+                              color: snapshot.data == index ? Theme.of(context).primaryColor : ZupColors.black,
+                            ),
                           ),
-                        ),
-                      const SizedBox(width: 10),
-                      Text(
-                        widget.items[index].title,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: snapshot.data == index ? FontWeight.w600 : FontWeight.w500,
-                          color: snapshot.data == index ? Theme.of(context).primaryColor : ZupColors.black,
-                        ),
+                        ],
+                      ).animate(
+                        effects: [
+                          SlideEffect(
+                            delay: Duration(milliseconds: 100 * (index ~/ 2)),
+                            duration: const Duration(milliseconds: 300),
+                            begin: const Offset(0, -5),
+                            end: Offset.zero,
+                            curve: Curves.easeOutBack,
+                          ),
+                        ],
                       ),
-                    ],
-                  ).animate(effects: [
-                    SlideEffect(
-                      delay: Duration(milliseconds: 100 * (index ~/ 2)),
-                      duration: const Duration(milliseconds: 300),
-                      begin: const Offset(0, -5),
-                      end: Offset.zero,
-                      curve: Curves.easeOutBack,
-                    ),
-                  ]),
                 ),
               );
             },
@@ -192,10 +199,7 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
                   SizedBox(
                     height: 30,
                     width: 30,
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: widget.items[snapshot.data!].icon,
-                    ),
+                    child: FittedBox(fit: BoxFit.contain, child: widget.items[snapshot.data!].icon),
                   ),
                 const SizedBox(width: 5),
                 if (!widget.compact) ...[

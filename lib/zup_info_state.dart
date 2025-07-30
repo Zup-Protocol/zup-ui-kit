@@ -71,10 +71,7 @@ class ZupInfoState extends StatelessWidget {
             SizedBox(
               height: iconSize,
               width: iconSize,
-              child: FittedBox(
-                fit: BoxFit.contain,
-                child: icon,
-              ),
+              child: FittedBox(fit: BoxFit.contain, child: icon),
             ),
           ],
         ),
@@ -100,7 +97,7 @@ class ZupInfoState extends StatelessWidget {
             backgroundColor: Colors.transparent,
             hoverElevation: 0,
             icon: helpButtonIcon,
-          )
+          ),
       ],
     );
   }

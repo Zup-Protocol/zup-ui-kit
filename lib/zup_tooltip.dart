@@ -5,22 +5,54 @@ class ZupTooltip extends StatefulWidget {
   /// Create a tooltip that displays a message when hovering its child
   ///
   /// Useful for displaying information on hover
-  const ZupTooltip({
+  const ZupTooltip._({
     super.key,
     required this.child,
-    required this.message,
+    required this.padding,
+    this.message,
     this.leadingIcon,
+    this.tooltipChild,
     this.trailingIcon,
     this.helperButtonOnPressed,
     this.helperButtonTitle,
-    this.maxWidth = 300,
+    this.constraints = const BoxConstraints(maxWidth: 300),
   });
+
+  factory ZupTooltip.text({
+    Key? key,
+    required Widget child,
+    required String message,
+    Widget? leadingIcon,
+    Widget? trailingIcon,
+    dynamic Function()? helperButtonOnPressed,
+    String? helperButtonTitle,
+    BoxConstraints constraints = const BoxConstraints(maxWidth: 300),
+  }) => ZupTooltip._(
+    key: key,
+    padding: 8,
+    leadingIcon: leadingIcon,
+    trailingIcon: trailingIcon,
+    message: message,
+    constraints: constraints,
+    helperButtonOnPressed: helperButtonOnPressed,
+    helperButtonTitle: helperButtonTitle,
+    child: child,
+  );
+
+  factory ZupTooltip.widget({
+    Key? key,
+    required Widget child,
+    required Widget tooltipChild,
+    BoxConstraints constraints = const BoxConstraints(maxWidth: 300),
+  }) => ZupTooltip._(key: key, padding: 0, tooltipChild: tooltipChild, constraints: constraints, child: child);
 
   /// Child that will show the tooltip once hovered
   final Widget child;
 
   /// Message to display once the tooltip is being shown
-  final String message;
+  final String? message;
+
+  final Widget? tooltipChild;
 
   /// Optional leading icon to show with the message
   final Widget? leadingIcon;
@@ -39,7 +71,9 @@ class ZupTooltip extends StatefulWidget {
   final Function()? helperButtonOnPressed;
 
   /// The maximum width of the tooltip box when the message is being shown, defaults to 300
-  final double maxWidth;
+  final BoxConstraints constraints;
+
+  final double padding;
 
   @override
   State<ZupTooltip> createState() => _ZupTooltipState();
@@ -52,60 +86,65 @@ class _ZupTooltipState extends State<ZupTooltip> {
   Widget build(BuildContext context) {
     return Tooltip(
       triggerMode: TooltipTriggerMode.tap,
-      richMessage: TextSpan(children: [
-        WidgetSpan(
+      richMessage: TextSpan(
+        children: [
+          WidgetSpan(
             child: ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: widget.maxWidth),
-          child: Text.rich(TextSpan(style: const TextStyle(color: ZupColors.gray, fontSize: 14), children: [
-            if (widget.leadingIcon != null)
-              WidgetSpan(
-                  child: Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: FittedBox(child: widget.leadingIcon!),
-                ),
-              )),
-            TextSpan(text: widget.message),
-            if (widget.trailingIcon != null)
-              WidgetSpan(
-                  child: Padding(
-                padding: const EdgeInsets.only(left: 5),
-                child: SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: FittedBox(child: widget.trailingIcon!),
-                ),
-              )),
-            if (widget.helperButtonTitle != null)
-              WidgetSpan(
-                  child: MouseRegion(
-                key: const Key("helper-button-tooltip"),
-                cursor: SystemMouseCursors.click,
-                onEnter: (event) => setState(() => isHoveringHelperButton = true),
-                onExit: (event) => setState(() => isHoveringHelperButton = false),
-                child: GestureDetector(
-                  onTap: () {
-                    widget.helperButtonOnPressed?.call();
-                    setState(() => isHoveringHelperButton = false);
-                  },
-                  child: SizedBox(
-                    height: 18,
-                    child: Text(
-                      widget.helperButtonTitle ?? "",
-                      style: TextStyle(
-                        color: isHoveringHelperButton ? ZupColors.black : Theme.of(context).primaryColor,
-                        fontSize: 14,
-                      ),
+              constraints: widget.constraints,
+              child:
+                  widget.tooltipChild ??
+                  Text.rich(
+                    TextSpan(
+                      style: const TextStyle(color: ZupColors.gray, fontSize: 14),
+                      children: [
+                        if (widget.leadingIcon != null)
+                          WidgetSpan(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: SizedBox(width: 16, height: 16, child: FittedBox(child: widget.leadingIcon!)),
+                            ),
+                          ),
+                        TextSpan(text: widget.message),
+                        if (widget.trailingIcon != null)
+                          WidgetSpan(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 5),
+                              child: SizedBox(width: 16, height: 16, child: FittedBox(child: widget.trailingIcon!)),
+                            ),
+                          ),
+                        if (widget.helperButtonTitle != null)
+                          WidgetSpan(
+                            child: MouseRegion(
+                              key: const Key("helper-button-tooltip"),
+                              cursor: SystemMouseCursors.click,
+                              onEnter: (event) => setState(() => isHoveringHelperButton = true),
+                              onExit: (event) => setState(() => isHoveringHelperButton = false),
+                              child: GestureDetector(
+                                onTap: () {
+                                  widget.helperButtonOnPressed?.call();
+                                  setState(() => isHoveringHelperButton = false);
+                                },
+                                child: SizedBox(
+                                  height: 18,
+                                  child: Text(
+                                    widget.helperButtonTitle ?? "",
+                                    style: TextStyle(
+                                      color: isHoveringHelperButton ? ZupColors.black : Theme.of(context).primaryColor,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
-                ),
-              )),
-          ])),
-        ))
-      ]),
-      padding: const EdgeInsets.all(8),
+            ),
+          ),
+        ],
+      ),
+      padding: EdgeInsets.all(widget.padding),
       decoration: BoxDecoration(
         color: ZupColors.white,
         borderRadius: BorderRadius.circular(8),

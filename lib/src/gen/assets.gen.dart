@@ -44,7 +44,7 @@ class $AssetsIconsGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
 }
