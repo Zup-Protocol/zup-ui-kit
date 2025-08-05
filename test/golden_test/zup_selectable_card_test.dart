@@ -13,13 +13,11 @@ void main() {
     EdgeInsetsGeometry? padding,
     Function()? onPressed,
     Function(bool value)? onHover,
-    List<BoxShadow>? boxShadow,
   }) async => await goldenDeviceBuilder(
     ZupSelectableCard(
       isSelected: isSelected,
       padding: padding ?? const EdgeInsets.all(20),
       onPressed: onPressed,
-      boxShadow: boxShadow,
       onHoverChanged: onHover,
       child: Text(title),
     ),
@@ -51,7 +49,7 @@ void main() {
     bool pressed = false;
     await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () => pressed = true));
 
-    await tester.tap(find.byType(ZupSelectableCard));
+    await tester.tap(find.byType(ZupSelectableCard).first.first);
     await tester.pumpAndSettle();
 
     expect(pressed, true);
@@ -62,7 +60,7 @@ void main() {
   ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(title: "Hovered"));
 
-    await tester.hover(find.byType(ZupSelectableCard));
+    await tester.hover(find.byType(ZupSelectableCard).first);
     await tester.pumpAndSettle();
   });
 
@@ -71,7 +69,7 @@ void main() {
 
     await tester.pumpDeviceBuilder(await goldenBuilder(title: "HOVER ME!", onHover: (value) => callbacked = value));
 
-    await tester.hover(find.byType(ZupSelectableCard));
+    await tester.hover(find.byType(ZupSelectableCard).first);
     await tester.pumpAndSettle();
 
     expect(callbacked, true);
@@ -82,21 +80,11 @@ void main() {
 
     await tester.pumpDeviceBuilder(await goldenBuilder(title: "UNHOVER ME!", onHover: (value) => isHovering = value));
 
-    final hoverGesture = await tester.hover(find.byType(ZupSelectableCard));
+    final hoverGesture = await tester.hover(find.byType(ZupSelectableCard).first);
     await tester.pumpAndSettle();
     await tester.unHover(hoverGesture);
     await tester.pumpAndSettle();
 
     expect(isHovering, false);
   });
-
-  zGoldenTest(
-    "When passing a list of box shadows, it should be applied",
-    goldenFileName: "zup_selectable_card_box_shadows",
-    (tester) async {
-      await tester.pumpDeviceBuilder(
-        await goldenBuilder(boxShadow: [const BoxShadow(color: Colors.green, blurRadius: 10, spreadRadius: 10)]),
-      );
-    },
-  );
 }

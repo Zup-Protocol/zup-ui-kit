@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
 
-abstract class ZupColors {
+class ZupColors {
   static const Color brand = Color(0xFF7357FF);
   static const Color brand5 = Color(0xFFD5CFFF);
   static const Color brand6 = Color(0xFFDED7FF);
   static const Color brand7 = Color(0xFFF0ECFF);
-  static const Color tertiary = Color(0x12787880);
   static const Color black = Color(0xFF000000);
-  static const Color black5 = Color.fromARGB(255, 64, 64, 64);
+  static const Color black2 = Color(0xff161616);
+  static const Color black3 = Color(0xff1C1C1E);
+  static const Color black4 = Color(0xFF3A3A3C);
+  static const Color black5 = Color(0xFF48484A);
+  static const Color black6 = Color(0xFF5A5A5C);
   static const Color white = Color(0xFFFFFFFF);
   static const Color gray = Color(0xFF8E8E93);
-  static const Color gray4 = Color(0xFFD1D1D6);
+  static const Color gray2 = Color(0xFFA5A5AA);
+  static const Color gray3 = Color(0xFFC7C7CC);
+  static const Color gray4 = Color(0xFFD4D4DA);
   static const Color gray5 = Color(0xFFE5E5EA);
   static const Color gray6 = Color(0xFFF7F7FC);
   static const Color red = Color(0xFFFF3B30);
+  static const Color red2 = Color(0xFFFF453A);
+  static const Color red3 = Color(0xFFFF605C);
+  static const Color red4 = Color(0xFFFF9F9D);
   static const Color red5 = Color(0xfffddcda);
   static const Color red6 = Color(0xffFFEDEC);
   static const Color green = Color(0xFF34C759);
+  static const Color green2 = Color(0xFF50C76E);
+  static const Color green3 = Color(0xFF6CD98B);
+  static const Color green4 = Color(0xFF91D6AB);
   static const Color green5 = Color(0xffEBF2ED);
   static const Color blue = Color(0xFF007AFF);
   static const Color orange = Color(0xFFFF9500);
+  static const Color orange2 = Color(0xffFFA526);
+  static const Color orange3 = Color(0xffFFB74D);
+  static const Color orange4 = Color(0xffFFC46D);
   static const Color orange5 = Color(0xFFFFE5C0);
   static const Color orange6 = Color(0xFFFFF2E0);
 }

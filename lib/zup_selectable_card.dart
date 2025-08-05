@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_core/zup_core.dart';
+import 'package:zup_ui_kit/zup_theme_colors.dart';
 
 class ZupSelectableCard extends StatefulWidget {
   /// Show a selectable card from the Zup UI Kit.
@@ -10,7 +11,6 @@ class ZupSelectableCard extends StatefulWidget {
     this.padding = const EdgeInsets.all(20),
     this.onPressed,
     this.selectionAnimationDuration = const Duration(milliseconds: 200),
-    this.boxShadow,
     this.onHoverChanged,
     this.width,
   });
@@ -38,10 +38,6 @@ class ZupSelectableCard extends StatefulWidget {
   /// Gives a fixed width to the card, defaults to null, so it will adapt to the content width
   final double? width;
 
-  /// Add a custom shadow to the card. In case of null, the default shadow will be used.
-  /// If you wish to remove the default shadow, you can pass an empty list
-  final List<BoxShadow>? boxShadow;
-
   @override
   State<ZupSelectableCard> createState() => _ZupSelectableCardState();
 }
@@ -53,38 +49,36 @@ class _ZupSelectableCardState extends State<ZupSelectableCard> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => widget.onPressed?.call(),
-      onHover: (value) {
-        setState(() => isHovering = value);
-        widget.onHoverChanged?.call(value);
-      },
+    return Material(
       borderRadius: BorderRadius.circular(borderRadius),
-      child: AnimatedContainer(
-        padding: widget.padding,
-        width: widget.width,
-        duration: widget.selectionAnimationDuration,
-        decoration: BoxDecoration(
-          color: widget.isSelected ? ZupColors.brand7 : ZupColors.white,
-          boxShadow:
-              widget.boxShadow ??
-              [
-                BoxShadow(
-                  color: (isHovering) ? ZupColors.brand6 : ZupColors.gray6,
-                  blurRadius: 10,
-                  offset: const Offset(5, 5),
-                ),
-              ],
-          border: Border.all(
-            strokeAlign: 1,
-            width: (widget.isSelected || isHovering) ? 1.5 : 0.5,
-            color: (widget.isSelected || isHovering)
-                ? Theme.of(context).primaryColor.withValues(alpha: 0.5)
-                : ZupColors.gray5,
+      color: widget.isSelected
+          ? Theme.of(context).primaryColor.withValues(alpha: 0.1)
+          : ZupThemeColors.backgroundSurface.themed(context.brightness),
+      child: InkWell(
+        onTap: () => widget.onPressed?.call(),
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
+        highlightColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        onHover: (value) {
+          setState(() => isHovering = value);
+          widget.onHoverChanged?.call(value);
+        },
+        child: AnimatedContainer(
+          padding: widget.padding,
+          width: widget.width,
+          duration: widget.selectionAnimationDuration,
+          decoration: BoxDecoration(
+            border: Border.all(
+              strokeAlign: 1,
+              width: (widget.isSelected || isHovering) ? 1.5 : 0.5,
+              color: (widget.isSelected || isHovering)
+                  ? Theme.of(context).primaryColor.withValues(alpha: 0.5)
+                  : ZupThemeColors.borderOnBackground.themed(context.brightness),
+            ),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
-          borderRadius: BorderRadius.circular(borderRadius),
+          child: widget.child,
         ),
-        child: widget.child,
       ),
     );
   }

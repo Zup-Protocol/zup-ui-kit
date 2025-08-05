@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:zup_ui_kit/buttons/zup_icon_button.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/src/gen/assets.gen.dart';
-import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_ui_kit/zup_ui_kit.dart';
 
 /// The type of the [ZupSnackBar] to be displayed. Based on each type it will change its color and icon
 enum ZupSnackBarType { error, success, info }
 
 extension _ZupSnackBarTypeExtension on ZupSnackBarType {
-  Color get color => [
-        ZupColors.red5,
-        ZupColors.brand7,
-        ZupColors.gray5,
-      ][index];
+  Color color(BuildContext context) {
+    if (context.brightness.isDark) return ZupColors.black2;
 
-  Color get textColor => [
-        ZupColors.red,
-        ZupColors.brand,
-        ZupColors.black5,
-      ][index];
+    return [ZupColors.red5, Theme.of(context).primaryColor.lighter(0.9), ZupColors.gray5][index];
+  }
+
+  Color textColor(BuildContext context) => [
+    ZupThemeColors.error.themed(context.brightness),
+    context.brightness.isDark ? Theme.of(context).primaryColor.lighter(0.5) : Theme.of(context).primaryColor,
+    context.brightness.isDark ? ZupColors.gray3 : ZupColors.black5,
+  ][index];
 
   Widget get icon => [
-        Assets.icons.exclamationmarkTriangle.svg(package: "zup_ui_kit"),
-        Assets.icons.checkmark.svg(package: "zup_ui_kit"),
-        Assets.icons.infoCircle.svg(package: "zup_ui_kit"),
-      ][index];
+    Assets.icons.exclamationmarkTriangle.svg(package: "zup_ui_kit"),
+    Assets.icons.checkmark.svg(package: "zup_ui_kit"),
+    Assets.icons.infoCircle.svg(package: "zup_ui_kit"),
+  ][index];
 
-  Curve get animationCurve => [
-        Curves.fastOutSlowIn,
-        Curves.fastEaseInToSlowEaseOut,
-        Curves.fastEaseInToSlowEaseOut,
-      ][index];
+  Curve get animationCurve =>
+      [Curves.fastOutSlowIn, Curves.fastEaseInToSlowEaseOut, Curves.fastEaseInToSlowEaseOut][index];
 }
 
 class ZupSnackBar extends SnackBar {
@@ -98,56 +95,53 @@ class ZupSnackBar extends SnackBar {
 
   @override
   Widget get content => ExcludeSemantics(
-        child: Center(
-          child: Container(
+    child: Center(
+      child:
+          Container(
             width: maxWidth,
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: type.color,
-              borderRadius: BorderRadius.circular(12),
-            ),
+            decoration: BoxDecoration(color: type.color(context), borderRadius: BorderRadius.circular(12)),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [
                 ColorFiltered(
-                  colorFilter: ColorFilter.mode(type.textColor, BlendMode.srcATop),
+                  colorFilter: ColorFilter.mode(type.textColor(context), BlendMode.srcATop),
                   child: customIcon ?? type.icon,
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
+                const SizedBox(width: 10),
                 Expanded(
                   child: Text.rich(
                     TextSpan(
                       children: [
                         TextSpan(
                           text: message,
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: type.textColor),
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, color: type.textColor(context)),
                         ),
                         if (helperButton != null)
                           WidgetSpan(
-                              child: MouseRegion(
-                            key: const Key("helper-button-snack-bar"),
-                            cursor: SystemMouseCursors.click,
-                            child: InkWell(
-                              onTap: () => helperButton!.onButtonTap(),
-                              child: IgnorePointer(
-                                child: SizedBox(
-                                  height: 19,
-                                  child: Text(
-                                    helperButton!.title,
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: type.textColor,
-                                      color: type.textColor,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 14,
+                            child: MouseRegion(
+                              key: const Key("helper-button-snack-bar"),
+                              cursor: SystemMouseCursors.click,
+                              child: InkWell(
+                                onTap: () => helperButton!.onButtonTap(),
+                                child: IgnorePointer(
+                                  child: SizedBox(
+                                    height: 19,
+                                    child: Text(
+                                      helperButton!.title,
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: type.textColor(context),
+                                        color: type.textColor(context),
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 14,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                             ),
-                          ))
+                          ),
                       ],
                     ),
                   ),
@@ -156,13 +150,13 @@ class ZupSnackBar extends SnackBar {
                   const SizedBox(width: 20),
                   ZupIconButton(
                     key: const Key("close-snack-bar"),
-                    backgroundColor: type.textColor.withValues(alpha: 0.1),
-                    iconColor: type.textColor,
+                    backgroundColor: type.textColor(context).withValues(alpha: 0.1),
+                    iconColor: type.textColor(context),
                     padding: const EdgeInsets.all(6),
                     icon: const Icon(Icons.close, size: 16),
                     onPressed: (_) => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
                   ),
-                ]
+                ],
               ],
             ),
           ).animate(
@@ -180,9 +174,9 @@ class ZupSnackBar extends SnackBar {
                   offset: const Offset(3, 0),
                   duration: const Duration(milliseconds: 300),
                   delay: Duration(milliseconds: animationDuration - 200),
-                )
+                ),
             ],
           ),
-        ),
-      );
+    ),
+  );
 }

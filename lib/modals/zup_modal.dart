@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zup_ui_kit/buttons/buttons.dart';
-import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_core/zup_core.dart';
+import 'package:zup_ui_kit/zup_ui_kit.dart';
 
 /// Show a modal for the user.
 ///
@@ -69,15 +69,17 @@ class ZupModal extends StatelessWidget {
         isScrollControlled: true,
         constraints: BoxConstraints(maxHeight: size.height),
         backgroundColor: Colors.transparent,
+
         builder: (context) => ZupModal(
-            isBottomSheet: true,
-            dismissible: dismissible,
-            size: size,
-            title: title,
-            backgroundColor: backgroundColor,
-            description: description,
-            padding: padding,
-            child: content),
+          isBottomSheet: true,
+          dismissible: dismissible,
+          size: size,
+          title: title,
+          backgroundColor: backgroundColor,
+          description: description,
+          padding: padding,
+          child: content,
+        ),
       );
     }
 
@@ -85,13 +87,11 @@ class ZupModal extends StatelessWidget {
       context: context,
       barrierDismissible: dismissible,
       barrierLabel: "zup-modal",
+      barrierColor: ZupColors.black.withValues(alpha: context.brightness.isDark ? 0.8 : 0.5),
       transitionDuration: const Duration(milliseconds: 300),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return ScaleTransition(
-          scale: CurvedAnimation(
-            parent: animation,
-            curve: Curves.decelerate,
-          ),
+          scale: CurvedAnimation(parent: animation, curve: Curves.decelerate),
           child: animation.value > 0.6 ? child : null,
         );
       },
@@ -120,7 +120,7 @@ class ZupModal extends StatelessWidget {
             topLeft: isBottomSheet ? const Radius.circular(20) : null,
             topRight: isBottomSheet ? const Radius.circular(20) : null,
           ),
-          color: backgroundColor ?? Colors.white,
+          color: backgroundColor ?? ZupThemeColors.background.themed(context.brightness),
         ),
         height: size.height,
         width: isBottomSheet ? double.maxFinite : size.width,
@@ -144,10 +144,10 @@ class ZupModal extends StatelessWidget {
                               children: [
                                 Text(
                                   title!,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 17,
                                     fontWeight: FontWeight.w600,
-                                    color: ZupColors.black,
+                                    color: ZupThemeColors.primaryText.themed(context.brightness),
                                   ),
                                 ),
                                 if (description != null)
@@ -170,16 +170,14 @@ class ZupModal extends StatelessWidget {
                               onPressed: Navigator.of(context).pop,
                             ),
                           ),
-                        ]
+                        ],
                       ],
                     ),
                   ),
                   const SizedBox(height: 10),
                   Expanded(
-                      child: Padding(
-                    padding: padding ?? EdgeInsets.zero,
-                    child: child,
-                  )),
+                    child: Padding(padding: padding ?? EdgeInsets.zero, child: child),
+                  ),
                 ],
               ),
             ),

@@ -13,170 +13,214 @@ void main() {
     bool closeOnSelection = true,
     Function(int index)? onSelected,
     bool isCompact = false,
-  }) =>
-      goldenDeviceBuilder(
-        ZupPopupMenuButton(
-          compact: isCompact,
-          initialSelectedIndex: initialSelectedIndex,
-          buttonHeight: buttonHeight,
-          items: items ??
-              [
-                ZupPopupMenuItem(title: "Title"),
-              ],
-          onSelected: onSelected ?? (index) {},
-          closeOnSelection: closeOnSelection,
-        ),
-      );
+  }) => goldenDeviceBuilder(
+    ZupPopupMenuButton(
+      compact: isCompact,
+      initialSelectedIndex: initialSelectedIndex,
+      buttonHeight: buttonHeight,
+      items: items ?? [ZupPopupMenuItem(title: "Title")],
+      onSelected: onSelected ?? (index) {},
+      closeOnSelection: closeOnSelection,
+    ),
+  );
 
   zGoldenTest("Zup Popup Button Default", goldenFileName: "zup_popup_menu_button", (tester) async {
     return tester.pumpDeviceBuilder(await goldenBuilder());
   });
 
-  zGoldenTest("When setting the height param, it should change the button height",
-      goldenFileName: "zup_popup_menu_button_height_changed", (tester) async {
-    return tester.pumpDeviceBuilder(await goldenBuilder(buttonHeight: 100));
-  });
-
-  zGoldenTest("When setting the initial selected index, it should show the item in the button",
-      goldenFileName: "zup_popup_menu_button_initial_selected_index", (tester) async {
-    const selectedItemTitle = "Title 2";
-
-    await tester.pumpDeviceBuilder(await goldenBuilder(initialSelectedIndex: 1, items: [
-      ZupPopupMenuItem(title: "Title 1"),
-      ZupPopupMenuItem(title: selectedItemTitle),
-    ]));
-
-    expect(find.text(selectedItemTitle), findsOneWidget);
-  });
+  zGoldenTest(
+    "When setting the height param, it should change the button height",
+    goldenFileName: "zup_popup_menu_button_height_changed",
+    (tester) async {
+      return tester.pumpDeviceBuilder(await goldenBuilder(buttonHeight: 100));
+    },
+  );
 
   zGoldenTest(
-      "When setting the initial selected index, and open the menu, it should show the item selected in the menu",
-      goldenFileName: "zup_popup_menu_button_initial_selected_index_menu_open", (tester) async {
-    const selectedItemTitle = "Title 2";
+    "When setting the initial selected index, it should show the item in the button",
+    goldenFileName: "zup_popup_menu_button_initial_selected_index",
+    (tester) async {
+      const selectedItemTitle = "Title 2";
 
-    await tester.pumpDeviceBuilder(await goldenBuilder(initialSelectedIndex: 1, items: [
-      ZupPopupMenuItem(title: "Title 1"),
-      ZupPopupMenuItem(title: selectedItemTitle),
-    ]));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          initialSelectedIndex: 1,
+          items: [
+            ZupPopupMenuItem(title: "Title 1"),
+            ZupPopupMenuItem(title: selectedItemTitle),
+          ],
+        ),
+      );
 
-    await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")));
-    await tester.pumpAndSettle();
-  });
-
-  zGoldenTest("When setting the items, and open the menu, it should show all the passed items",
-      goldenFileName: "zup_popup_menu_button_menu_open", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(initialSelectedIndex: 0, items: [
-      ZupPopupMenuItem(title: "Title 1"),
-      ZupPopupMenuItem(title: "Title 2"),
-      ZupPopupMenuItem(title: "Title 3"),
-      ZupPopupMenuItem(title: "Title 4"),
-      ZupPopupMenuItem(title: "Title 5"),
-    ]));
-
-    await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")));
-    await tester.pumpAndSettle();
-  });
+      expect(find.text(selectedItemTitle).first, findsOneWidget);
+    },
+  );
 
   zGoldenTest(
-      "When setting the items with icon, and open the menu, it should show all the passed items and their icons",
-      goldenFileName: "zup_popup_menu_button_menu_open_with_icons", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(initialSelectedIndex: 0, items: [
-      ZupPopupMenuItem(title: "Title 1", icon: const Icon(Icons.abc)),
-      ZupPopupMenuItem(title: "Title 2", icon: const Icon(Icons.ac_unit)),
-      ZupPopupMenuItem(title: "Title 3", icon: const Icon(Icons.one_x_mobiledata)),
-      ZupPopupMenuItem(title: "Title 4", icon: const Icon(Icons.javascript)),
-      ZupPopupMenuItem(title: "Title 5", icon: const Icon(Icons.apple)),
-    ]));
+    "When setting the initial selected index, and open the menu, it should show the item selected in the menu",
+    goldenFileName: "zup_popup_menu_button_initial_selected_index_menu_open",
+    (tester) async {
+      const selectedItemTitle = "Title 2";
 
-    await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")));
-    await tester.pumpAndSettle();
-  });
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          initialSelectedIndex: 1,
+          items: [
+            ZupPopupMenuItem(title: "Title 1"),
+            ZupPopupMenuItem(title: selectedItemTitle),
+          ],
+        ),
+      );
 
-  zGoldenTest("The onSelected callback should be called with the item index when selecting the item in the menu",
-      (tester) async {
+      await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")).first);
+      await tester.pumpAndSettle();
+    },
+  );
+
+  zGoldenTest(
+    "When setting the items, and open the menu, it should show all the passed items",
+    goldenFileName: "zup_popup_menu_button_menu_open",
+    (tester) async {
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          initialSelectedIndex: 0,
+          items: [
+            ZupPopupMenuItem(title: "Title 1"),
+            ZupPopupMenuItem(title: "Title 2"),
+            ZupPopupMenuItem(title: "Title 3"),
+            ZupPopupMenuItem(title: "Title 4"),
+            ZupPopupMenuItem(title: "Title 5"),
+          ],
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")).first);
+      await tester.pumpAndSettle();
+    },
+  );
+
+  zGoldenTest(
+    "When setting the items with icon, and open the menu, it should show all the passed items and their icons",
+    goldenFileName: "zup_popup_menu_button_menu_open_with_icons",
+    (tester) async {
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          initialSelectedIndex: 0,
+          items: [
+            ZupPopupMenuItem(title: "Title 1", icon: const Icon(Icons.abc)),
+            ZupPopupMenuItem(title: "Title 2", icon: const Icon(Icons.ac_unit)),
+            ZupPopupMenuItem(title: "Title 3", icon: const Icon(Icons.one_x_mobiledata)),
+            ZupPopupMenuItem(title: "Title 4", icon: const Icon(Icons.javascript)),
+            ZupPopupMenuItem(title: "Title 5", icon: const Icon(Icons.apple)),
+          ],
+        ),
+      );
+
+      await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")).first);
+      await tester.pumpAndSettle();
+    },
+  );
+
+  zGoldenTest("The onSelected callback should be called with the item index when selecting the item in the menu", (
+    tester,
+  ) async {
     const expectedSelectedItemIndex = 1;
     int? actualSelectedIndex;
 
-    await tester.pumpDeviceBuilder(await goldenBuilder(
-      initialSelectedIndex: 0,
-      items: [
-        ZupPopupMenuItem(title: "Title 1"),
-        ZupPopupMenuItem(title: "Title 2"),
-      ],
-      onSelected: (index) => actualSelectedIndex = index,
-    ));
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(
+        initialSelectedIndex: 0,
+        items: [
+          ZupPopupMenuItem(title: "Title 1"),
+          ZupPopupMenuItem(title: "Title 2"),
+        ],
+        onSelected: (index) => actualSelectedIndex = index,
+      ),
+    );
 
-    await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")));
+    await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")).first);
     await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key("zup-popup-menu-item-$expectedSelectedItemIndex")));
+    await tester.tap(find.byKey(const Key("zup-popup-menu-item-$expectedSelectedItemIndex")).first);
     await tester.pumpAndSettle();
 
     expect(actualSelectedIndex, expectedSelectedItemIndex);
   });
 
-  zGoldenTest("When selecting the item in the menu, it should change the button text",
-      goldenFileName: "zup_popup_menu_button_selection", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(
-      initialSelectedIndex: 0,
-      items: [
-        ZupPopupMenuItem(title: "Title 1"),
-        ZupPopupMenuItem(title: "Title 2"),
-      ],
-    ));
+  zGoldenTest(
+    "When selecting the item in the menu, it should change the button text",
+    goldenFileName: "zup_popup_menu_button_selection",
+    (tester) async {
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          initialSelectedIndex: 0,
+          items: [
+            ZupPopupMenuItem(title: "Title 1"),
+            ZupPopupMenuItem(title: "Title 2"),
+          ],
+        ),
+      );
 
-    await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key("zup-popup-menu-item-1")));
-    await tester.pumpAndSettle();
-  });
+      await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key("zup-popup-menu-item-1")).first);
+      await tester.pumpAndSettle();
+    },
+  );
 
   zGoldenTest(
-      "When selecting the item in the menu, but the param `closeOnSelection` is false, it should not close the menu",
-      goldenFileName: "zup_popup_menu_button_selection_not_close", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(
-      initialSelectedIndex: 0,
-      closeOnSelection: false,
-      items: [
-        ZupPopupMenuItem(title: "Title 1"),
-        ZupPopupMenuItem(title: "Title 2"),
-      ],
-    ));
+    "When selecting the item in the menu, but the param `closeOnSelection` is false, it should not close the menu",
+    goldenFileName: "zup_popup_menu_button_selection_not_close",
+    (tester) async {
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          initialSelectedIndex: 0,
+          closeOnSelection: false,
+          items: [
+            ZupPopupMenuItem(title: "Title 1"),
+            ZupPopupMenuItem(title: "Title 2"),
+          ],
+        ),
+      );
 
-    await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")));
-    await tester.pumpAndSettle();
-    await tester.tap(find.byKey(const Key("zup-popup-menu-item-1")));
-    await tester.pumpAndSettle();
-  });
+      await tester.tap(find.byKey(const Key("zup-pop-up-menu-button")).first);
+      await tester.pumpAndSettle();
+      await tester.tap(find.byKey(const Key("zup-popup-menu-item-1")).first);
+      await tester.pumpAndSettle();
+    },
+  );
 
   zGoldenTest(
     "When `isCompact` param is passed as true, the title should not be displayed in the button, only the icon",
     goldenFileName: "zup_popup_menu_button_compact",
     (tester) async {
-      await tester.pumpDeviceBuilder(await goldenBuilder(
-        initialSelectedIndex: 0,
-        items: [
-          ZupPopupMenuItem(title: "Title 1", icon: const Icon(Icons.abc)),
-          ZupPopupMenuItem(title: "Title 2", icon: const Icon(Icons.ac_unit)),
-        ],
-        isCompact: true,
-      ));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          initialSelectedIndex: 0,
+          items: [
+            ZupPopupMenuItem(title: "Title 1", icon: const Icon(Icons.abc)),
+            ZupPopupMenuItem(title: "Title 2", icon: const Icon(Icons.ac_unit)),
+          ],
+          isCompact: true,
+        ),
+      );
     },
   );
 
-  zGoldenTest(
-    "When `isCompact` param is true, and any of the passed items does not have an icon, it should assert",
-    (tester) async {
-      expect(
-        () async => await tester.pumpDeviceBuilder(await goldenBuilder(
+  zGoldenTest("When `isCompact` param is true, and any of the passed items does not have an icon, it should assert", (
+    tester,
+  ) async {
+    expect(
+      () async => await tester.pumpDeviceBuilder(
+        await goldenBuilder(
           initialSelectedIndex: 0,
           items: [
             ZupPopupMenuItem(title: "Title 1"),
             ZupPopupMenuItem(title: "Title 2", icon: const Icon(Icons.ac_unit)),
           ],
           isCompact: true,
-        )),
-        throwsAssertionError,
-      );
-    },
-  );
+        ),
+      ),
+      throwsAssertionError,
+    );
+  });
 }

@@ -40,7 +40,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder());
 
-      await tester.hover(find.byType(ZupTooltip));
+      await tester.hover(find.byType(ZupTooltip).first);
       await tester.pumpAndSettle();
     },
   );
@@ -51,7 +51,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(leadingIcon: const Icon(Icons.add)));
 
-      await tester.hover(find.byType(ZupTooltip));
+      await tester.hover(find.byType(ZupTooltip).first);
       await tester.pumpAndSettle();
     },
   );
@@ -62,7 +62,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(trailingIcon: const Icon(Icons.add)));
 
-      await tester.hover(find.byType(ZupTooltip));
+      await tester.hover(find.byType(ZupTooltip).first);
       await tester.pumpAndSettle();
     },
   );
@@ -73,7 +73,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(helperButtonTitle: " Helper Button"));
 
-      await tester.hover(find.byType(ZupTooltip));
+      await tester.hover(find.byType(ZupTooltip).first);
       await tester.pumpAndSettle();
     },
   );
@@ -84,10 +84,10 @@ void main() {
       await goldenBuilder(helperButtonOnPressed: () => counter++, helperButtonTitle: " Helper Button"),
     );
 
-    await tester.hover(find.byType(ZupTooltip));
+    await tester.hover(find.byType(ZupTooltip).first);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.byKey(const Key("helper-button-tooltip")));
+    await tester.tap(find.byKey(const Key("helper-button-tooltip")).first);
     await tester.pumpAndSettle();
 
     expect(counter, 1);
@@ -105,7 +105,7 @@ void main() {
         ),
       );
 
-      await tester.hover(find.byType(ZupTooltip));
+      await tester.hover(find.byType(ZupTooltip).first);
       await tester.pumpAndSettle();
     },
   );
@@ -122,7 +122,7 @@ void main() {
         ),
       );
 
-      await tester.hover(find.byType(ZupTooltip));
+      await tester.hover(find.byType(ZupTooltip).first);
       await tester.pumpAndSettle();
     },
   );
@@ -132,7 +132,7 @@ void main() {
   ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder());
 
-    await tester.tap(find.byType(ZupTooltip));
+    await find.byType(ZupTooltip).first;
     await tester.pumpAndSettle();
   });
   zGoldenTest(
@@ -148,7 +148,7 @@ void main() {
 
       await tester.pumpDeviceBuilder(customBuilder);
 
-      await tester.hover(find.byType(ZupTooltip));
+      await tester.hover(find.byType(ZupTooltip).first);
       await tester.pumpAndSettle();
     },
   );

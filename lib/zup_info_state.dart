@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/buttons/buttons.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_ui_kit/zup_theme_colors.dart';
 
 /// Shows an info state to the user. Generally displayed when something is Empty, or an error occurs.
 ///
@@ -78,7 +80,11 @@ class ZupInfoState extends StatelessWidget {
         SizedBox(height: iconSpacing),
         Text(
           title,
-          style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: ZupColors.black),
+          style: TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w600,
+            color: ZupThemeColors.primaryText.themed(context.brightness),
+          ),
         ),
         if (description != null)
           Text(

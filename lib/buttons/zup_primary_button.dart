@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/zup_circular_loading_indicator.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_ui_kit/zup_theme_colors.dart';
 
 /// Show a primary button from the Zup UI Kit.
 class ZupPrimaryButton extends StatefulWidget {
@@ -22,6 +24,7 @@ class ZupPrimaryButton extends StatefulWidget {
     this.alignCenter = false,
     this.width,
     this.isTrailingIcon = false,
+    this.hoverColor,
   });
 
   /// The background color of the button. If null, the color will be derived from the theme, using the primary color
@@ -32,6 +35,8 @@ class ZupPrimaryButton extends StatefulWidget {
 
   /// The foreground color of the button. If null, the default color will be white.
   final Color? foregroundColor;
+
+  final Color? hoverColor;
 
   /// The icon to be displayed in the side of the button. If null, the icon will not be displayed
   final Widget? icon;
@@ -85,12 +90,12 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
   bool get isLoadingOrExpanded => widget.isLoading || shouldExpand;
 
   Widget get buildIcon => ColorFiltered(
-        colorFilter: ColorFilter.mode(
-          widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : disabledForegroundColor,
-          BlendMode.srcIn,
-        ),
-        child: widget.isLoading ? const ZupCircularLoadingIndicator(size: 18) : widget.icon,
-      );
+    colorFilter: ColorFilter.mode(
+      widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : disabledForegroundColor,
+      BlendMode.srcIn,
+    ),
+    child: widget.isLoading ? const ZupCircularLoadingIndicator(size: 18) : widget.icon,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +114,19 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
         height: widget.height,
         width: widget.width,
         child: MaterialButton(
-          disabledColor: ZupColors.gray5,
+          hoverColor:
+              widget.hoverColor ??
+              () {
+                if (widget.backgroundColor != null) {
+                  return context.brightness == Brightness.light
+                      ? widget.backgroundColor?.darker(0.05)
+                      : widget.backgroundColor?.lighter(0.1);
+                }
+
+                return Theme.of(context).primaryColor.lighter(0.1);
+              }(),
+          splashColor: (widget.backgroundColor ?? Theme.of(context).primaryColor).withValues(alpha: 0.5),
+          disabledColor: ZupThemeColors.disabledButtonBackground.themed(context.brightness),
           focusElevation: widget.hoverElevation,
           highlightElevation: 0,
           disabledTextColor: disabledForegroundColor,
@@ -120,6 +137,7 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
             borderRadius: BorderRadius.circular(12),
             side: widget.border ?? BorderSide.none,
           ),
+
           onPressed: widget.onPressed != null ? () => widget.onPressed!(context) : null,
           hoverElevation: widget.hoverElevation,
           elevation: 0,

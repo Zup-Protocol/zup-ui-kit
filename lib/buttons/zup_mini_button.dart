@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_ui_kit/zup_theme_colors.dart';
 
 /// Show a button with a small size from the Zup UI Kit.
 class ZupMiniButton extends StatefulWidget {
-  const ZupMiniButton({
-    super.key,
-    this.icon,
-    required this.title,
-    this.iconSize = 16,
-    this.onPressed,
-    this.isSelected,
-  });
+  const ZupMiniButton({super.key, this.icon, required this.title, this.iconSize = 16, this.onPressed, this.isSelected});
 
   /// the left icon of the button, it will not be displayed if null
   final Widget? icon;
@@ -40,9 +34,13 @@ class _ZupMiniButtonState extends State<ZupMiniButton> with DeviceInfoMixin {
   Color get getForegroundColor {
     if (widget.isSelected ?? false) return Theme.of(context).primaryColor;
 
-    if (isActive) return isHovering ? Theme.of(context).primaryColor : ZupColors.black;
+    if (isActive) {
+      return isHovering
+          ? Theme.of(context).primaryColor.lighter(0.2)
+          : ZupThemeColors.primaryText.themed(context.brightness);
+    }
 
-    return ZupColors.gray4;
+    return ZupThemeColors.disabledText.themed(context.brightness);
   }
 
   @override
@@ -61,10 +59,10 @@ class _ZupMiniButtonState extends State<ZupMiniButton> with DeviceInfoMixin {
       onExit: (event) => setState(() => isHovering = false),
       child: MaterialButton(
         padding: EdgeInsets.symmetric(horizontal: 18, vertical: isMobileDevice ? 12 : 18),
-        color: ZupColors.gray6,
+        color: ZupThemeColors.tertiaryButtonBackground.themed(context.brightness),
         disabledColor: ZupColors.gray6,
-        hoverColor: Theme.of(context).primaryColor.withValues(alpha: 0.05),
-        splashColor: Theme.of(context).primaryColor.withValues(alpha: 0.05),
+        hoverColor: ZupThemeColors.hoverOnTertiaryButton.themed(context.brightness),
+        splashColor: Theme.of(context).primaryColor.withValues(alpha: 0),
         elevation: 0,
         hoverElevation: 0,
         focusElevation: 0,
@@ -80,10 +78,7 @@ class _ZupMiniButtonState extends State<ZupMiniButton> with DeviceInfoMixin {
                 child: Center(
                   child: FittedBox(
                     child: ColorFiltered(
-                      colorFilter: ColorFilter.mode(
-                        getForegroundColor,
-                        BlendMode.srcIn,
-                      ),
+                      colorFilter: ColorFilter.mode(getForegroundColor, BlendMode.srcIn),
                       child: widget.icon,
                     ),
                   ),

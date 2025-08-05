@@ -20,7 +20,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(animationValue: 0.5, type: ZupAnimatedHoverType.opacity));
 
-      await tester.hover(find.byType(ZupAnimatedHover));
+      await tester.hover(find.byType(ZupAnimatedHover).first);
       await tester.pumpAndSettle();
     },
   );
@@ -31,7 +31,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(animationValue: 2, type: ZupAnimatedHoverType.scale));
 
-      await tester.hover(find.byType(ZupAnimatedHover));
+      await tester.hover(find.byType(ZupAnimatedHover).first);
       await tester.pumpAndSettle();
     },
   );
@@ -42,7 +42,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(animationValue: 0.5, type: ZupAnimatedHoverType.scale));
 
-      await tester.hover(find.byType(ZupAnimatedHover));
+      await tester.hover(find.byType(ZupAnimatedHover).first);
       await tester.pumpAndSettle();
     },
   );

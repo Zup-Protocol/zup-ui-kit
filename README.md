@@ -1,8 +1,8 @@
 # Zup UI Kit
 
-Zup UI Kit is a Flutter library containing all the UI components for the [Zup app](https://app.zupprotocol.xyz). Also powering UI Kits for the [web3kit Flutter Package]().
+Zup UI Kit is a Flutter library that makes building beautiful UIs simple and straightforward for any app. Powered by the [Zup Protocol App](https://app.zupprotocol.xyz).
 
-⚠️ This library is intended to be used for Flutter Web!
+⚠️ Please note: this library is still in development and currently only intended for use with Flutter Web.
 
 ## Table of Contents
 
@@ -39,7 +39,30 @@ First of all, you need to install the package, so you can run:
 flutter pub add zup_ui_kit
 ```
 
-It will add the `zup_ui_kit` package to your project, directly under `pubspec.yaml`
+It will add the `zup_ui_kit` package to your project, directly under `pubspec.yaml`.
+
+To ensure proper usage of the package, you should also apply the Zup theme in your MaterialApp:
+
+```dart
+MaterialApp(
+  ...
+  theme: ZupTheme.lightTheme,
+  darkTheme: ZupTheme.darkTheme,
+  ...
+)
+```
+
+If you want to customize the theme, you can use the .copyWith() method to apply your own changes:
+
+```dart
+ZupTheme.lightTheme.copyWith(
+  // ... your changes
+);
+
+ZupTheme.darkTheme.copyWith(
+ //  ... your changes
+);
+```
 
 ## Usage
 
@@ -138,7 +161,8 @@ it has the following parameters:
 /// The main icon to show in the button.
 final Widget icon;
 
-/// The background color of the button. If null, the background color will be derived from ZupColors, using [ZupColors.tertiary] as default.
+/// The background color of the button. If null, the background color will be derived from the theme,
+// using [ZupThemeColors.tertiaryButtonBackground] as default.
 final Color? backgroundColor;
 
 /// The border of the button. If null, the button will not have a border
@@ -256,10 +280,12 @@ ZupPillButton(
 it has the following parameters:
 
 ```dart
-/// The background color of the button, where the text will be placed at. Defaults to [ZupColors.brand7]
+/// The background color of the button, where the text will be placed at.
+/// Defaults to the primary color defined in the theme (lightered or darkened based on the theme mode)
 final Color backgroundColor;
 
-/// The color of the text, and of the icon background in the button (If an icon is provided). Defaults to [ZupColors.brand]
+/// The color of the text, and of the icon background in the button (If an icon is provided). Defaults to primary color
+/// Defined in the theme
 ///
 /// Note that if there's no text in the button, the passed background color will be applied to the icon background instead
 /// of using the passed foreground color, and the foreground color will be applied to the icon itself
@@ -301,10 +327,10 @@ it has the following parameters:
 /// The child to be used in the button, can be a text, icon or any other widget
 final Widget child;
 
-/// The color to be used when the button is not hovered, note that it will be forced in the child. Defaults to [ZupColors.gray4]
+/// The color to be used when the button is not hovered, note that it will be forced in the child. Defaults to [ZupThemeColors.disabledButtonBackground]
 final Color? restColor;
 
-/// The color to be used when the button is hovered, note that it will be forced in the child. Defaults to [ZupColors.black]
+/// The color to be used when the button is hovered, note that it will be forced in the child. Defaults to [ZupThemeColors.primaryText]
 final Color? hoverColor;
 
 /// The function to be called when the button is pressed

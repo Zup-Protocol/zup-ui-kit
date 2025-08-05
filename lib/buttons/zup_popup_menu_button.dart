@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:zup_core/extensions/extensions.dart';
 import 'package:zup_ui_kit/src/gen/assets.gen.dart';
 import 'package:zup_ui_kit/src/pop_up_menu_item_wrapper.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_ui_kit/zup_theme_colors.dart';
 
 /// Item for the [ZupPopupMenuButton]. This item will be shown in the dropdown list.
 class ZupPopupMenuItem {
@@ -81,14 +83,14 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
       context: context,
       useRootNavigator: true,
       position: RelativeRect.fromLTRB(left, top, right, 0.0),
-      color: ZupColors.white,
+      color: ZupThemeColors.backgroundSurface.themed(context.brightness),
       menuPadding: const EdgeInsets.all(11),
       elevation: 0,
       surfaceTintColor: ZupColors.white,
       semanticLabel: "ZupPopupMenuButton",
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
-        side: const BorderSide(color: ZupColors.gray5, width: 1),
+        side: BorderSide(color: ZupThemeColors.borderOnBackground.themed(context.brightness), width: 1),
       ),
       items: List.generate(
         widget.items.length,
@@ -102,6 +104,8 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
               return InkWell(
                 borderRadius: BorderRadius.circular(8),
                 onTap: () => _updateSelectedIndex(index),
+                hoverColor: ZupThemeColors.hoverOnBackgroundSurface.themed(context.brightness),
+                splashColor: ZupThemeColors.splashOnBackgroundSurface.themed(context.brightness),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child:
@@ -123,7 +127,9 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
                                 padding: const EdgeInsets.all(2),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(6),
-                                  border: Border.all(color: ZupColors.gray5),
+                                  border: Border.all(
+                                    color: ZupThemeColors.borderOnBackgroundSurface.themed(context.brightness),
+                                  ),
                                 ),
                                 child: widget.items[index].icon!,
                               ),
@@ -134,7 +140,9 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: snapshot.data == index ? FontWeight.w600 : FontWeight.w500,
-                              color: snapshot.data == index ? Theme.of(context).primaryColor : ZupColors.black,
+                              color: snapshot.data == index
+                                  ? Theme.of(context).primaryColor
+                                  : ZupThemeColors.primaryText.themed(context.brightness),
                             ),
                           ),
                         ],
@@ -182,11 +190,13 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
           height: widget.buttonHeight,
           child: MaterialButton(
             minWidth: widget.compact ? 0 : null,
+            splashColor: ZupThemeColors.splashOnBackgroundSurface.themed(context.brightness),
             key: const Key("zup-pop-up-menu-button"),
-            color: ZupColors.white,
+            color: ZupThemeColors.backgroundSurface.themed(context.brightness),
+            hoverColor: ZupThemeColors.hoverOnBackgroundSurface.themed(context.brightness),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
-              side: const BorderSide(color: ZupColors.gray5),
+              side: BorderSide(color: ZupThemeColors.borderOnBackground.themed(context.brightness)),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 20).copyWith(right: 25),
             elevation: 0,
@@ -203,7 +213,13 @@ class _ZupPopupMenuButtonState extends State<ZupPopupMenuButton> {
                   ),
                 const SizedBox(width: 5),
                 if (!widget.compact) ...[
-                  Text(widget.items[snapshot.data!].title, style: const TextStyle(fontWeight: FontWeight.w600)),
+                  Text(
+                    widget.items[snapshot.data!].title,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: ZupThemeColors.primaryText.themed(context.brightness),
+                    ),
+                  ),
                   const SizedBox(width: 10),
                 ],
                 Assets.icons.chevronUpChevronDown.svg(

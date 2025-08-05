@@ -12,17 +12,16 @@ void main() {
     Color restColor = ZupColors.gray4,
     Color hoverColor = ZupColors.black,
     void Function()? onPressed,
-  }) async =>
-      await goldenDeviceBuilder(
-        Center(
-          child: ZupLightButton(
-            restColor: restColor,
-            hoverColor: hoverColor,
-            onPressed: onPressed ?? () {},
-            child: const Text("Button Child"),
-          ),
-        ),
-      );
+  }) async => await goldenDeviceBuilder(
+    Center(
+      child: ZupLightButton(
+        restColor: restColor,
+        hoverColor: hoverColor,
+        onPressed: onPressed ?? () {},
+        child: const Text("Button Child"),
+      ),
+    ),
+  );
   zGoldenTest(
     "When the button is not hovered, and a rest color is not passed, it should be in the default rest color, which is gray",
     goldenFileName: "zup_light_button_default",
@@ -37,7 +36,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder());
 
-      await tester.hover(find.byType(ZupLightButton));
+      await tester.hover(find.byType(ZupLightButton).first);
       await tester.pumpAndSettle();
     },
   );
@@ -56,7 +55,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(hoverColor: ZupColors.green));
 
-      await tester.hover(find.byType(ZupLightButton));
+      await tester.hover(find.byType(ZupLightButton).first);
       await tester.pumpAndSettle();
     },
   );
@@ -65,7 +64,7 @@ void main() {
     bool callbackCalled = false;
     await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: () => callbackCalled = true));
 
-    await tester.tap(find.byType(ZupLightButton));
+    await tester.tap(find.byType(ZupLightButton).first);
     await tester.pumpAndSettle();
 
     expect(callbackCalled, true);

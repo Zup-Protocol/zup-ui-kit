@@ -6,8 +6,10 @@ import 'package:zup_ui_kit/zup_ui_kit.dart';
 import '../golden_config.dart';
 
 void main() {
-  Future<DeviceBuilder> goldenBuilder({Offset? offset}) async => await goldenDeviceBuilder(Center(
-        child: Builder(builder: (context) {
+  Future<DeviceBuilder> goldenBuilder({Offset? offset}) async => await goldenDeviceBuilder(
+    Center(
+      child: Builder(
+        builder: (context) {
           return Container(
             color: Colors.yellow,
             child: TextButton(
@@ -15,25 +17,27 @@ void main() {
                 ZupPopover.show(
                   adjustment: offset,
                   showBasedOnContext: context,
-                  child: Container(
-                    color: Colors.green,
-                    child: const Text("popover CHild"),
-                  ),
+                  child: Container(color: Colors.green, child: const Text("popover CHild")),
                 );
               },
               child: const Text("Show popover"),
             ),
           );
-        }),
-      ));
+        },
+      ),
+    ),
+  );
 
-  zGoldenTest("When callling .show in the zup popover, it should be displayed below the button",
-      goldenFileName: "zup_popover", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder());
+  zGoldenTest(
+    "When callling .show in the zup popover, it should be displayed below the button",
+    goldenFileName: "zup_popover",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder());
 
-    await tester.tap(find.byType(TextButton));
-    await tester.pumpAndSettle();
-  });
+      await tester.tap(find.byType(TextButton).first.first);
+      await tester.pumpAndSettle();
+    },
+  );
 
   zGoldenTest(
     "When passing an offset, it should adjust the popover position by the offset passed",
@@ -41,7 +45,7 @@ void main() {
     (tester) async {
       await tester.pumpDeviceBuilder(await goldenBuilder(offset: const Offset(50, 100)));
 
-      await tester.tap(find.byType(TextButton));
+      await tester.tap(find.byType(TextButton).first.first);
       await tester.pumpAndSettle();
     },
   );

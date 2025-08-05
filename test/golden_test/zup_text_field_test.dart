@@ -6,7 +6,11 @@ import 'package:zup_ui_kit/zup_text_field.dart';
 import '../golden_config.dart';
 
 void main() {
-  Future<DeviceBuilder> goldenBuilder({String? hintText, Function(String)? onChanged}) async {
+  Future<DeviceBuilder> goldenBuilder({
+    String? hintText,
+    Function(String)? onChanged,
+    bool snapshotDarkMode = true,
+  }) async {
     await loadAppFonts();
 
     return await goldenDeviceBuilder(
@@ -14,6 +18,7 @@ void main() {
         width: 200,
         child: ZupTextField(hintText: hintText, onChanged: onChanged),
       ),
+      snapshotDarkMode: snapshotDarkMode,
     );
   }
 
@@ -21,8 +26,9 @@ void main() {
     await tester.pumpDeviceBuilder(await goldenBuilder());
   });
 
-  zGoldenTest("When setting the hint text, it should be displayed", goldenFileName: "zup_text_field_with_hint_text",
-      (tester) async {
+  zGoldenTest("When setting the hint text, it should be displayed", goldenFileName: "zup_text_field_with_hint_text", (
+    tester,
+  ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(hintText: "Hint Text"));
   });
 
@@ -30,7 +36,7 @@ void main() {
     String typedText = "";
     String expectedTypedText = "TestQUERY";
 
-    await tester.pumpDeviceBuilder(await goldenBuilder(onChanged: (text) => typedText = text));
+    await tester.pumpDeviceBuilder(await goldenBuilder(onChanged: (text) => typedText = text, snapshotDarkMode: false));
     await tester.enterText(find.byType(ZupTextField), expectedTypedText);
     await tester.pumpAndSettle();
 

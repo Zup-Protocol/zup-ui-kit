@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_ui_kit/zup_theme_colors.dart';
 
 /// Creates a switch widget from the Zup UI Kit.
 class ZupSwitch extends StatelessWidget {
@@ -25,28 +27,31 @@ class ZupSwitch extends StatelessWidget {
           value: value,
           onChanged: onChanged,
           trackOutlineWidth: const WidgetStatePropertyAll(0),
-          trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
-          activeTrackColor: ZupColors.brand,
-          inactiveThumbColor: ZupColors.brand,
+          trackOutlineColor: WidgetStatePropertyAll(
+            value ? Colors.transparent : ZupThemeColors.borderOnBackground.themed(context.brightness),
+          ),
+          activeTrackColor: Theme.of(context).primaryColor,
+          inactiveThumbColor: Theme.of(context).primaryColor,
           inactiveTrackColor: ZupColors.gray5,
-          thumbColor: WidgetStateProperty.resolveWith(
-            (states) {
-              if (states.contains(WidgetState.disabled)) {
-                return ZupColors.gray4;
-              }
+          hoverColor: context.brightness.isLight
+              ? ZupColors.black.withValues(alpha: 0.05)
+              : ZupColors.white.withValues(alpha: 0.05),
+          thumbColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return ZupColors.gray4;
+            }
 
-              return value ? ZupColors.white : ZupColors.brand;
-            },
-          ),
-          trackColor: WidgetStateProperty.resolveWith(
-            (states) {
-              if (states.contains(WidgetState.disabled)) {
-                return ZupColors.gray5;
-              }
+            return value ? ZupColors.white : Theme.of(context).primaryColor;
+          }),
+          trackColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.disabled)) {
+              return ZupColors.gray5;
+            }
 
-              return value ? ZupColors.brand : ZupColors.gray5;
-            },
-          ),
+            return value
+                ? Theme.of(context).primaryColor
+                : ZupThemeColors.tertiaryButtonBackground.themed(context.brightness);
+          }),
           padding: const EdgeInsets.all(0),
         ),
       ),

@@ -66,13 +66,17 @@ class _ZupTextButtonState extends State<ZupTextButton> {
                 curve: Curves.easeOutBack,
                 scale: isHovering ? 1.2 : 1,
                 child: ColorFiltered(
-                    colorFilter: ColorFilter.mode(
-                      foregroundColor,
-                      widget.applyColorsToIcon ? BlendMode.srcIn : BlendMode.dst,
-                    ),
-                    child: widget.icon),
+                  colorFilter: ColorFilter.mode(
+                    foregroundColor,
+                    widget.applyColorsToIcon ? BlendMode.srcIn : BlendMode.dst,
+                  ),
+                  child: widget.icon,
+                ),
               ),
-        label: Text(widget.label, style: TextStyle(color: foregroundColor, fontSize: 17, fontWeight: FontWeight.w500)),
+        label: Text(
+          widget.label,
+          style: TextStyle(color: foregroundColor, fontSize: 17, fontWeight: FontWeight.w500),
+        ),
       ),
     );
   }

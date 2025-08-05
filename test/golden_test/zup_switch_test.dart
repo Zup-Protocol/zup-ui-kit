@@ -6,24 +6,23 @@ import 'package:zup_ui_kit/zup_switch.dart';
 import '../golden_config.dart';
 
 void main() {
-  Future<DeviceBuilder> goldenBuilder(
-          {bool value = true, double size = 40, required void Function(bool)? onChanged}) async =>
-      await goldenDeviceBuilder(
-        Center(
-          child: ZupSwitch(
-            value: value,
-            onChanged: onChanged,
-            size: size,
-          ),
-        ),
-      );
+  Future<DeviceBuilder> goldenBuilder({
+    bool value = true,
+    double size = 40,
+    required void Function(bool)? onChanged,
+  }) async => await goldenDeviceBuilder(
+    Center(
+      child: ZupSwitch(value: value, onChanged: onChanged, size: size),
+    ),
+  );
 
   zGoldenTest("Zup switch default", goldenFileName: "zup_switch", (tester) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(onChanged: (_) {}));
   });
 
-  zGoldenTest("When passing value false to the switch, it should be in off state", goldenFileName: "zup_switch_off",
-      (tester) async {
+  zGoldenTest("When passing value false to the switch, it should be in off state", goldenFileName: "zup_switch_off", (
+    tester,
+  ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(value: false, onChanged: (_) {}));
   });
 
@@ -31,14 +30,15 @@ void main() {
     bool callbackCalled = false;
 
     await tester.pumpDeviceBuilder(await goldenBuilder(onChanged: (_) => callbackCalled = true));
-    await tester.tap(find.byType(ZupSwitch));
+    await tester.tap(find.byType(ZupSwitch).first.first.first);
     await tester.pumpAndSettle();
 
     expect(callbackCalled, true);
   });
 
-  zGoldenTest("When passing size 80 to the switch, it should be 80x80", goldenFileName: "zup_switch_size_80",
-      (tester) async {
+  zGoldenTest("When passing size 80 to the switch, it should be 80x80", goldenFileName: "zup_switch_size_80", (
+    tester,
+  ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(size: 80, onChanged: (_) {}));
   });
 

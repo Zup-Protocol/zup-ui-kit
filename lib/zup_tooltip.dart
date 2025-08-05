@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/zup_colors.dart';
+import 'package:zup_ui_kit/zup_theme_colors.dart';
 
 class ZupTooltip extends StatefulWidget {
   /// Create a tooltip that displays a message when hovering its child
@@ -129,7 +131,9 @@ class _ZupTooltipState extends State<ZupTooltip> {
                                   child: Text(
                                     widget.helperButtonTitle ?? "",
                                     style: TextStyle(
-                                      color: isHoveringHelperButton ? ZupColors.black : Theme.of(context).primaryColor,
+                                      color: isHoveringHelperButton
+                                          ? ZupThemeColors.primaryText.themed(context.brightness)
+                                          : Theme.of(context).primaryColor,
                                       fontSize: 14,
                                     ),
                                   ),
@@ -146,9 +150,9 @@ class _ZupTooltipState extends State<ZupTooltip> {
       ),
       padding: EdgeInsets.all(widget.padding),
       decoration: BoxDecoration(
-        color: ZupColors.white,
+        color: ZupThemeColors.backgroundSurface.themed(context.brightness),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: ZupColors.gray4, width: 1),
+        border: Border.all(color: ZupThemeColors.borderOnBackgroundSurface.themed(context.brightness), width: 1),
       ),
       child: widget.child,
     );

@@ -13,25 +13,24 @@ void main() {
     Color? backgroundColor,
     Color? foregroundColor,
     Function(BuildContext buttonContext)? onPressed,
-  }) async =>
-      await goldenDeviceBuilder(Center(
-          child: ZupPillButton(
+  }) async => await goldenDeviceBuilder(
+    Center(
+      child: ZupPillButton(
         onPressed: onPressed ?? (buttonContext) {},
         title: title,
         icon: icon,
         backgroundColor: backgroundColor ?? ZupColors.brand7,
         foregroundColor: foregroundColor ?? ZupColors.brand,
-      )));
-
-  zGoldenTest(
-    "When not passing either icon and title to the button, it should assert",
-    (tester) async {
-      expect(
-        () async => await tester.pumpDeviceBuilder(await goldenBuilder(icon: null, title: null)),
-        throwsAssertionError,
-      );
-    },
+      ),
+    ),
   );
+
+  zGoldenTest("When not passing either icon and title to the button, it should assert", (tester) async {
+    expect(
+      () async => await tester.pumpDeviceBuilder(await goldenBuilder(icon: null, title: null)),
+      throwsAssertionError,
+    );
+  });
 
   zGoldenTest(
     """When passing only an icon to the button,
@@ -59,70 +58,66 @@ void main() {
     goldenFileName: "zup_pill_button_only_title_with_background_color",
     (tester) async {
       await tester.pumpDeviceBuilder(
-        await goldenBuilder(
-          icon: null,
-          backgroundColor: Colors.blue,
-          foregroundColor: Colors.white,
-          title: "Title",
-        ),
+        await goldenBuilder(icon: null, backgroundColor: Colors.blue, foregroundColor: Colors.white, title: "Title"),
       );
     },
   );
 
-  zGoldenTest(
-    "When it's passed only an icon to the button, when pressing the button, it should callback",
-    (tester) async {
-      bool hasBeenCalled = false;
+  zGoldenTest("When it's passed only an icon to the button, when pressing the button, it should callback", (
+    tester,
+  ) async {
+    bool hasBeenCalled = false;
 
-      await tester.pumpDeviceBuilder(await goldenBuilder(
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(
         icon: const Icon(Icons.add),
         onPressed: (buttonContext) {
           hasBeenCalled = true;
         },
-      ));
-      await tester.tap(find.byType(ZupPillButton));
-      await tester.pumpAndSettle();
+      ),
+    );
 
-      expect(hasBeenCalled, true);
-    },
-  );
+    await tester.tap(find.byType(ZupPillButton).first);
 
-  zGoldenTest(
-    "When it's passed only a title to the button, when pressing the button, it should callback",
-    (tester) async {
-      bool hasBeenCalled = false;
+    await tester.pumpAndSettle();
 
-      await tester.pumpDeviceBuilder(await goldenBuilder(
+    expect(hasBeenCalled, true);
+  });
+
+  zGoldenTest("When it's passed only a title to the button, when pressing the button, it should callback", (
+    tester,
+  ) async {
+    bool hasBeenCalled = false;
+
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(
         title: "dale",
         onPressed: (buttonContext) {
           hasBeenCalled = true;
         },
-      ));
-      await tester.tap(find.byType(ZupPillButton));
-      await tester.pumpAndSettle();
+      ),
+    );
+    await tester.tap(find.byType(ZupPillButton).first);
+    await tester.pumpAndSettle();
 
-      expect(hasBeenCalled, true);
-    },
-  );
+    expect(hasBeenCalled, true);
+  });
 
-  zGoldenTest(
-    "The context passed in the onPressed function should be the button context",
-    (tester) async {
-      BuildContext? receivedButtonContext;
+  zGoldenTest("The context passed in the onPressed function should be the button context", (tester) async {
+    BuildContext? receivedButtonContext;
 
-      await tester.pumpDeviceBuilder(await goldenBuilder(
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(
         title: "dale",
         onPressed: (buttonContext) {
           receivedButtonContext = buttonContext;
         },
-      ));
-      await tester.tap(find.byType(ZupPillButton));
-      await tester.pumpAndSettle();
+      ),
+    );
 
-      expect(
-        receivedButtonContext!.widget,
-        find.byType(ZupPillButton).first.evaluate().first.widget,
-      );
-    },
-  );
+    await tester.tap(find.byType(ZupPillButton).first);
+    await tester.pumpAndSettle();
+
+    expect(receivedButtonContext!.widget, find.byType(ZupPillButton).first.evaluate().first.widget);
+  });
 }

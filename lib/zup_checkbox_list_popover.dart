@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zup_core/zup_core.dart';
 import 'package:zup_ui_kit/src/gen/assets.gen.dart';
 import 'package:zup_ui_kit/zup_ui_kit.dart';
 
@@ -18,13 +19,7 @@ class ZupCheckboxItem {
 
   /// Whether the item should start as checked or unchecked
   bool isChecked;
-  ZupCheckboxItem({
-    required this.title,
-    required this.isChecked,
-    this.id,
-    this.isDisabled = false,
-    this.icon,
-  });
+  ZupCheckboxItem({required this.title, required this.isChecked, this.id, this.isDisabled = false, this.icon});
 }
 
 /// The [ZupCheckboxListPopover] can mainly be used to filter a list of items, where the user will be able to enable or disable
@@ -94,18 +89,17 @@ class ZupCheckboxListPopover extends StatefulWidget {
     String? searchHintText,
     required List<ZupCheckboxItem> items,
     required Function(List<ZupCheckboxItem> items) onValueChanged,
-  }) =>
-      ZupPopover.show(
-        showBasedOnContext: showBasedOnContext,
-        adjustment: positionAdjustment,
-        child: ZupCheckboxListPopover(
-          items: items,
-          onValueChanged: onValueChanged,
-          allSelectionButtonText: allSelectionButtonText,
-          searchHintText: searchHintText,
-          searchNotFoundStateText: searchNotFoundStateText,
-        ),
-      );
+  }) => ZupPopover.show(
+    showBasedOnContext: showBasedOnContext,
+    adjustment: positionAdjustment,
+    child: ZupCheckboxListPopover(
+      items: items,
+      onValueChanged: onValueChanged,
+      allSelectionButtonText: allSelectionButtonText,
+      searchHintText: searchHintText,
+      searchNotFoundStateText: searchNotFoundStateText,
+    ),
+  );
 
   @override
   State<ZupCheckboxListPopover> createState() => _ZupCheckboxListPopoverState();
@@ -146,58 +140,61 @@ class _ZupCheckboxListPopoverState extends State<ZupCheckboxListPopover> {
       width: 230,
       height: 280,
       decoration: BoxDecoration(
-        color: ZupColors.white,
+        color: ZupThemeColors.background.themed(context.brightness),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: ZupColors.gray5,
-        ),
+        border: Border.all(color: ZupThemeColors.borderOnBackground.themed(context.brightness), width: 1),
       ),
-      child: CustomScrollView(
-        physics: const ClampingScrollPhysics(),
-        slivers: [
-          SliverAppBar(
-            floating: true,
-            titleSpacing: 10,
-            backgroundColor: Colors.transparent,
-            surfaceTintColor: Colors.transparent,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
+      child: ScrollbarTheme(
+        data: ScrollbarThemeData(
+          mainAxisMargin: 10,
+          crossAxisMargin: 3,
+          thickness: const WidgetStatePropertyAll(5),
+          thumbVisibility: const WidgetStatePropertyAll(true),
+          thumbColor: WidgetStatePropertyAll(context.brightness.isDark ? ZupColors.black4 : ZupColors.gray5),
+        ),
+        child: CustomScrollView(
+          physics: const ClampingScrollPhysics(),
+          slivers: [
+            SliverAppBar(
+              floating: true,
+              titleSpacing: 10,
+              backgroundColor: Colors.transparent,
+              surfaceTintColor: Colors.transparent,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(topLeft: Radius.circular(12), topRight: Radius.circular(12)),
               ),
-            ),
-            leading: const SizedBox.shrink(),
-            leadingWidth: 0,
-            actionsPadding: const EdgeInsets.all(0),
-            centerTitle: true,
-            title: Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: ZupTextField(
-                key: const Key("zup-checkbox-list-popover-search-field"),
-                onChanged: (query) => updateSearch(query),
-                hintText: widget.searchHintText,
-              ),
-            ),
-          ),
-          if (!isSearching && widget.allSelectionButtonText != null)
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8).copyWith(bottom: 0),
-                child: ZupMiniButton(
-                  key: const Key('zup-checkbox-list-popover-all-selection-button'),
-                  icon: isAllUnchecked
-                      ? Assets.icons.checkmark.svg(package: "zup_ui_kit")
-                      : Assets.icons.xmark.svg(package: "zup_ui_kit"),
-                  iconSize: 10,
-                  onPressed: (_) => batchUpdateValue(isAllUnchecked),
-                  title: isAllUnchecked
-                      ? widget.allSelectionButtonText!.selectAll
-                      : widget.allSelectionButtonText!.clearAll,
+              leading: const SizedBox.shrink(),
+              leadingWidth: 0,
+              actionsPadding: const EdgeInsets.all(0),
+              centerTitle: true,
+              title: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: ZupTextField(
+                  key: const Key("zup-checkbox-list-popover-search-field"),
+                  onChanged: (query) => updateSearch(query),
+                  hintText: widget.searchHintText,
                 ),
               ),
             ),
-          if ((isSearching && searchableList.isEmpty) && widget.searchNotFoundStateText != null) ...[
-            SliverPadding(
+            if (!isSearching && widget.allSelectionButtonText != null)
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8).copyWith(bottom: 0),
+                  child: ZupMiniButton(
+                    key: const Key('zup-checkbox-list-popover-all-selection-button'),
+                    icon: isAllUnchecked
+                        ? Assets.icons.checkmark.svg(package: "zup_ui_kit")
+                        : Assets.icons.xmark.svg(package: "zup_ui_kit"),
+                    iconSize: 10,
+                    onPressed: (_) => batchUpdateValue(isAllUnchecked),
+                    title: isAllUnchecked
+                        ? widget.allSelectionButtonText!.selectAll
+                        : widget.allSelectionButtonText!.clearAll,
+                  ),
+                ),
+              ),
+            if ((isSearching && searchableList.isEmpty) && widget.searchNotFoundStateText != null) ...[
+              SliverPadding(
                 padding: const EdgeInsetsGeometry.all(10),
                 sliver: SliverFillRemaining(
                   child: Center(
@@ -206,79 +203,88 @@ class _ZupCheckboxListPopoverState extends State<ZupCheckboxListPopover> {
                       iconSpacing: 16,
                       icon: Assets.icons.xmark.svg(
                         package: "zup_ui_kit",
-                        colorFilter: const ColorFilter.mode(ZupColors.red, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(ZupThemeColors.error.themed(context.brightness), BlendMode.srcIn),
                       ),
                       title: widget.searchNotFoundStateText!.title,
                       description: widget.searchNotFoundStateText?.description,
                     ),
                   ),
-                )),
-          ] else ...[
-            SliverPadding(
-              padding: const EdgeInsetsGeometry.only(top: 10, bottom: 10),
-              sliver: SliverList.builder(
-                itemCount: searchableList.length,
-                itemBuilder: (context, index) => Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: CheckboxListTile(
-                        key: Key("checkbox-item-$index"),
-                        dense: true,
-                        side: const BorderSide(width: 0, color: Colors.transparent),
-                        contentPadding: const EdgeInsets.all(8),
-                        checkboxShape: ContinuousRectangleBorder(
-                          borderRadius: BorderRadiusGeometry.circular(12),
-                          side: const BorderSide(width: 10),
+                ),
+              ),
+            ] else ...[
+              SliverPadding(
+                padding: const EdgeInsetsGeometry.only(top: 10, bottom: 10),
+                sliver: SliverList.builder(
+                  itemCount: searchableList.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                          splashColor: Colors.transparent,
+                          hoverColor: ZupThemeColors.hoverOnBackground.themed(context.brightness),
                         ),
-                        fillColor: WidgetStateProperty.resolveWith(
-                          (states) {
-                            if (states.contains(WidgetState.selected)) {
-                              return Theme.of(context).primaryColor;
-                            }
-
-                            if (states.contains(WidgetState.disabled)) {
-                              return ZupColors.gray6;
-                            }
-
-                            return ZupColors.gray5;
-                          },
-                        ),
-                        checkboxScaleFactor: 1.1,
-                        overlayColor: const WidgetStatePropertyAll(Colors.transparent),
-                        enabled: !searchableList[index].isDisabled,
-                        value: searchableList[index].isChecked,
-                        checkColor: ZupColors.white,
-                        onChanged: (value) => updateItemValue(value!, searchableList[index]),
-                        title: Row(
-                          children: [
-                            if (searchableList[index].icon != null)
-                              ConstrainedBox(
-                                constraints: const BoxConstraints(maxWidth: 20, maxHeight: 20),
-                                child: FittedBox(
-                                  child: searchableList[index].icon!,
-                                ),
-                              ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Text(
-                                searchableList[index].title,
-                                style: const TextStyle(fontSize: 14),
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: CheckboxListTile(
+                            key: Key("checkbox-item-$index"),
+                            dense: true,
+                            side: const BorderSide(width: 0, color: Colors.transparent),
+                            contentPadding: const EdgeInsets.all(8),
+                            checkboxShape: ContinuousRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(12),
+                              side: const BorderSide(width: 10),
                             ),
-                          ],
+                            fillColor: WidgetStateProperty.resolveWith((states) {
+                              if (states.contains(WidgetState.selected)) {
+                                return Theme.of(context).primaryColor;
+                              }
+
+                              if (states.contains(WidgetState.disabled)) {
+                                return ZupColors.gray6;
+                              }
+
+                              return ZupThemeColors.disabledText.themed(context.brightness);
+                            }),
+                            checkboxScaleFactor: 1.1,
+                            overlayColor: const WidgetStatePropertyAll(Colors.transparent),
+                            enabled: !searchableList[index].isDisabled,
+                            value: searchableList[index].isChecked,
+                            checkColor: ZupColors.white,
+                            onChanged: (value) => updateItemValue(value!, searchableList[index]),
+                            title: Row(
+                              children: [
+                                if (searchableList[index].icon != null)
+                                  ConstrainedBox(
+                                    constraints: const BoxConstraints(maxWidth: 20, maxHeight: 20),
+                                    child: FittedBox(child: searchableList[index].icon!),
+                                  ),
+                                const SizedBox(width: 10),
+                                Expanded(
+                                  child: Text(
+                                    searchableList[index].title,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: searchableList[index].isDisabled
+                                          ? ZupThemeColors.disabledText.themed(context.brightness)
+                                          : ZupThemeColors.primaryText.themed(context.brightness),
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
               ),
-            )
-          ]
-        ],
+            ],
+          ],
+        ),
       ),
     );
   }

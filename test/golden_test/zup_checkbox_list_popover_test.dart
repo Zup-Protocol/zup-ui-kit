@@ -13,41 +13,47 @@ void main() {
     Offset? positionAdjustment,
     ({String? description, String title})? searchNotFoundStateText,
     ({String clearAll, String selectAll})? allSelectionButtonText,
-  }) async =>
-      await goldenDeviceBuilder(
-        Builder(
-          builder: (context) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              ZupCheckboxListPopover.show(
-                context,
-                allSelectionButtonText: allSelectionButtonText,
-                positionAdjustment: positionAdjustment,
-                searchNotFoundStateText: searchNotFoundStateText,
-                searchHintText: searchHintText,
-                items: items ??
-                    [
-                      ZupCheckboxItem(title: 'Item 1', isChecked: true),
-                      ZupCheckboxItem(title: 'Item 2', isChecked: true),
-                      ZupCheckboxItem(title: 'Item 3', isChecked: true),
-                    ],
-                onValueChanged: onValueChanged ?? (items) {},
-              );
-            });
+    bool snapshotDarkMode = false,
+  }) async => await goldenDeviceBuilder(
+    snapshotDarkMode: snapshotDarkMode,
+    Builder(
+      builder: (context) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          ZupCheckboxListPopover.show(
+            context,
+            allSelectionButtonText: allSelectionButtonText,
+            positionAdjustment: positionAdjustment,
+            searchNotFoundStateText: searchNotFoundStateText,
+            searchHintText: searchHintText,
+            items:
+                items ??
+                [
+                  ZupCheckboxItem(title: 'Item 1', isChecked: true),
+                  ZupCheckboxItem(title: 'Item 2', isChecked: true),
+                  ZupCheckboxItem(title: 'Item 3', isChecked: true),
+                ],
+            onValueChanged: onValueChanged ?? (items) {},
+          );
+        });
 
-            return const SizedBox.shrink();
-          },
-        ),
-      );
+        return const SizedBox.shrink();
+      },
+    ),
+  );
 
   zGoldenTest(
     "When passing a list of checked items, they should start in checked state",
     goldenFileName: "zup_checkbox_list_popover_checked",
     (tester) async {
-      await tester.pumpDeviceBuilder(await goldenBuilder(items: [
-        ZupCheckboxItem(title: 'Item 1', isChecked: true),
-        ZupCheckboxItem(title: 'Item 2', isChecked: true),
-        ZupCheckboxItem(title: 'Item 3', isChecked: true),
-      ]));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          items: [
+            ZupCheckboxItem(title: 'Item 1', isChecked: true),
+            ZupCheckboxItem(title: 'Item 2', isChecked: true),
+            ZupCheckboxItem(title: 'Item 3', isChecked: true),
+          ],
+        ),
+      );
     },
   );
 
@@ -55,11 +61,15 @@ void main() {
     "When passing a list of unchecked items, they should start in unchecked state",
     goldenFileName: "zup_checkbox_list_popover_unchecked",
     (tester) async {
-      await tester.pumpDeviceBuilder(await goldenBuilder(items: [
-        ZupCheckboxItem(title: 'Item 1', isChecked: false),
-        ZupCheckboxItem(title: 'Item 2', isChecked: false),
-        ZupCheckboxItem(title: 'Item 3', isChecked: false),
-      ]));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          items: [
+            ZupCheckboxItem(title: 'Item 1', isChecked: false),
+            ZupCheckboxItem(title: 'Item 2', isChecked: false),
+            ZupCheckboxItem(title: 'Item 3', isChecked: false),
+          ],
+        ),
+      );
     },
   );
 
@@ -67,11 +77,15 @@ void main() {
     "When passing an icon, it should be displayed in the left side of the title",
     goldenFileName: "zup_checkbox_list_icon",
     (tester) async {
-      await tester.pumpDeviceBuilder(await goldenBuilder(items: [
-        ZupCheckboxItem(title: 'Item 1', isChecked: false, icon: const Icon(Icons.close)),
-        ZupCheckboxItem(title: 'Item 2', isChecked: false, icon: const Icon(Icons.lock_clock)),
-        ZupCheckboxItem(title: 'Item 3', isChecked: false, icon: const Icon(Icons.add)),
-      ]));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          items: [
+            ZupCheckboxItem(title: 'Item 1', isChecked: false, icon: const Icon(Icons.close)),
+            ZupCheckboxItem(title: 'Item 2', isChecked: false, icon: const Icon(Icons.lock_clock)),
+            ZupCheckboxItem(title: 'Item 3', isChecked: false, icon: const Icon(Icons.add)),
+          ],
+        ),
+      );
     },
   );
 
@@ -89,14 +103,13 @@ void main() {
       List<ZupCheckboxItem> newItems = [];
       const clickedItemIndex = 1;
 
-      await tester.pumpDeviceBuilder(await goldenBuilder(
-        items: initialList,
-        onValueChanged: (items) => newItems = items,
-      ));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(items: initialList, onValueChanged: (items) => newItems = items, snapshotDarkMode: false),
+      );
 
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('checkbox-item-$clickedItemIndex')));
+      await tester.tap(find.byKey(const Key('checkbox-item-$clickedItemIndex')).first);
       await tester.pumpAndSettle();
 
       expect(newItems, initialList..[clickedItemIndex].isChecked = false);
@@ -117,14 +130,13 @@ void main() {
       List<ZupCheckboxItem> newItems = [];
       const clickedItemIndex = 1;
 
-      await tester.pumpDeviceBuilder(await goldenBuilder(
-        items: initialList,
-        onValueChanged: (items) => newItems = items,
-      ));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(items: initialList, onValueChanged: (items) => newItems = items, snapshotDarkMode: false),
+      );
 
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('checkbox-item-$clickedItemIndex')));
+      await tester.tap(find.byKey(const Key('checkbox-item-$clickedItemIndex')).first);
       await tester.pumpAndSettle();
 
       expect(newItems, initialList..[clickedItemIndex].isChecked = false);
@@ -152,7 +164,7 @@ void main() {
       ];
 
       await tester.pumpDeviceBuilder(
-        await goldenBuilder(items: items, searchHintText: "Search hint text enabled"),
+        await goldenBuilder(items: items, searchHintText: "Search hint text enabled", snapshotDarkMode: false),
       );
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "2");
       await tester.pumpAndSettle();
@@ -172,13 +184,13 @@ void main() {
 
       List<ZupCheckboxItem> newItems = [];
       await tester.pumpDeviceBuilder(
-        await goldenBuilder(items: initialItems, onValueChanged: (items) => newItems = items),
+        await goldenBuilder(items: initialItems, onValueChanged: (items) => newItems = items, snapshotDarkMode: false),
       );
 
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "3");
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('checkbox-item-0')));
+      await tester.tap(find.byKey(const Key('checkbox-item-0')).first);
       await tester.pumpAndSettle();
 
       expect(newItems, initialItems..[2].isChecked = true);
@@ -196,14 +208,12 @@ void main() {
         ZupCheckboxItem(title: 'Item 3', isChecked: false),
       ];
 
-      await tester.pumpDeviceBuilder(
-        await goldenBuilder(items: initialItems),
-      );
+      await tester.pumpDeviceBuilder(await goldenBuilder(items: initialItems));
 
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "3");
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('checkbox-item-0')));
+      await tester.tap(find.byKey(const Key('checkbox-item-0')).first);
       await tester.pumpAndSettle();
 
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "");
@@ -230,7 +240,7 @@ void main() {
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "3");
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('checkbox-item-0')));
+      await tester.tap(find.byKey(const Key('checkbox-item-0')).first);
       await tester.pumpAndSettle();
 
       expect(newItems, initialItems..[2].isChecked = false);
@@ -248,14 +258,12 @@ void main() {
         ZupCheckboxItem(title: 'Item 3', isChecked: true),
       ];
 
-      await tester.pumpDeviceBuilder(
-        await goldenBuilder(items: initialItems),
-      );
+      await tester.pumpDeviceBuilder(await goldenBuilder(items: initialItems));
 
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "3");
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('checkbox-item-0')));
+      await tester.tap(find.byKey(const Key('checkbox-item-0')).first);
       await tester.pumpAndSettle();
 
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "");
@@ -280,10 +288,9 @@ void main() {
     and the not found state is set, it should the not found state""",
     goldenFileName: "zup_checkbox_list_popover_search_not_found_state",
     (tester) async {
-      await tester.pumpDeviceBuilder(await goldenBuilder(searchNotFoundStateText: (
-        title: "ESO NO EXISTE",
-        description: "NO EXISTE ESO",
-      )));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(searchNotFoundStateText: (title: "ESO NO EXISTE", description: "NO EXISTE ESO")),
+      );
 
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "PINCHA NO EXISTE");
       await tester.pumpAndSettle();
@@ -295,9 +302,7 @@ void main() {
     goldenFileName: "zup_checkbox_list_popover_all_selection_button_text",
     (tester) async {
       await tester.pumpDeviceBuilder(
-        await goldenBuilder(
-          allSelectionButtonText: (clearAll: "Clear All", selectAll: "Select All"),
-        ),
+        await goldenBuilder(allSelectionButtonText: (clearAll: "Clear All", selectAll: "Select All")),
       );
     },
   );
@@ -315,14 +320,11 @@ void main() {
       await tester.pumpDeviceBuilder(
         await goldenBuilder(
           items: initialItems,
-          allSelectionButtonText: (
-            clearAll: "Clear All",
-            selectAll: "Select All",
-          ),
+          allSelectionButtonText: (clearAll: "Clear All", selectAll: "Select All"),
         ),
       );
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key("zup-checkbox-list-popover-all-selection-button")));
+      await tester.tap(find.byKey(const Key("zup-checkbox-list-popover-all-selection-button")).first);
       await tester.pumpAndSettle();
     },
   );
@@ -340,14 +342,11 @@ void main() {
       await tester.pumpDeviceBuilder(
         await goldenBuilder(
           items: initialItems,
-          allSelectionButtonText: (
-            clearAll: "Clear All",
-            selectAll: "Select All",
-          ),
+          allSelectionButtonText: (clearAll: "Clear All", selectAll: "Select All"),
         ),
       );
       await tester.pumpAndSettle();
-      await tester.tap(find.byKey(const Key("zup-checkbox-list-popover-all-selection-button")));
+      await tester.tap(find.byKey(const Key("zup-checkbox-list-popover-all-selection-button")).first);
       await tester.pumpAndSettle();
     },
   );
@@ -356,11 +355,7 @@ void main() {
     "When setting the positionAdjustment param, it should move the popover by that offset",
     goldenFileName: "zup_checkbox_list_popover_position_adjustment",
     (tester) async {
-      await tester.pumpDeviceBuilder(
-        await goldenBuilder(
-          positionAdjustment: const Offset(-500, 100),
-        ),
-      );
+      await tester.pumpDeviceBuilder(await goldenBuilder(positionAdjustment: const Offset(-500, 100)));
     },
   );
 
@@ -369,12 +364,7 @@ void main() {
     goldenFileName: "zup_checkbox_list_popover_all_selection_button_search_hidden",
     (tester) async {
       await tester.pumpDeviceBuilder(
-        await goldenBuilder(
-          allSelectionButtonText: (
-            clearAll: "Clear All",
-            selectAll: "Select All",
-          ),
-        ),
+        await goldenBuilder(allSelectionButtonText: (clearAll: "Clear All", selectAll: "Select All")),
       );
 
       await tester.enterText(find.byKey(const Key("zup-checkbox-list-popover-search-field")), "3");
@@ -395,7 +385,7 @@ void main() {
       await tester.pumpDeviceBuilder(await goldenBuilder(items: items));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key("checkbox-item-1")));
+      await tester.tap(find.byKey(const Key("checkbox-item-1")).first);
       await tester.pumpAndSettle();
     },
   );
@@ -416,15 +406,12 @@ void main() {
         await goldenBuilder(
           items: initialItems,
           onValueChanged: (items) => newItems = items,
-          allSelectionButtonText: (
-            clearAll: "Clear All",
-            selectAll: "Select All",
-          ),
+          allSelectionButtonText: (clearAll: "Clear All", selectAll: "Select All"),
         ),
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('zup-checkbox-list-popover-all-selection-button')));
+      await tester.tap(find.byKey(const Key('zup-checkbox-list-popover-all-selection-button')).first);
       await tester.pumpAndSettle();
 
       expect(newItems, initialItems..[0].isChecked = true);
@@ -434,6 +421,7 @@ void main() {
   zGoldenTest(
     """When passing items to the popover with an id, and then clicking to select or unselect them,
     it should callback with the new items but the id should be the same""",
+
     (tester) async {
       final initialItems = [
         ZupCheckboxItem(title: 'Item 1', isChecked: false, id: "item-1"),
@@ -444,17 +432,14 @@ void main() {
       List<ZupCheckboxItem> newItems = [];
 
       await tester.pumpDeviceBuilder(
-        await goldenBuilder(items: initialItems, onValueChanged: (items) => newItems = items),
+        await goldenBuilder(items: initialItems, onValueChanged: (items) => newItems = items, snapshotDarkMode: false),
       );
       await tester.pumpAndSettle();
 
-      await tester.tap(find.byKey(const Key('checkbox-item-0')));
+      await tester.tap(find.byKey(const Key('checkbox-item-0')).first);
       await tester.pumpAndSettle();
 
-      expect(
-        newItems.map((item) => item.id),
-        initialItems.map((item) => item.id),
-      );
+      expect(newItems.map((item) => item.id), initialItems.map((item) => item.id));
     },
   );
 }
