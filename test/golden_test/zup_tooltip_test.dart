@@ -132,7 +132,7 @@ void main() {
   ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder());
 
-    await find.byType(ZupTooltip).first;
+    await tester.tap(find.byType(ZupTooltip).first);
     await tester.pumpAndSettle();
   });
   zGoldenTest(
