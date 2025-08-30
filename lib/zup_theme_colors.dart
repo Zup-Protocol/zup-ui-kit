@@ -95,7 +95,7 @@ enum ZupThemeColors {
   Color get lightColor => switch (this) {
     ZupThemeColors.background => ZupColors.white,
     ZupThemeColors.primaryText => ZupColors.black,
-    ZupThemeColors.disabledText => ZupColors.gray5,
+    ZupThemeColors.disabledText => ZupColors.gray4,
     ZupThemeColors.backgroundSurface => ZupColors.white,
     ZupThemeColors.borderOnBackground => ZupColors.gray5,
     ZupThemeColors.hoverOnBackground => ZupColors.gray6,

@@ -245,7 +245,7 @@ class _ZupCheckboxListPopoverState extends State<ZupCheckboxListPopover> {
                                 return ZupColors.gray6;
                               }
 
-                              return ZupThemeColors.disabledText.themed(context.brightness);
+                              return ZupThemeColors.disabledButtonBackground.themed(context.brightness);
                             }),
                             checkboxScaleFactor: 1.1,
                             overlayColor: const WidgetStatePropertyAll(Colors.transparent),

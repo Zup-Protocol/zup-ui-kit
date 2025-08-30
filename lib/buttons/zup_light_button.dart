@@ -37,7 +37,7 @@ class _ZupLightButtonState extends State<ZupLightButton> {
           colorFilter: ColorFilter.mode(
             isHovered
                 ? (widget.hoverColor ?? ZupThemeColors.primaryText.themed(context.brightness))
-                : (widget.restColor ?? ZupThemeColors.disabledButtonBackground.themed(context.brightness)),
+                : (widget.restColor ?? ZupThemeColors.disabledText.themed(context.brightness)),
             BlendMode.srcIn,
           ),
           child: IgnorePointer(child: widget.child),

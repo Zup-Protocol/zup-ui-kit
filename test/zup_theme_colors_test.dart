@@ -22,7 +22,7 @@ void main() {
   });
 
   test("When calling 'disabledText' light color, it should return the correct color", () {
-    expect(ZupThemeColors.disabledText.lightColor, ZupColors.gray5);
+    expect(ZupThemeColors.disabledText.lightColor, ZupColors.gray4);
   });
 
   test("When calling 'disabledText' dark color, it should return the correct color", () {
