@@ -9,7 +9,7 @@ void main() {
   Future<DeviceBuilder> goldenBuilder({
     String title = "Title",
     Color color = Colors.amber,
-    Color borderColor = Colors.red,
+    Color borderColor = Colors.amber,
     bool applyColorToIcon = true,
     Widget icon = const Icon(Icons.add),
     double iconSize = 40,
