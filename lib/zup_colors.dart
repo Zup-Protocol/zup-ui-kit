@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 class ZupColors {
   static const Color brand = Color(0xFF7357FF);
+  static const Color brand2 = Color(0xFF7E65FD);
+  static const Color brand3 = Color(0xFF8871FC);
+  static const Color brand4 = Color(0xFF947FFF);
   static const Color brand5 = Color(0xFFD5CFFF);
   static const Color brand6 = Color(0xFFDED7FF);
   static const Color brand7 = Color(0xFFF0ECFF);

@@ -6,6 +6,18 @@ void main() {
     expect(ZupColors.brand.toARGB32().toRadixString(16), 'ff7357ff');
   });
 
+  test('ZupColors brand 2', () {
+    expect(ZupColors.brand2.toARGB32().toRadixString(16), 'ff7e65fd');
+  });
+
+  test('ZupColors brand 3', () {
+    expect(ZupColors.brand3.toARGB32().toRadixString(16), 'ff8871fc');
+  });
+
+  test('ZupColors brand 4', () {
+    expect(ZupColors.brand4.toARGB32().toRadixString(16), 'ff947fff');
+  });
+
   test('ZupColors brand5', () {
     expect(ZupColors.brand5.toARGB32().toRadixString(16), 'ffd5cfff');
   });

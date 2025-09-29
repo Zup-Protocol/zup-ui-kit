@@ -9,25 +9,26 @@ void main() {
   Future<DeviceBuilder> goldenBuilder({
     String title = "Title",
     Color color = Colors.amber,
+    Color borderColor = Colors.red,
     bool applyColorToIcon = true,
     Widget icon = const Icon(Icons.add),
     double iconSize = 40,
     double maxHeight = 50,
     EdgeInsetsGeometry padding = const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
     double iconSpacing = 5,
-  }) =>
-      goldenDeviceBuilder(
-        ZupTag(
-          title: title,
-          color: color,
-          applyColorToIcon: applyColorToIcon,
-          icon: icon,
-          maxHeight: 28,
-          padding: padding,
-          iconSize: iconSize,
-          iconSpacing: iconSpacing,
-        ),
-      );
+  }) => goldenDeviceBuilder(
+    ZupTag(
+      title: title,
+      borderColor: borderColor,
+      color: color,
+      applyColorToIcon: applyColorToIcon,
+      icon: icon,
+      maxHeight: 28,
+      padding: padding,
+      iconSize: iconSize,
+      iconSpacing: iconSpacing,
+    ),
+  );
 
   zGoldenTest("Zug Tag Default", goldenFileName: "zup_tag", (tester) async {
     await tester.pumpDeviceBuilder(await goldenBuilder());
@@ -45,28 +46,31 @@ void main() {
     await tester.pumpDeviceBuilder(await goldenBuilder(icon: const Icon(Icons.padding)));
   });
 
-  zGoldenTest("When setting the icon size, it should be displayed", goldenFileName: "zup_tag_custom_icon_size",
-      (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(
-        iconSize: 5,
-        icon: Container(
-          color: Colors.blue,
-        )));
+  zGoldenTest("When setting the icon size, it should be displayed", goldenFileName: "zup_tag_custom_icon_size", (
+    tester,
+  ) async {
+    await tester.pumpDeviceBuilder(await goldenBuilder(iconSize: 5, icon: Container(color: Colors.blue)));
   });
 
-  zGoldenTest("When setting the icon spacing, it should be displayed", goldenFileName: "zup_tag_custom_icon_spacing",
-      (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(
-      iconSpacing: 100,
-      icon: Container(
-        color: Colors.black,
-      ),
-    ));
+  zGoldenTest("When setting the icon spacing, it should be displayed", goldenFileName: "zup_tag_custom_icon_spacing", (
+    tester,
+  ) async {
+    await tester.pumpDeviceBuilder(await goldenBuilder(iconSpacing: 100, icon: Container(color: Colors.black)));
   });
 
-  zGoldenTest("When setting the padding, it should be displayed", goldenFileName: "zup_tag_custom_padding",
-      (tester) async {
-    await tester
-        .pumpDeviceBuilder(await goldenBuilder(padding: const EdgeInsets.symmetric(horizontal: 100), maxHeight: 200));
+  zGoldenTest("When setting the padding, it should be displayed", goldenFileName: "zup_tag_custom_padding", (
+    tester,
+  ) async {
+    await tester.pumpDeviceBuilder(
+      await goldenBuilder(padding: const EdgeInsets.symmetric(horizontal: 100), maxHeight: 200),
+    );
   });
+
+  zGoldenTest(
+    "When setting border color, the border should have a different color",
+    goldenFileName: "zup_tag_custom_border",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder(color: Colors.red, borderColor: Colors.green));
+    },
+  );
 }
