@@ -1,6 +1,7 @@
 library buttons;
 
 export 'zup_icon_button.dart';
+export 'zup_inline_text_action_button.dart';
 export 'zup_light_button.dart';
 export 'zup_mini_button.dart';
 export 'zup_pill_button.dart';

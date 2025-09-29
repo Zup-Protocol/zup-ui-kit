@@ -16,6 +16,7 @@ Zup UI Kit is a Flutter library that makes building beautiful UIs simple and str
   - [Zup Pill Button](#zup-pill-button)
   - [Zup Light Button](#zup-light-button)
   - [Zup Refresh Button](#zup-refresh-button)
+  - [Zup Inline Text Action Button](#zup-inline-text-action-button)
 - [Modals](#modals)
   - [Zup Modal](#zup-modal)
 - [Other](#other)
@@ -374,6 +375,44 @@ it has the following parameters:
   /// A custom animation controller to use for the rotating animation in cases that
   /// the animation needs to be controlled from outside the button also
   final AnimationController? animationController;
+```
+
+#### Zup Inline Text Action Button
+
+Diplay an inline text + action button at the end from Zup UI Kit. To display it, first import the `ZupInlineTextActionButton` widget:
+
+```dart
+import 'package:zup_ui_kit/buttons/zup_inline_text_action_button.dart';
+```
+
+and then place it inside the widget tree:
+
+```dart
+ZupInlineTextActionButton(
+  text: "String",
+  onActionButtonPressed: () {},
+  actionButtonTitle: "String",
+);
+```
+
+it has the following parameters:
+
+```dart
+/// The sentence/text to be displayed before the button
+final String text;
+
+/// The title of the button after the text
+final String actionButtonTitle;
+
+/// Optionally pass an override style for the text. If null
+/// the default style will be used.
+///
+/// Note that it will also be applied to the button, except for the color
+/// which will be set to the primary color of the theme
+final TextStyle? style;
+
+/// The action that will be triggered when the action button is pressed
+final void Function() onActionButtonPressed;
 ```
 
 ### Modals
