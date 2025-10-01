@@ -99,6 +99,9 @@ final EdgeInsets padding;
 /// The foreground color of the button. If null, the default color will be white.
 final Color? foregroundColor;
 
+/// The ripple effect color of the button when clicked
+final Color? splashColor;
+
 /// The icon to be displayed in the side of the button. If null, the icon will not be displayed
 final Widget? icon;
 

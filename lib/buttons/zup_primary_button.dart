@@ -22,6 +22,7 @@ class ZupPrimaryButton extends StatefulWidget {
     this.padding = const EdgeInsets.symmetric(horizontal: 20),
     this.mainAxisSize = MainAxisSize.min,
     this.alignCenter = false,
+    this.splashColor,
     this.width,
     this.isTrailingIcon = false,
     this.hoverColor,
@@ -30,13 +31,17 @@ class ZupPrimaryButton extends StatefulWidget {
   /// The background color of the button. If null, the color will be derived from the theme, using the primary color
   final Color? backgroundColor;
 
+  /// The color of the button when hovered
+  final Color? hoverColor;
+
+  /// The ripple effect color of the button when clicked
+  final Color? splashColor;
+
   /// The padding of the button. If null it will be 20 by default, for horizontal padding
   final EdgeInsets padding;
 
   /// The foreground color of the button. If null, the default color will be white.
   final Color? foregroundColor;
-
-  final Color? hoverColor;
 
   /// The icon to be displayed in the side of the button. If null, the icon will not be displayed
   final Widget? icon;
@@ -125,12 +130,13 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
 
                 return Theme.of(context).primaryColor.lighter(0.1);
               }(),
-          splashColor: (widget.backgroundColor ?? Theme.of(context).primaryColor).withValues(alpha: 0.5),
+
           disabledColor: ZupThemeColors.disabledButtonBackground.themed(context.brightness),
           focusElevation: widget.hoverElevation,
           highlightElevation: 0,
           disabledTextColor: disabledForegroundColor,
           color: widget.backgroundColor ?? Theme.of(context).primaryColor,
+          splashColor: widget.splashColor,
           animationDuration: const Duration(milliseconds: 800),
           padding: widget.padding,
           shape: RoundedRectangleBorder(
