@@ -9,7 +9,7 @@ class ZupColors {
   static const Color brand6 = Color(0xFFDED7FF);
   static const Color brand7 = Color(0xFFF0ECFF);
   static const Color black = Color(0xFF000000);
-  static const Color black2 = Color(0xff161616);
+  static const Color black2 = Color(0xff141415);
   static const Color black3 = Color(0xff1C1C1E);
   static const Color black4 = Color(0xFF3A3A3C);
   static const Color black5 = Color(0xFF48484A);

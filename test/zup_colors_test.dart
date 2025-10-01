@@ -94,7 +94,7 @@ void main() {
     expect(ZupColors.red6.toARGB32().toRadixString(16), 'ffffedec');
   });
   test('ZupColors black2', () {
-    expect(ZupColors.black2.toARGB32().toRadixString(16), 'ff161616');
+    expect(ZupColors.black2.toARGB32().toRadixString(16), 'ff141415');
   });
 
   test('ZupColors black3', () {
