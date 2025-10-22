@@ -66,7 +66,7 @@ void main() {
   });
 
   test("When calling 'splashOnBackground' dark color, it should return the correct color", () {
-    expect(ZupThemeColors.splashOnBackground.darkColor, ZupColors.gray);
+    expect(ZupThemeColors.splashOnBackground.darkColor, ZupColors.black4);
   });
 
   test("When calling 'hoverOnBackgroundSurface' light color, it should return the correct color", () {
@@ -155,6 +155,14 @@ void main() {
 
   test("When calling 'success' dark color, it should return the correct color", () {
     expect(ZupThemeColors.success.darkColor, ZupColors.green3);
+  });
+
+  test("When calling 'splashOnTertiaryButton' dark color, it should return the correct color", () {
+    expect(ZupThemeColors.splashOnTertiaryButton.darkColor, ZupColors.black5);
+  });
+
+  test("When calling 'splashOnTertiaryButton' light color, it should return the correct color", () {
+    expect(ZupThemeColors.splashOnTertiaryButton.lightColor, ZupColors.gray5.withValues(alpha: 0.8));
   });
 
   test("When using 'themed' for a color, and passing light brightness, it should return the light color", () {

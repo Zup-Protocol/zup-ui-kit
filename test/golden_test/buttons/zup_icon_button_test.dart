@@ -9,7 +9,6 @@ void main() {
   Future<DeviceBuilder> goldenBuilder({
     Widget? icon,
     Color? backgroundColor,
-    Color? iconColor,
     BorderSide? border,
     EdgeInsetsGeometry? padding = const EdgeInsets.all(6),
     bool? circle,
@@ -18,7 +17,6 @@ void main() {
   }) async => await goldenDeviceBuilder(
     ZupIconButton(
       backgroundColor: backgroundColor,
-      iconColor: iconColor,
       borderSide: border,
       padding: padding,
       icon: icon ?? const Icon(Icons.add),
@@ -44,7 +42,12 @@ void main() {
     "When setting the Icon color, the Icon color should change",
     goldenFileName: "zup_icon_button_custom_icon_color",
     (tester) async {
-      await tester.pumpDeviceBuilder(await goldenBuilder(onPressed: (_) {}, iconColor: Colors.red));
+      await tester.pumpDeviceBuilder(
+        await goldenBuilder(
+          onPressed: (_) {},
+          icon: const Icon(Icons.place, color: Colors.red),
+        ),
+      );
     },
   );
 

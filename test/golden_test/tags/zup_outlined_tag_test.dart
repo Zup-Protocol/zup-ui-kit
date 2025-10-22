@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:zup_ui_kit/zup_tag.dart';
+import 'package:zup_ui_kit/tags/zup_outlined_tag.dart';
 
-import '../golden_config.dart';
+import '../../golden_config.dart';
 
 void main() {
   Future<DeviceBuilder> goldenBuilder({
@@ -17,7 +17,7 @@ void main() {
     EdgeInsetsGeometry padding = const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
     double iconSpacing = 5,
   }) => goldenDeviceBuilder(
-    ZupTag(
+    ZupOutlinedTag(
       title: title,
       borderColor: borderColor,
       color: color,

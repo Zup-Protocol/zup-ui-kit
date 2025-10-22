@@ -21,12 +21,16 @@ class GoldenConfig {
   }
 }
 
-Future<DeviceBuilder> goldenDeviceBuilder(Widget child, {bool snapshotDarkMode = true}) async {
+Future<DeviceBuilder> goldenDeviceBuilder(
+  Widget child, {
+  bool snapshotThemeModes = true,
+  bool isDarkMode = false,
+}) async {
   final deviceBuilder = DeviceBuilder()
     ..overrideDevicesForAllScenarios(devices: GoldenConfig.smallSquareDevice)
-    ..addScenario(widget: await GoldenConfig.builder(child, darkMode: false));
+    ..addScenario(widget: await GoldenConfig.builder(child, darkMode: isDarkMode));
 
-  if (snapshotDarkMode) deviceBuilder.addScenario(widget: await GoldenConfig.builder(child, darkMode: true));
+  if (snapshotThemeModes) deviceBuilder.addScenario(widget: await GoldenConfig.builder(child, darkMode: true));
   return deviceBuilder;
 }
 

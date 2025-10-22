@@ -14,9 +14,12 @@ void main() {
     Color? backgroundColor,
     EdgeInsetsGeometry? padding,
     bool showAsBottomSheet = false,
-  }) async =>
-      await goldenDeviceBuilder(Builder(builder: (context) {
-        WidgetsBinding.instance.addPostFrameCallback((_) => ZupModal.show(context,
+  }) async => await goldenDeviceBuilder(
+    Builder(
+      builder: (context) {
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => ZupModal.show(
+            context,
             backgroundColor: backgroundColor,
             description: description,
             dismissible: dismissible,
@@ -24,46 +27,58 @@ void main() {
             size: size,
             title: title,
             showAsBottomSheet: showAsBottomSheet,
-            content: Container(
-              height: 500,
-              width: 500,
-              color: Colors.green,
-            )));
+            content: Container(height: 500, width: 500, color: Colors.green),
+          ),
+        );
 
         return const SizedBox.shrink();
-      }));
+      },
+    ),
+  );
 
   zGoldenTest("Zup Modal Default", goldenFileName: "zup_modal", (tester) async {
     await tester.pumpDeviceBuilder(await goldenBuilder());
   });
 
-  zGoldenTest("When adding a title, the title should be displayed", goldenFileName: "zup_modal_with_title",
-      (tester) async {
+  zGoldenTest("When adding a title, the title should be displayed", goldenFileName: "zup_modal_with_title", (
+    tester,
+  ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(title: "Title"));
   });
 
-  zGoldenTest("When adding a description, but not the title, the description should not be displayed",
-      goldenFileName: "zup_modal_without_description", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(description: "bla bla bla"));
-  });
+  zGoldenTest(
+    "When adding a description, but not the title, the description should not be displayed",
+    goldenFileName: "zup_modal_without_description",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder(description: "bla bla bla"));
+    },
+  );
 
-  zGoldenTest("When adding a description and title, the description should be displayed",
-      goldenFileName: "zup_modal_with_description", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(description: "bla bla bla", title: "Bla"));
-  });
+  zGoldenTest(
+    "When adding a description and title, the description should be displayed",
+    goldenFileName: "zup_modal_with_description",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder(description: "bla bla bla", title: "Bla"));
+    },
+  );
 
-  zGoldenTest("When adding a background color, the background color should be displayed",
-      goldenFileName: "zup_modal_with_background_color", (tester) async {
-    await tester.pumpDeviceBuilder(await goldenBuilder(backgroundColor: Colors.red));
-  });
+  zGoldenTest(
+    "When adding a background color, the background color should be displayed",
+    goldenFileName: "zup_modal_with_background_color",
+    (tester) async {
+      await tester.pumpDeviceBuilder(await goldenBuilder(backgroundColor: Colors.red));
+    },
+  );
 
-  zGoldenTest("When adding a padding, the padding should be displayed", goldenFileName: "zup_modal_with_padding",
-      (tester) async {
+  zGoldenTest("When adding a padding, the padding should be displayed", goldenFileName: "zup_modal_with_padding", (
+    tester,
+  ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(padding: const EdgeInsets.all(50)));
   });
 
-  zGoldenTest("When changing the size, the size should change", goldenFileName: "zup_modal_with_custom_size",
-      (tester) async {
+  zGoldenTest("When changing the size, the size should change", goldenFileName: "zup_modal_with_custom_size", (
+    tester,
+  ) async {
     await tester.pumpDeviceBuilder(await goldenBuilder(size: const Size(800, 800)));
   });
 

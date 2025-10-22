@@ -56,6 +56,10 @@ enum ZupThemeColors {
   /// in the [background] color is tapped.
   splashOnBackground,
 
+  /// Splash color that will be applied when some widget
+  /// in the [tertiaryButtonBackground] color is tapped.
+  splashOnTertiaryButton,
+
   /// Color to be used for error widgets or states
   error,
 
@@ -105,6 +109,7 @@ enum ZupThemeColors {
     ZupThemeColors.tertiaryButtonBackground => ZupColors.gray6,
     ZupThemeColors.disabledButtonBackground => ZupColors.gray5,
     ZupThemeColors.hoverOnTertiaryButton => ZupColors.gray5.withValues(alpha: 0.4),
+    ZupThemeColors.splashOnTertiaryButton => ZupColors.gray5.withValues(alpha: 0.8),
     ZupThemeColors.splashOnBackgroundSurface => ZupColors.gray5,
     ZupThemeColors.error => ZupColors.red,
     ZupThemeColors.borderOnBackgroundSurface => ZupColors.gray5,
@@ -124,12 +129,13 @@ enum ZupThemeColors {
     ZupThemeColors.backgroundSurface => ZupColors.black3,
     ZupThemeColors.borderOnBackground => ZupColors.black3,
     ZupThemeColors.hoverOnBackground => ZupColors.black3,
-    ZupThemeColors.splashOnBackground => ZupColors.gray,
+    ZupThemeColors.splashOnBackground => ZupColors.black4,
     ZupThemeColors.iconColor => ZupColors.white,
     ZupThemeColors.hoverOnBackgroundSurface => ZupColors.black4,
     ZupThemeColors.tertiaryButtonBackground => ZupColors.black3,
     ZupThemeColors.disabledButtonBackground => ZupColors.black4,
     ZupThemeColors.hoverOnTertiaryButton => ZupColors.black4,
+    ZupThemeColors.splashOnTertiaryButton => ZupColors.black5,
     ZupThemeColors.splashOnBackgroundSurface => ZupColors.black5,
     ZupThemeColors.error => ZupColors.red3,
     ZupThemeColors.borderOnBackgroundSurface => ZupColors.black4,

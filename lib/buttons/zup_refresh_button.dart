@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:zup_ui_kit/buttons/zup_icon_button.dart';
 import 'package:zup_ui_kit/src/gen/assets.gen.dart';
+import 'package:zup_ui_kit/zup_colors.dart';
 
 class ZupRefreshButton extends StatefulWidget {
   /// Build an animated refresh styled icon button from the Zup UI Kit.
@@ -40,11 +41,8 @@ class _ZupRefreshButtonState extends State<ZupRefreshButton> with TickerProvider
   @override
   void initState() {
     super.initState();
-    animationController = widget.animationController ??
-        AnimationController(
-          vsync: this,
-          duration: const Duration(milliseconds: 100),
-        );
+    animationController =
+        widget.animationController ?? AnimationController(vsync: this, duration: const Duration(milliseconds: 100));
   }
 
   @override
@@ -59,8 +57,9 @@ class _ZupRefreshButtonState extends State<ZupRefreshButton> with TickerProvider
       circle: true,
       key: const Key("refresh-button"),
       backgroundColor: Colors.transparent,
-      iconColor: widget.iconColor,
+
       icon: Assets.icons.arrowClockwise.svg(
+        colorFilter: ColorFilter.mode(widget.iconColor ?? ZupColors.gray, BlendMode.srcIn),
         width: widget.size,
         height: widget.size,
         package: "zup_ui_kit",
@@ -70,12 +69,10 @@ class _ZupRefreshButtonState extends State<ZupRefreshButton> with TickerProvider
         await widget.onPressed();
         if (animationController?.status != AnimationStatus.completed) animationController?.forward();
       },
-    ).animate(autoPlay: false, controller: animationController, effects: [
-      const RotateEffect(
-        duration: Duration(milliseconds: 500),
-        begin: 0,
-        end: 1,
-      )
-    ]);
+    ).animate(
+      autoPlay: false,
+      controller: animationController,
+      effects: [const RotateEffect(duration: Duration(milliseconds: 500), begin: 0, end: 1)],
+    );
   }
 }

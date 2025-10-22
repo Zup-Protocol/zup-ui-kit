@@ -15,7 +15,7 @@ void main() {
     ({String clearAll, String selectAll})? allSelectionButtonText,
     bool snapshotDarkMode = false,
   }) async => await goldenDeviceBuilder(
-    snapshotDarkMode: snapshotDarkMode,
+    snapshotThemeModes: snapshotDarkMode,
     Builder(
       builder: (context) {
         WidgetsBinding.instance.addPostFrameCallback((_) {

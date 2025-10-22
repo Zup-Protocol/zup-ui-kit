@@ -69,7 +69,6 @@ class ZupModal extends StatelessWidget {
         isScrollControlled: true,
         constraints: BoxConstraints(maxHeight: size.height),
         backgroundColor: Colors.transparent,
-
         builder: (context) => ZupModal(
           isBottomSheet: true,
           dismissible: dismissible,
@@ -166,7 +165,7 @@ class ZupModal extends StatelessWidget {
                           Align(
                             alignment: Alignment.topRight,
                             child: ZupIconButton(
-                              icon: const Icon(Icons.close, size: 20),
+                              icon: const Icon(Icons.close, size: 20, color: ZupColors.gray),
                               onPressed: Navigator.of(context).pop,
                             ),
                           ),

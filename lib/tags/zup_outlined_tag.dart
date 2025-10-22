@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 /// Display a non-interactive widget that represents a tag with a title and an optional icon
+/// with a outlined style
 ///
 /// Useful for displaying a status for example
-class ZupTag extends StatelessWidget {
-  const ZupTag({
+class ZupOutlinedTag extends StatelessWidget {
+  const ZupOutlinedTag({
     super.key,
     required this.title,
     required this.color,
@@ -51,7 +52,7 @@ class ZupTag extends StatelessWidget {
       height: maxHeight,
       decoration: BoxDecoration(
         border: Border.all(color: borderColor ?? color),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(12),
       ),
       padding: padding,
       child: Row(

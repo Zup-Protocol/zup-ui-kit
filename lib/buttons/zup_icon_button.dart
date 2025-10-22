@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zup_core/zup_core.dart';
-import 'package:zup_ui_kit/zup_colors.dart';
 import 'package:zup_ui_kit/zup_theme_colors.dart';
 
 /// Show an icon button from the Zup UI Kit.
@@ -9,7 +8,6 @@ class ZupIconButton extends StatelessWidget {
     super.key,
     required this.icon,
     this.backgroundColor,
-    this.iconColor,
     this.padding = const EdgeInsets.all(6),
     required this.onPressed,
     this.borderSide,
@@ -25,9 +23,6 @@ class ZupIconButton extends StatelessWidget {
 
   /// The border of the button. If null, the button will not have a border
   final BorderSide? borderSide;
-
-  /// The icon color of the button. If null, the icon color will be derived from ZupColors, using [ZupColors.gray] as default.
-  final Color? iconColor;
 
   /// The padding of the button, defaults to 6 on all sides.
   final EdgeInsetsGeometry? padding;
@@ -48,13 +43,23 @@ class ZupIconButton extends StatelessWidget {
       child: IconButton(
         padding: padding,
         hoverColor: () {
-          if (backgroundColor != null) {
+          if (backgroundColor != null && backgroundColor?.a != 0) {
             return context.brightness == Brightness.light
-                ? backgroundColor?.darker(0.05)
+                ? backgroundColor?.darker(0.03)
                 : backgroundColor?.lighter(0.05);
           }
 
           return ZupThemeColors.hoverOnTertiaryButton.themed(context.brightness);
+        }(),
+
+        highlightColor: () {
+          if (backgroundColor != null && backgroundColor?.a != 0) {
+            return context.brightness == Brightness.light
+                ? backgroundColor?.darker(0.08)
+                : backgroundColor?.lighter(0.1);
+          }
+
+          return ZupThemeColors.splashOnTertiaryButton.themed(context.brightness);
         }(),
         style: ButtonStyle(
           minimumSize: WidgetStatePropertyAll(Size(0, minimumHeight ?? 0)),
@@ -71,7 +76,7 @@ class ZupIconButton extends StatelessWidget {
             return backgroundColor ?? ZupThemeColors.tertiaryButtonBackground.themed(context.brightness);
           }),
         ),
-        icon: ColorFiltered(colorFilter: ColorFilter.mode(iconColor ?? ZupColors.gray, BlendMode.srcIn), child: icon),
+        icon: icon,
         onPressed: onPressed == null ? null : () => onPressed!(context),
       ),
     );

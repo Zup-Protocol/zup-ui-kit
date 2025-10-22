@@ -18,7 +18,7 @@ void main() {
         width: 200,
         child: ZupTextField(hintText: hintText, onChanged: onChanged),
       ),
-      snapshotDarkMode: snapshotDarkMode,
+      snapshotThemeModes: snapshotDarkMode,
     );
   }
 

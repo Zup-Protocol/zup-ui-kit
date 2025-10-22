@@ -24,6 +24,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/checkmark.svg
   SvgGenImage get checkmark => const SvgGenImage('assets/icons/checkmark.svg');
 
+  /// File path: assets/icons/chevron.right.dotted.chevron.right.svg
+  SvgGenImage get chevronRightDottedChevronRight => const SvgGenImage('assets/icons/chevron.right.dotted.chevron.right.svg');
+
   /// File path: assets/icons/chevron.up.chevron.down.svg
   SvgGenImage get chevronUpChevronDown => const SvgGenImage('assets/icons/chevron.up.chevron.down.svg');
 
@@ -40,7 +43,7 @@ class $AssetsIconsGen {
   SvgGenImage get xmark => const SvgGenImage('assets/icons/xmark.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [arrowClockwise, checkmarkCircleFill, checkmark, chevronUpChevronDown, exclamationmarkTriangle, infoCircle, xCircle, xmark];
+  List<SvgGenImage> get values => [arrowClockwise, checkmarkCircleFill, checkmark, chevronRightDottedChevronRight, chevronUpChevronDown, exclamationmarkTriangle, infoCircle, xCircle, xmark];
 }
 
 class Assets {

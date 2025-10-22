@@ -151,9 +151,8 @@ class ZupSnackBar extends SnackBar {
                   ZupIconButton(
                     key: const Key("close-snack-bar"),
                     backgroundColor: type.textColor(context).withValues(alpha: 0.1),
-                    iconColor: type.textColor(context),
                     padding: const EdgeInsets.all(6),
-                    icon: const Icon(Icons.close, size: 16),
+                    icon: Icon(Icons.close, size: 16, color: type.textColor(context)),
                     onPressed: (_) => ScaffoldMessenger.of(context).hideCurrentSnackBar(),
                   ),
                 ],
