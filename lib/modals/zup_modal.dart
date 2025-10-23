@@ -98,9 +98,12 @@ class ZupModal extends StatelessWidget {
       transitionDuration: const Duration(milliseconds: 300),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
         return FadeTransition(
-          opacity: animation,
-          child: ScaleTransition(
-            scale: Tween(begin: 0.8, end: 1.0).animate(CurvedAnimation(parent: animation, curve: Curves.decelerate)),
+          opacity: Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(parent: animation, curve: Curves.linear)),
+          child: SlideTransition(
+            position: Tween(
+              begin: const Offset(0, 0.07),
+              end: const Offset(0, 0.0),
+            ).animate(CurvedAnimation(parent: animation, curve: Curves.decelerate)),
             child: child,
           ),
         );
