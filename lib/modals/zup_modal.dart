@@ -68,7 +68,15 @@ class ZupModal extends StatelessWidget {
         useRootNavigator: useRootNavigator,
         isScrollControlled: true,
         constraints: BoxConstraints(maxHeight: size.height),
+        barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+        isDismissible: true,
         backgroundColor: Colors.transparent,
+        sheetAnimationStyle: const AnimationStyle(
+          curve: Curves.fastEaseInToSlowEaseOut,
+          duration: Duration(milliseconds: 400),
+          reverseCurve: Curves.fastOutSlowIn,
+          reverseDuration: Duration(milliseconds: 300),
+        ),
         builder: (context) => ZupModal(
           isBottomSheet: true,
           dismissible: dismissible,
@@ -85,13 +93,16 @@ class ZupModal extends StatelessWidget {
     showGeneralDialog(
       context: context,
       barrierDismissible: dismissible,
-      barrierLabel: "zup-modal",
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       barrierColor: ZupColors.black.withValues(alpha: context.brightness.isDark ? 0.8 : 0.5),
       transitionDuration: const Duration(milliseconds: 300),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
-        return ScaleTransition(
-          scale: CurvedAnimation(parent: animation, curve: Curves.decelerate),
-          child: animation.value > 0.6 ? child : null,
+        return FadeTransition(
+          opacity: animation,
+          child: ScaleTransition(
+            scale: Tween(begin: 0.8, end: 1.0).animate(CurvedAnimation(parent: animation, curve: Curves.decelerate)),
+            child: child,
+          ),
         );
       },
       pageBuilder: (context, animation, secondaryAnimation) {
