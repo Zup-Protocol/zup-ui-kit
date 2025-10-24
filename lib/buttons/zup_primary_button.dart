@@ -94,13 +94,31 @@ class _ZupPrimaryButtonState extends State<ZupPrimaryButton> {
 
   bool get isLoadingOrExpanded => widget.isLoading || shouldExpand;
 
-  Widget get buildIcon => ColorFiltered(
-    colorFilter: ColorFilter.mode(
-      widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : disabledForegroundColor,
-      BlendMode.srcIn,
-    ),
-    child: widget.isLoading ? const ZupCircularLoadingIndicator(size: 18) : widget.icon,
-  );
+  Widget get buildIcon {
+    if (widget.isLoading) {
+      final disabledButtonBackground = ZupThemeColors.disabledButtonBackground.themed(context.brightness);
+
+      final disabledTrackColor = context.brightness.isDark
+          ? disabledButtonBackground.lighter(0.2)
+          : disabledButtonBackground.darker(0.1);
+
+      return ZupCircularLoadingIndicator(
+        size: 18,
+        trackColor: widget.onPressed != null
+            ? (widget.backgroundColor?.lighter(0.3) ?? Theme.of(context).primaryColor.lighter(0.3))
+            : disabledTrackColor,
+        indicatorColor: widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : disabledForegroundColor,
+      );
+    }
+
+    return ColorFiltered(
+      colorFilter: ColorFilter.mode(
+        widget.onPressed != null ? (widget.foregroundColor ?? Colors.white) : disabledForegroundColor,
+        BlendMode.srcIn,
+      ),
+      child: widget.icon,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {

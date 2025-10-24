@@ -9,21 +9,15 @@ void main() {
   Future<DeviceBuilder> goldenBuilder({double size = 20, Color? backgroundColor, Color? indicatorColor}) async =>
       await goldenDeviceBuilder(
         Center(
-          child: ZupCircularLoadingIndicator(
-            size: size,
-            backgroundColor: backgroundColor,
-            indicatorColor: indicatorColor,
-          ),
+          child: ZupCircularLoadingIndicator(size: size, trackColor: backgroundColor, indicatorColor: indicatorColor),
         ),
       );
 
-  zGoldenTest(
-    "Zup circular loading indicator default",
-    goldenFileName: "zup_circular_loading_indicator_default",
-    (tester) async {
-      return tester.pumpDeviceBuilder(await goldenBuilder());
-    },
-  );
+  zGoldenTest("Zup circular loading indicator default", goldenFileName: "zup_circular_loading_indicator_default", (
+    tester,
+  ) async {
+    return tester.pumpDeviceBuilder(await goldenBuilder());
+  });
 
   zGoldenTest(
     "When passing a higher size to the widget, it should be applied",
