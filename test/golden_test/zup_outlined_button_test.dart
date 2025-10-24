@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:golden_toolkit/golden_toolkit.dart';
-import 'package:zup_core/zup_core.dart';
+import 'package:zup_core/test_utils.dart';
 import 'package:zup_ui_kit/zup_ui_kit.dart';
 
 import '../golden_config.dart';
