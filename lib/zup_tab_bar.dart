@@ -9,7 +9,12 @@ class ZupTabBarItem {
   /// Represents an item of the [ZupTabBar] tabs list
   ///
   /// Used to define each tab's metadata and action on select
-  const ZupTabBarItem({required this.title, this.icon, required this.onSelected});
+  const ZupTabBarItem({required this.title, this.icon, required this.onSelected, this.key});
+
+  /// A Key to be used in the tab widget.
+  ///
+  /// If null, none will be passed
+  final Key? key;
 
   /// Title of the tab to be displayed
   final String title;
@@ -110,6 +115,7 @@ class _ZupTabBarState extends State<ZupTabBar> with SingleTickerProviderStateMix
       tabs: widget.tabs
           .map(
             (item) => MouseRegion(
+              key: item.key,
               cursor: SystemMouseCursors.click,
               child: MaterialButton(
                 focusElevation: 0,
